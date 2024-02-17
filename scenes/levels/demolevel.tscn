@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://cxswwg0468crn"]
+
+[ext_resource type="PackedScene" uid="uid://c7rkhuqxq72v1" path="res://source/entity/player.tscn" id="1_tkhkh"]
+[ext_resource type="Texture2D" uid="uid://cyvda4p0hrnss" path="res://assets/textures/UV.jpeg" id="2_wn420"]
+[ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="3_eo1n3"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_yay20"]
+energy_multiplier = 2.0
+
+[sub_resource type="Sky" id="Sky_6xbqk"]
+sky_material = SubResource("PhysicalSkyMaterial_yay20")
+
+[sub_resource type="Environment" id="Environment_hrqk3"]
+background_mode = 2
+sky = SubResource("Sky_6xbqk")
+tonemap_mode = 2
+sdfgi_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d8xwj"]
+albedo_texture = ExtResource("2_wn420")
+uv1_triplanar = true
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.843954, -0.0693573, 0.531913, -0.104457, 0.951374, 0.289787, -0.526147, -0.300128, 0.795671, 0, 2.58894, 4.37906)
+light_angular_distance = 1.0
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_hrqk3")
+
+[node name="player" parent="." instance=ExtResource("1_tkhkh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86484, 1.29739, 4.33679)
+
+[node name="geo" type="Node3D" parent="."]
+
+[node name="floorcsg" type="CSGBox3D" parent="geo"]
+use_collision = true
+size = Vector3(50, 1, 50)
+material = SubResource("StandardMaterial3D_d8xwj")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="geo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+use_collision = true
+
+[node name="simulated" type="Node3D" parent="."]
+
+[node name="cube" parent="simulated" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.531438, 3.23504, 0.00882822)

@@ -6,7 +6,7 @@ class_name GameManager
 
 func _ready():
 	print("begin")
-	get_tree().change_scene_to_packed(level)
+	get_tree().call_deferred("change_scene_to_packed", level)
 
-func _process(delta):
+func _process(_delta):
 	pass

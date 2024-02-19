@@ -45,6 +45,8 @@ func _input(event):
 func throw_obj():
 	if picked_obj!=null:
 		picked_obj.apply_impulse((picked_obj.global_transform.origin- camera_3d.global_transform.origin)*throw_fac)
+		if picked_obj is Grenade && !picked_obj.is_active:
+			picked_obj.grenade_activate()
 		picked_obj=null;
 
 func pick_obj():
@@ -83,6 +85,7 @@ func _physics_process(delta):
 	
 	if picked_obj!=null:
 		picked_obj.set_linear_velocity((manip_marker.global_transform.origin-picked_obj.global_transform.origin)*pull_fac)
-		typetooltip.text=(picked_obj.get_meta("cubetype"))
+		if (picked_obj is Cube):
+			typetooltip.text=(picked_obj.get_meta("cubetype"))
 	else:
 		typetooltip.text=""

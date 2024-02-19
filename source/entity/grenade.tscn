@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://ck3whm0a2psc8"]
+
+[ext_resource type="Script" path="res://source/entity/grenade.gd" id="1_evhr4"]
+[ext_resource type="PackedScene" uid="uid://cksulrt84kvn7" path="res://assets/models/grenadegeo.tscn" id="1_s0ffn"]
+[ext_resource type="AudioStream" uid="uid://50s63poex01k" path="res://assets/sounds/grenade/beep-sound-8333.mp3" id="3_o7qul"]
+[ext_resource type="AudioStream" uid="uid://dk2qth1rolrs0" path="res://assets/sounds/grenade/bounce1.wav" id="4_kgaeu"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qv4er"]
+bounce = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nimwm"]
+height = 0.164712
+radius = 0.04
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5oexs"]
+radius = 2.0
+
+[node name="grenade" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_qv4er")
+continuous_cd = true
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_evhr4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0128137, 0)
+shape = SubResource("CylinderShape3D_nimwm")
+
+[node name="grenade" parent="." instance=ExtResource("1_s0ffn")]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_5oexs")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
+
+[node name="coreAudioplayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_o7qul")
+
+[node name="auxAudioplayer" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_kgaeu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="finished" from="coreAudioplayer" to="." method="_on_audio_stream_player_3d_finished"]

@@ -1,12 +1,11 @@
 extends Node
 class_name GameManager
-@export var level:PackedScene
+@export var server:Server=null;
 
-#will probably have game loop
+#entrypoint
 
 func _ready():
 	print("begin")
-	get_tree().call_deferred("change_scene_to_packed", level)
 
 func _process(_delta):
 	pass

@@ -1,18 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://bo6q7dydjheil"]
+[gd_scene load_steps=6 format=3 uid="uid://bo6q7dydjheil"]
 
-[ext_resource type="Texture2D" uid="uid://cl7swxd30gwu3" path="res://assets/textures/1024x1024 Texel Density Texture 2.png" id="1_inh3a"]
+[ext_resource type="Script" path="res://source/entity/area_detection.gd" id="1_lv3bh"]
+[ext_resource type="Texture2D" uid="uid://da0pcjfj0j15k" path="res://assets/textures/entities/areadetection.png" id="1_q7tk0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mf0rf"]
 size = Vector3(2, 2, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_poftg"]
-albedo_texture = ExtResource("1_inh3a")
-uv1_triplanar = true
+transparency = 1
+albedo_texture = ExtResource("1_q7tk0")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_kairc"]
 material = SubResource("StandardMaterial3D_poftg")
 
 [node name="AreaDetection" type="Area3D"]
+script = ExtResource("1_lv3bh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

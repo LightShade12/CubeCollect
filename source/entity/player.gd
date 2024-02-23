@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+class_name Player
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
@@ -7,20 +7,46 @@ const mouse_sens:float=0.2;
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+#private
 @onready var head = $head
 @onready var interaction_ray_cast = $head/Camera3D/interactionRayCast
 @onready var manip_marker = $head/Camera3D/ManipMarker
 @onready var camera_3d = $head/Camera3D
+
+#public
 @onready var typetooltip = $Control/CanvasLayer/typetooltip
+@onready var cubecountdisplay = $Control/CanvasLayer/cubestxt/cubecountdisplay
+@onready var objectivesdisplay = $Control/CanvasLayer/currentobjectivetext/objectivesdisplay
+@onready var timerdisplay = $Control/CanvasLayer/timerdisplay
+@onready var playermessagedisplay = $Control/CanvasLayer/playermessagedisplay
+
+@onready var gui_timer = $Control/guiTimer
+
 
 var picked_obj:RigidBody3D=null;
 var pull_fac:float=20;
 var throw_fac:float=5;
 
+var startfade:bool=false;
+var vtween:Tween=null;
+
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED;
-	pass
 
+func playermessagedisplayUpdate(message:String):
+	startfade=false;
+	if message:
+		playermessagedisplay.text=message
+	playermessagedisplay.set_self_modulate(Color.WHITE)
+	gui_timer.start(3)
+
+func _process(_delta):
+	if startfade:
+		vtween=create_tween()
+		vtween.tween_property(playermessagedisplay,"self_modulate",Color.TRANSPARENT,1)
+	else:
+		vtween=create_tween()
+		vtween.tween_property(playermessagedisplay,"self_modulate",Color.WHITE,0)
 
 func _input(event):
 	if (event is InputEventMouseMotion):
@@ -54,11 +80,9 @@ func pick_obj():
 	if collider!=null and collider is RigidBody3D:
 		picked_obj=collider;
 
-
 func drop_obj():
 	if picked_obj!=null:
 		picked_obj=null;
-
 
 func _physics_process(delta):
 	
@@ -89,3 +113,6 @@ func _physics_process(delta):
 			typetooltip.text=(picked_obj.get_meta("cubetype"))
 	else:
 		typetooltip.text=""
+
+func _on_gui_timer_timeout():
+	startfade=true

@@ -12,6 +12,7 @@ var explosion_force:float=10
 var interval:int =10
 var int_timer:int=interval;
 # Called when the node enters the scene tree for the first time.
+
 func _ready():
 	pass # Replace with function body.
 
@@ -20,7 +21,7 @@ func grenade_activate():
 	is_active=true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if !exploded and is_active:
 		if int_timer==0:
 			core_audioplayer.stream=load("res://assets/sounds/grenade/beep-sound-8333.mp3")
@@ -35,6 +36,7 @@ func _process(delta):
 
 func explode():
 	core_audioplayer.set_stream(load("res://assets/sounds/grenade/shotgun-firing-4-6746.mp3"))
+	core_audioplayer.volume_db=20
 	core_audioplayer.play()
 	visible=false
 	var force_dir:Vector3
@@ -59,9 +61,9 @@ func _on_timer_timeout():
 	explode()
 	pass # Replace with function body.
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	if !exploded:
 		if linear_velocity.length()>1:
-			aux_audioplayer.pitch_scale=randf_range(0.95,1.05)
+			#aux_audioplayer.pitch_scale=randf_range(0.95,1.05)
 			aux_audioplayer.play()
 	pass # Replace with function body.

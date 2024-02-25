@@ -11,6 +11,8 @@ var items_in_rad:Array
 var explosion_force:float=10
 var interval:int =10
 var int_timer:int=interval;
+
+var is_picked=false;
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
@@ -19,6 +21,18 @@ func _ready():
 func grenade_activate():
 	timer.start()
 	is_active=true
+
+func identify():
+	print(self)
+
+func getInterctionHint()->String:
+	if is_picked:
+		return "Lclick to throw"
+	else:
+		return "Lclick to equip"
+
+func _physics_process(_delta):
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

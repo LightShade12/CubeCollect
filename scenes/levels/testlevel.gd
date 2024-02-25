@@ -23,7 +23,7 @@ func beginCollection():
 func beginPrep():
 	is_prepping=true
 	player.playermessagedisplayUpdate("Prepare for hostiles")
-	player.objectivesdisplay.text="Set up defensive positoin"
+	player.objectivesdisplay.text="Set up defensive positio	n"
 	roundtimer.start(prepTimeSecs)
 
 func beginSurvival():
@@ -33,6 +33,7 @@ func beginSurvival():
 	roundtimer.start(surviveTimeSecs)
 
 func _ready():
+	#get_tree().call_group("InteractableEntity","identify")
 	beginCollection()
 	pass # Replace with function body.
 

@@ -15,7 +15,7 @@ radius = 0.04
 [sub_resource type="SphereShape3D" id="SphereShape3D_5oexs"]
 radius = 2.0
 
-[node name="grenade" type="RigidBody3D"]
+[node name="grenade" type="RigidBody3D" groups=["InteractableEntity"]]
 physics_material_override = SubResource("PhysicsMaterial_qv4er")
 continuous_cd = true
 max_contacts_reported = 1
@@ -34,7 +34,7 @@ shape = SubResource("CylinderShape3D_nimwm")
 shape = SubResource("SphereShape3D_5oexs")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 8.0
+wait_time = 5.0
 one_shot = true
 
 [node name="coreAudioplayer" type="AudioStreamPlayer3D" parent="."]

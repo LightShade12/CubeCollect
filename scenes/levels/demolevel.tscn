@@ -6,13 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://bh1aakb7xno6v" path="res://assets/textures/1024x1024 Texel Density Texture 3.png" id="4_mlklw"]
 [ext_resource type="PackedScene" uid="uid://cy8mt8r2js6wh" path="res://source/entity/npc_enemy.tscn" id="4_ybswb"]
 [ext_resource type="PackedScene" uid="uid://bo6q7dydjheil" path="res://source/entity/area_detection.tscn" id="5_fvnkl"]
+[ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_jul6r"]
 [ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://scenes/levels/demolevelUVfloorMat.tres" id="8_jadq6"]
 [ext_resource type="PackedScene" uid="uid://ck3whm0a2psc8" path="res://source/entity/grenade.tscn" id="8_ml6o5"]
 [ext_resource type="Texture2D" uid="uid://cl7swxd30gwu3" path="res://assets/textures/1024x1024 Texel Density Texture 2.png" id="8_yhhaq"]
 [ext_resource type="AudioStream" uid="uid://gx33i2d1lr85" path="res://assets/sounds/maps/ambient/snow winds.mp3" id="9_y12aj"]
 [ext_resource type="Texture2D" uid="uid://digorx1a528nu" path="res://assets/textures/1024x1024 Texel Density Texture 1.png" id="10_ounve"]
 [ext_resource type="AudioStream" uid="uid://b7ld7spxw4ir" path="res://assets/sounds/maps/Airplane Flying Over in the Distance (Sound Effects) [TubeRipper.com].mp3" id="11_tb5sx"]
-[ext_resource type="LightmapGIData" uid="uid://cpok0ddu3orap" path="res://scenes/levels/demolevel.lmbake" id="12_gm8km"]
 [ext_resource type="AudioStream" uid="uid://247rrnvx3ty4" path="res://assets/sounds/maps/Crow Sound Effect - HD Quality [TubeRipper.com].mp3" id="12_v4snk"]
 [ext_resource type="AudioStream" uid="uid://c3n4jb0qvqp2" path="res://assets/sounds/maps/Crow Sound Effect [TubeRipper.com].mp3" id="13_m76th"]
 [ext_resource type="AudioStream" uid="uid://h0jf7xsmepuf" path="res://assets/sounds/maps/crownearby.mp3" id="14_ttvlp"]
@@ -149,26 +149,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="AreaDetection" parent="entities" instance=ExtResource("5_fvnkl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53788, -4.08371)
 
+[node name="grenade_stash" parent="entities" instance=ExtResource("6_jul6r")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.72247, 0.5008, -8.8345)
+
 [node name="grenade" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.07838, 1.97343, -8.40992)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03405, 2.0412, -8.47526)
 
 [node name="grenade2" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.43425, 1.97343, -8.46272)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23895, 2.0412, -8.42896)
 
 [node name="grenade3" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2748, 1.97343, -8.61491)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49631, 2.0412, -8.48019)
 
 [node name="grenade4" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.996321, 1.97343, -8.78904)
-
-[node name="grenade5" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.68108, 1.97343, -8.76035)
-
-[node name="grenade6" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08368, 1.97343, -8.47221)
-
-[node name="grenade7" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8472, 1.97343, -8.55301)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70993, 2.0412, -8.50221)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_co0ng")
@@ -253,10 +247,5 @@ stream = SubResource("AudioStreamRandomizer_1w3ho")
 stream = ExtResource("9_y12aj")
 volume_db = -30.0
 autoplay = true
-
-[node name="LightmapGI" type="LightmapGI" parent="."]
-visible = false
-bounces = 6
-light_data = ExtResource("12_gm8km")
 
 [connection signal="body_entered" from="entities/AreaDetection" to="." method="_on_area_detection_body_entered"]

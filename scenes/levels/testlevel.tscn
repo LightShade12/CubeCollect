@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bqe51as5ga3po"]
+[gd_scene load_steps=16 format=3 uid="uid://bqe51as5ga3po"]
 
 [ext_resource type="PackedScene" uid="uid://c7rkhuqxq72v1" path="res://source/entity/player.tscn" id="1_p4v65"]
 [ext_resource type="Script" path="res://scenes/levels/testlevel.gd" id="1_tstgm"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bo6q7dydjheil" path="res://source/entity/area_detection.tscn" id="3_dw25u"]
 [ext_resource type="PackedScene" uid="uid://cy8mt8r2js6wh" path="res://source/entity/npc_enemy.tscn" id="3_s4kwb"]
 [ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="4_lurub"]
+[ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_rfgp7"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_sj56h"]
 energy_multiplier = 1.5
@@ -39,12 +40,6 @@ size = Vector3(5, 3, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_a1vu6"]
 material = ExtResource("2_armk6")
 size = Vector3(5, 3, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_rw84f"]
-size = Vector3(2, 1, 2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_u81sk"]
-size = Vector3(2, 1, 2)
 
 [node name="testlevel" type="Node3D"]
 script = ExtResource("1_tstgm")
@@ -85,6 +80,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.05564, 0.86474, 0)
 [node name="AreaDetection" parent="entities" instance=ExtResource("3_dw25u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86413, 0.5144, -4.37708)
 
+[node name="grenade_stash" parent="entities" instance=ExtResource("6_rfgp7")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.22707, 0.5008, -4.74772)
+
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_n3mp8")
 enabled = false
@@ -108,15 +106,6 @@ shape = SubResource("BoxShape3D_f1ias")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/wall"]
 mesh = SubResource("BoxMesh_a1vu6")
 skeleton = NodePath("../CollisionShape3D")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/geo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.58636, 1, -6.36309)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/StaticBody3D"]
-shape = SubResource("BoxShape3D_rw84f")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/StaticBody3D"]
-mesh = SubResource("BoxMesh_u81sk")
 
 [node name="roundtimer" type="Timer" parent="."]
 wait_time = 60.0

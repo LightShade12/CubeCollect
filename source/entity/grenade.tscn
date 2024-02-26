@@ -33,13 +33,11 @@ shape = SubResource("CylinderShape3D_nimwm")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_5oexs")
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+[node name="FuseTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="coreAudioplayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_o7qul")
-volume_db = -20.0
 
 [node name="auxAudioplayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_kgaeu")
@@ -49,5 +47,5 @@ pitch_scale = 1.5
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="FuseTimer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="coreAudioplayer" to="." method="_on_audio_stream_player_3d_finished"]

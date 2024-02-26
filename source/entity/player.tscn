@@ -1,42 +1,44 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7rkhuqxq72v1"]
+[gd_scene load_steps=8 format=3 uid="uid://blxboep0qk3au"]
 
-[ext_resource type="Script" path="res://source/entity/player.gd" id="1_k2oyj"]
-[ext_resource type="Texture2D" uid="uid://ds3lmp3uvbt5p" path="res://assets/textures/ui/crosshair011.png" id="2_v55hp"]
-[ext_resource type="FontFile" uid="uid://bp1pnfuqrg8tu" path="res://assets/fonts/Neou-Bold.ttf" id="3_yrem8"]
+[ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_yu631"]
+[ext_resource type="Texture2D" uid="uid://ds3lmp3uvbt5p" path="res://assets/textures/ui/crosshair011.png" id="2_6255a"]
+[ext_resource type="Script" path="res://source/entity/player.gd" id="2_hxpo6"]
+[ext_resource type="FontFile" uid="uid://bp1pnfuqrg8tu" path="res://assets/fonts/Neou-Bold.ttf" id="3_n5uxe"]
+[ext_resource type="FontFile" uid="uid://b31kpgg2mx274" path="res://assets/fonts/AgencyFB-Bold.ttf" id="4_ynmp2"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5v37j"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2jts0"]
 radius = 0.3
 height = 1.8
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_n685l"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_04473"]
 radius = 0.3
 height = 1.8
 
-[node name="player" type="CharacterBody3D"]
-script = ExtResource("1_k2oyj")
+[node name="player" instance=ExtResource("1_yu631")]
+script = ExtResource("2_hxpo6")
 
-[node name="head" type="Node3D" parent="."]
+[node name="MeshInstance3D" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+cast_shadow = 3
+mesh = SubResource("CapsuleMesh_2jts0")
+
+[node name="CollisionShape3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_04473")
+
+[node name="head" type="Node3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="Camera3D" type="Camera3D" parent="head"]
+[node name="Camera3D" type="Camera3D" parent="head" index="0"]
 
-[node name="ManipMarker" type="Marker3D" parent="head/Camera3D"]
+[node name="ManipMarker" type="Marker3D" parent="head/Camera3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
 
-[node name="interactionRayCast" type="RayCast3D" parent="head/Camera3D"]
+[node name="interactionRayCast" type="RayCast3D" parent="head/Camera3D" index="1"]
 target_position = Vector3(0, 0, -2)
 hit_back_faces = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_5v37j")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-cast_shadow = 3
-mesh = SubResource("CapsuleMesh_n685l")
-
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." index="3"]
 layout_mode = 3
 anchor_left = 0.482639
 anchor_top = 0.469136
@@ -46,9 +48,9 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Control"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Control" index="0"]
 
-[node name="typetooltip" type="Label" parent="Control/CanvasLayer"]
+[node name="typetooltip" type="Label" parent="Control/CanvasLayer" index="0"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -59,7 +61,7 @@ offset_bottom = 280.0
 grow_horizontal = 2
 text = "type"
 
-[node name="crosshair" type="TextureRect" parent="Control/CanvasLayer"]
+[node name="crosshair" type="TextureRect" parent="Control/CanvasLayer" index="1"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -71,9 +73,9 @@ offset_right = 32.0
 offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_v55hp")
+texture = ExtResource("2_6255a")
 
-[node name="timerdisplay" type="Label" parent="Control/CanvasLayer"]
+[node name="timerdisplay" type="Label" parent="Control/CanvasLayer" index="2"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -84,14 +86,14 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 30
 text = "00:00"
 
-[node name="cubestxt" type="Label" parent="Control/CanvasLayer"]
+[node name="cubestxt" type="Label" parent="Control/CanvasLayer" index="3"]
 offset_left = 16.0
 offset_top = 8.0
 offset_right = 66.0
 offset_bottom = 31.0
 text = "cubes:"
 
-[node name="cubecountdisplay" type="Label" parent="Control/CanvasLayer/cubestxt"]
+[node name="cubecountdisplay" type="Label" parent="Control/CanvasLayer/cubestxt" index="0"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 19.0
@@ -100,7 +102,7 @@ offset_bottom = 74.0
 theme_override_font_sizes/font_size = 40
 text = "00"
 
-[node name="currentobjectivetext" type="Label" parent="Control/CanvasLayer"]
+[node name="currentobjectivetext" type="Label" parent="Control/CanvasLayer" index="4"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -114,7 +116,7 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "Current Objective:"
 
-[node name="objectivesdisplay" type="Label" parent="Control/CanvasLayer/currentobjectivetext"]
+[node name="objectivesdisplay" type="Label" parent="Control/CanvasLayer/currentobjectivetext" index="0"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -130,7 +132,7 @@ grow_vertical = 2
 text = "No objectives"
 horizontal_alignment = 1
 
-[node name="playermessagedisplay" type="Label" parent="Control/CanvasLayer"]
+[node name="playermessagedisplay" type="Label" parent="Control/CanvasLayer" index="5"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -142,13 +144,13 @@ offset_right = 22.0
 offset_bottom = -68.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_yrem8")
+theme_override_fonts/font = ExtResource("3_n5uxe")
 theme_override_font_sizes/font_size = 30
 text = "
 "
 horizontal_alignment = 1
 
-[node name="interactionHintDislpay" type="Label" parent="Control/CanvasLayer"]
+[node name="interactionHintDislpay" type="Label" parent="Control/CanvasLayer" index="6"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -160,8 +162,38 @@ offset_right = 126.0
 offset_bottom = 155.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_yrem8")
+theme_override_fonts/font = ExtResource("3_n5uxe")
 theme_override_font_sizes/font_size = 18
 text = "
 "
 horizontal_alignment = 1
+
+[node name="healthdispbg" type="ColorRect" parent="Control/CanvasLayer" index="7"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -80.0
+offset_right = 133.0
+offset_bottom = -19.0
+grow_vertical = 0
+color = Color(0.141176, 0.141176, 0.141176, 0.301961)
+
+[node name="healthtxt" type="Label" parent="Control/CanvasLayer/healthdispbg" index="0"]
+layout_mode = 0
+offset_left = 8.0
+offset_right = 70.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("4_ynmp2")
+text = "HEALTH"
+
+[node name="healthdisplay" type="Label" parent="Control/CanvasLayer/healthdispbg/healthtxt" index="0"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 19.0
+offset_right = 85.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("3_n5uxe")
+theme_override_font_sizes/font_size = 50
+text = "100"
+horizontal_alignment = 2

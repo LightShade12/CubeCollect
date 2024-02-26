@@ -1,8 +1,7 @@
-extends CharacterBody3D
+extends CharacterClass
 class_name Player
-
-const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+
 const mouse_sens:float=0.2;
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -13,6 +12,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var manip_marker = $head/Camera3D/ManipMarker
 @onready var camera_3d = $head/Camera3D
 @onready var interaction_hint_dislpay = $Control/CanvasLayer/interactionHintDislpay
+@onready var healthdisplay = $Control/CanvasLayer/healthdispbg/healthtxt/healthdisplay
 
 #public
 @onready var typetooltip = $Control/CanvasLayer/typetooltip
@@ -25,7 +25,6 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var picked_obj:RigidBody3D=null;
 var pull_fac:float=20;
 var throw_fac:float=5;
-
 var object_in_range=null
 
 var vtween:Tween=null;
@@ -41,6 +40,10 @@ func playermessagedisplayUpdate(message:String):
 		vtween.kill()
 	vtween = create_tween()
 	vtween.tween_property(playermessagedisplay, "self_modulate", Color.TRANSPARENT, 1).set_delay(3)
+
+func _process(_delta):
+	healthdisplay.text=str(health)
+	pass
 
 func _input(event):
 	if (event is InputEventMouseMotion):

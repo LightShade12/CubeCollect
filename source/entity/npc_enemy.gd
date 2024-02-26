@@ -1,8 +1,7 @@
-extends CharacterBody3D
+extends CharacterClass
+class_name npc_enemy
 
 @onready var nav_agent = $NavigationAgent3D
-
-const SPEED:float=2;
 
 func update_target_location(target_loc):
 	nav_agent.set_target_position(target_loc)
@@ -27,7 +26,6 @@ func _physics_process(_delta):
 	var vel=(next_loc-curr_loc).normalized()*SPEED
 	
 	nav_agent.set_velocity(vel)
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -36,3 +34,4 @@ func _process(_delta):
 func _on_navigation_agent_3d_velocity_computed(safe_velocity):
 	velocity=velocity.move_toward(safe_velocity,.25)
 	move_and_slide()
+	pass # Replace with function body.

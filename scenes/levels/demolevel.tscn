@@ -1,13 +1,12 @@
-[gd_scene load_steps=33 format=3 uid="uid://cxswwg0468crn"]
+[gd_scene load_steps=32 format=3 uid="uid://cxswwg0468crn"]
 
 [ext_resource type="Script" path="res://scenes/levels/demolevel.gd" id="1_8ijdj"]
-[ext_resource type="PackedScene" uid="uid://c7rkhuqxq72v1" path="res://source/entity/player.tscn" id="1_tkhkh"]
+[ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="2_5xhdw"]
 [ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="3_eo1n3"]
 [ext_resource type="Texture2D" uid="uid://bh1aakb7xno6v" path="res://assets/textures/1024x1024 Texel Density Texture 3.png" id="4_mlklw"]
-[ext_resource type="PackedScene" uid="uid://cy8mt8r2js6wh" path="res://source/entity/npc_enemy.tscn" id="4_ybswb"]
 [ext_resource type="PackedScene" uid="uid://bo6q7dydjheil" path="res://source/entity/area_detection.tscn" id="5_fvnkl"]
 [ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_jul6r"]
-[ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://scenes/levels/demolevelUVfloorMat.tres" id="8_jadq6"]
+[ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://scenes/levels/materials/demolevelUVfloorMat.tres" id="8_jadq6"]
 [ext_resource type="PackedScene" uid="uid://ck3whm0a2psc8" path="res://source/entity/grenade.tscn" id="8_ml6o5"]
 [ext_resource type="Texture2D" uid="uid://cl7swxd30gwu3" path="res://assets/textures/1024x1024 Texel Density Texture 2.png" id="8_yhhaq"]
 [ext_resource type="AudioStream" uid="uid://gx33i2d1lr85" path="res://assets/sounds/maps/ambient/snow winds.mp3" id="9_y12aj"]
@@ -106,8 +105,8 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hrqk3")
 
-[node name="player" parent="." instance=ExtResource("1_tkhkh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86484, 1.29739, 4.33679)
+[node name="player" parent="." instance=ExtResource("2_5xhdw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 1.39079, 2.36671)
 
 [node name="simulated" type="Node3D" parent="."]
 
@@ -136,15 +135,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67835, 4.37783, -3.35477)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37484, 4.37783, -4.04599)
 
 [node name="entities" type="Node3D" parent="."]
-
-[node name="npc_enemy3" parent="entities" instance=ExtResource("4_ybswb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.67156, 0.5, -3.5518)
-
-[node name="npc_enemy2" parent="entities" instance=ExtResource("4_ybswb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.24296, 0.5, 4.4065)
-
-[node name="npc_enemy" parent="entities" instance=ExtResource("4_ybswb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="AreaDetection" parent="entities" instance=ExtResource("5_fvnkl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53788, -4.08371)

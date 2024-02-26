@@ -13,10 +13,12 @@ func identify():
 	print(self)
 
 func interact():
-	for i in range(0,1):
-		var gren=grenaderef.instantiate()
-		add_child(gren)
-		gren.position=spawnpoint_3d.position
+	
+	for row in range(0,2):
+		for col in range(0,3):
+			var gren=grenaderef.instantiate()
+			add_child(gren)
+			gren.position=spawnpoint_3d.position+(Vector3(row,0,-col)*0.2)
 	pass
 
 func getInterctionHint()->String:

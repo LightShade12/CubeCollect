@@ -1,9 +1,9 @@
 extends RigidBody3D
 class_name Grenade
 
-@onready var timer = $Timer
 @onready var core_audioplayer = $coreAudioplayer
 @onready var aux_audioplayer = $auxAudioplayer
+@onready var fuse_timer = $FuseTimer
 
 var exploded:bool=false;
 var is_active=false;
@@ -11,7 +11,7 @@ var items_in_rad:Array[RigidBody3D]
 var explosion_force:float=10
 var interval:int =10
 var int_timer:int=interval;
-
+var fuse_time_secs:float=4;
 var is_picked=false;
 # Called when the node enters the scene tree for the first time.
 
@@ -19,7 +19,7 @@ func _ready():
 	pass # Replace with function body.
 
 func grenade_activate():
-	timer.start()
+	fuse_timer.start(fuse_time_secs)
 	is_active=true
 
 func identify():
@@ -32,6 +32,7 @@ func getInterctionHint()->String:
 		return "Lclick to equip"
 
 func _physics_process(_delta):
+	print(items_in_rad)
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,7 +41,7 @@ func _process(_delta):
 		if int_timer==0:
 			core_audioplayer.stream=load("res://assets/sounds/grenade/beep-sound-8333.mp3")
 			core_audioplayer.play()
-			int_timer=interval*timer.time_left+15
+			int_timer=interval*fuse_timer.time_left+15
 		else:
 			int_timer-=1
 	

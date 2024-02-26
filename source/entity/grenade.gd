@@ -7,7 +7,7 @@ class_name Grenade
 
 var exploded:bool=false;
 var is_active=false;
-var items_in_rad:Array
+var items_in_rad:Array[RigidBody3D]
 var explosion_force:float=10
 var interval:int =10
 var int_timer:int=interval;
@@ -49,7 +49,7 @@ func _process(_delta):
 		self.call_deferred("free")
 
 func explode():
-	core_audioplayer.set_stream(load("res://assets/sounds/grenade/shotgun-firing-4-6746.mp3"))
+	core_audioplayer.set_stream(preload("res://assets/sounds/grenade/shotgun-firing-4-6746.mp3"))
 	core_audioplayer.volume_db=20
 	core_audioplayer.play()
 	visible=false
@@ -57,7 +57,7 @@ func explode():
 	
 	for obj in items_in_rad:
 		if obj:
-			force_dir=self.position.direction_to(obj.position)
+			force_dir=self.global_transform.origin.direction_to(obj.global_transform.origin)
 			obj.apply_impulse(force_dir*explosion_force)
 	exploded=true
 
@@ -75,6 +75,7 @@ func _on_timer_timeout():
 	explode()
 	pass # Replace with function body.
 
+#collision sound
 func _on_body_entered(_body):
 	if !exploded:
 		if linear_velocity.length()>1:

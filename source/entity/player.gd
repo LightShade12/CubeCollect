@@ -65,7 +65,6 @@ func _input(event):
 	if Input.is_action_just_pressed("key_interact"):
 		if object_in_range is GrenadeSpawner:
 			object_in_range.interact()
-		
 
 func throw_obj():
 	if picked_obj!=null:

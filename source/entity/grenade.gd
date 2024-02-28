@@ -7,7 +7,7 @@ class_name Grenade
 
 var exploded:bool=false;
 var is_active=false;
-var items_in_rad:Array[RigidBody3D]
+var items_in_rad:Array
 var explosion_force:float=10
 var interval:int =10
 var int_timer:int=interval;
@@ -32,7 +32,7 @@ func getInterctionHint()->String:
 		return "Lclick to equip"
 
 func _physics_process(_delta):
-	print(items_in_rad)
+	#print(items_in_rad)
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,22 +57,23 @@ func explode():
 	var force_dir:Vector3
 	
 	for obj in items_in_rad:
-		if obj:
+		if obj is RigidBody3D:
 			force_dir=self.global_transform.origin.direction_to(obj.global_transform.origin)
 			obj.apply_impulse(force_dir*explosion_force)
+		elif obj is CharacterClass:
+			obj.damage(50)
 	exploded=true
 
 func _on_area_3d_body_entered(body):
 	if body.name!=self.name:
-		if body is RigidBody3D:
-			items_in_rad.append(body)
+		#if body is RigidBody3D:
+		items_in_rad.append(body)
 
 func _on_area_3d_body_exited(body):
-	if body is RigidBody3D:
-		items_in_rad.erase(body)
+	#if body is RigidBody3D:
+	items_in_rad.erase(body)
 
 func _on_timer_timeout():
-	print("explode")
 	explode()
 	pass # Replace with function body.
 

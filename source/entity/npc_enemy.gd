@@ -3,14 +3,17 @@ class_name npc_enemy
 
 @onready var nav_agent = $NavigationAgent3D
 
+
 func update_target_location(target_loc):
 	nav_agent.set_target_position(target_loc)
 	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SPEED=2.5
 	set_physics_process(false)
 	call_deferred("actor_setup")
+
 
 func actor_setup():
 	NavigationServer3D.map_changed.connect(Callable(map_ready))
@@ -19,6 +22,10 @@ func map_ready(_rid):
 	set_physics_process(true)
 	NavigationServer3D.map_changed.disconnect(Callable(map_ready))
 
+func slay():
+	self.call_deferred("free")
+	pass
+
 func _physics_process(_delta):
 	var curr_loc=global_transform.origin
 	var next_loc=nav_agent.get_next_path_position()
@@ -26,6 +33,8 @@ func _physics_process(_delta):
 	var vel=(next_loc-curr_loc).normalized()*SPEED
 	
 	nav_agent.set_velocity(vel)
+	if health<=0:
+		slay()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

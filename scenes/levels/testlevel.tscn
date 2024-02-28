@@ -24,6 +24,7 @@ sdfgi_use_occlusion = true
 sdfgi_min_cell_size = 0.046875
 sdfgi_cascade0_distance = 3.0
 sdfgi_max_distance = 48.0
+glow_enabled = true
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_n3mp8"]
 vertices = PackedVector3Array(3, 1, 1.25, 3.25, 1, 2.25, 9.5, 1, 2.25, 9.5, 1, -9.5, -9.5, 1, 2.25, -3, 1, 2.25, -2.75, 1, 1.25, -9.5, 1, -9.5, -2.75, 1, 1.25, 3, 1, 1.25, 9.5, 1, -9.5, -9.5, 1, -9.5, -0.75, 1, 9.5, -0.75, 1, 3.5, -2.75, 1, 3.5, -2.75, 1, 3.5, -3, 1, 2.25, -9.5, 1, 2.25, -2.75, 1, 3.5, -9.5, 1, 2.25, -9.5, 1, 9.5, -0.75, 1, 9.5, 9.5, 1, 2.25, 3.25, 1, 2.25, 3, 1, 3.5, 3, 1, 3.5, -0.75, 1, 3.5, -0.75, 1, 9.5, 9.5, 1, 9.5, 9.5, 1, 2.25, 3, 1, 3.5, -0.75, 1, 9.5)
@@ -82,6 +83,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54754, 1.12432, 0)
 [node name="npc_enemy" parent="entities" instance=ExtResource("3_atuqp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42045, 5.48521)
 
+[node name="npc_enemy2" parent="entities" instance=ExtResource("3_atuqp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.869558, 1.42045, 6.29971)
+
+[node name="npc_enemy3" parent="entities" instance=ExtResource("3_atuqp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06497, 1.42045, 6.26994)
+
+[node name="npc_enemy4" parent="entities" instance=ExtResource("3_atuqp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0117, 1.32419, 4.67755)
+
+[node name="npc_enemy5" parent="entities" instance=ExtResource("3_atuqp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.711083, 1.42045, 4.78027)
+
 [node name="AreaDetection" parent="entities" instance=ExtResource("3_dw25u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86413, 0.5144, -4.37708)
 
@@ -90,6 +103,7 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_n3mp8")
+enabled = false
 
 [node name="geo" type="Node3D" parent="NavigationRegion3D"]
 
@@ -120,6 +134,9 @@ one_shot = true
 
 [node name="grenade" parent="." instance=ExtResource("8_oaua2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.14448, 1.59365, -4.81107)
+
+[node name="grenade2" parent="." instance=ExtResource("8_oaua2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.937662, 2.64608, 5.55039)
 
 [connection signal="body_entered" from="entities/AreaDetection" to="." method="_on_area_detection_body_entered"]
 [connection signal="body_exited" from="entities/AreaDetection" to="." method="_on_area_detection_body_exited"]

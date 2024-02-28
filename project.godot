@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="CubeCollect"
-run/main_scene="res://scenes/levels/testlevel.tscn"
+run/main_scene="res://source/class/launcher.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://Global.gd"
 
 [input]
 

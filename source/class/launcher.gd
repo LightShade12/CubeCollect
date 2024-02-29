@@ -1,25 +1,31 @@
 extends Control
 class_name launcher
 
-@onready var line_edit = $CanvasLayer/LineEdit
-var current_server_settings:Global.ServerSettings=null;
+@onready var exit_dialog = $CanvasLayer/exitDialog
+@onready var server_configurator = $CanvasLayer/serverConfigurator
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	current_server_settings=Global.ServerSettings.new()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
-func _on_button_pressed():
-	Global._start_server("res://source/class/server.tscn",current_server_settings)
-	#get_tree().change_scene_to_file("res://source/class/server.tscn")
 
-func _on_line_edit_text_submitted(new_text):
-	current_server_settings.text=new_text
+func _on_exit_button_pressed():
+	exit_dialog.visible=true
 	pass # Replace with function body.
 
-func _on_button_2_pressed():
-	print_tree_pretty()
+
+func _on_exit_dialog_confirmed():
+	get_tree().quit()
+	pass # Replace with function body.
+
+func _on_exit_dialog_canceled():
+	exit_dialog.visible=false
+	pass # Replace with function body.
+
+func _on_start_button_pressed():
+	server_configurator.visible=true
 	pass # Replace with function body.

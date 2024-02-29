@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://odax3uen4ae5"]
+
+[ext_resource type="Script" path="res://scenes/serverConfigurator.gd" id="1_ix20y"]
+
+[node name="serverpopup" type="Popup"]
+title = "Server Configurator"
+initial_position = 1
+size = Vector2i(440, 473)
+visible = true
+borderless = false
+script = ExtResource("1_ix20y")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 30.0
+offset_right = -135.0
+offset_bottom = 53.0
+grow_horizontal = 2
+text = "Map"
+
+[node name="MapselectButton" type="OptionButton" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -315.0
+offset_top = 30.0
+offset_right = -115.0
+offset_bottom = 50.0
+grow_horizontal = 0
+
+[node name="startButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -53.0
+offset_right = -54.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Start"
+
+[node name="cancelButton" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 28.08
+offset_top = -53.0
+offset_right = 88.08
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Cancel"
+
+[connection signal="pressed" from="startButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="cancelButton" to="." method="_on_cancel_button_pressed"]

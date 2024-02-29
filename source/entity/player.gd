@@ -26,7 +26,6 @@ var picked_obj:RigidBody3D=null;
 var pull_fac:float=20;
 var throw_fac:float=5;
 var object_in_range=null
-
 var vtween:Tween=null;
 
 func _ready():
@@ -46,15 +45,12 @@ func _process(_delta):
 	pass
 
 func _input(event):
-	if (event is InputEventMouseMotion):
+	if (event is InputEventMouseMotion && !Global.gamepaused):
 		rotate_y(deg_to_rad(-event.relative.x*mouse_sens))
 		
 		head.rotate_x(deg_to_rad(-event.relative.y*mouse_sens))
 
 		head.rotation.x=clamp(head.rotation.x,deg_to_rad(-90),deg_to_rad(90));
-	
-	if Input.is_action_pressed("ui_cancel"):
-		get_tree().quit()
 	
 	if Input.is_action_just_pressed("lclick"):
 		if picked_obj!=null:

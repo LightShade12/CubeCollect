@@ -2,8 +2,10 @@ extends Node
 
 var current_scene = null
 
+var gamepaused:bool=false
+
 class ServerSettings:
-	var map:Level=null;
+	var map=null;
 	var text:String="uninitialized server text"
 
 func _ready():

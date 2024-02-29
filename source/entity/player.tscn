@@ -32,7 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 [node name="Camera3D" type="Camera3D" parent="head" index="0"]
 
 [node name="ManipMarker" type="Marker3D" parent="head/Camera3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4)
 
 [node name="interactionRayCast" type="RayCast3D" parent="head/Camera3D" index="1"]
 target_position = Vector3(0, 0, -2)

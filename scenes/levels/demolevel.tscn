@@ -1,6 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://cxswwg0468crn"]
+[gd_scene load_steps=32 format=3 uid="uid://rhbqthiinyyd"]
 
 [ext_resource type="Script" path="res://scenes/levels/demolevel.gd" id="1_8ijdj"]
+[ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_44vl2"]
 [ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="2_5xhdw"]
 [ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="3_eo1n3"]
 [ext_resource type="Texture2D" uid="uid://bh1aakb7xno6v" path="res://assets/textures/1024x1024 Texel Density Texture 3.png" id="4_mlklw"]
@@ -29,59 +30,6 @@ tonemap_mode = 2
 ssr_max_steps = 512
 sdfgi_use_occlusion = true
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_co0ng"]
-vertices = PackedVector3Array(-5.25, 1, -11.5, -3.5, 1, -11.75, -3.75, 1, -14.5, -14.5, 1, -9, -5.25, 1, -9.25, -5.25, 1, -11.5, -5.25, 1, -11.5, -3.75, 1, -14.5, -14.5, 1, -14.5, -14.5, 1, -9, -3.75, 1, -14.5, -3.5, 1, -11.75, -0.25, 1, -11.75, 0, 1, -8.75, 4.5, 1, -8.5, 4.5, 1, -9.5, -0.25, 1, -11.75, 4.5, 1, -9.5, 5.75, 1, -9.75, 5.75, 1, -14.5, -3.75, 1, -14.5, -0.25, 1, -11.75, 5.75, 1, -14.5, 5.75, 1, -9.75, 6.75, 1, -9.5, 14.5, 1, -14.5, 6.75, 1, -0.75, 6.25, 1, -0.5, 14.5, 1, -0.25, 6.75, 1, -9.5, 6.75, 1, -0.75, 14.5, 1, -0.25, 14.5, 1, -14.5, -4.25, 1.75, -10.75, -4.25, 1.75, -8.5, -1, 1.75, -8.5, -1, 1.75, -10.75, -2.75, 1, -2.75, -2.75, 1, -3.5, -3.25, 1, -3.75, -4.5, 1, -2.5, -14.5, 1, 2, -8, 1, 2, -7.75, 1, 0.75, -3.25, 1, -5.5, -2.25, 1, -5.75, -2.25, 1, -7.5, -5, 1, -7.5, -4.5, 1, -2.5, -5, 1, -7.5, -5.25, 1, -9.25, -14.5, 1, -9, -14.5, 1, 2, -7.75, 1, 0.75, -4.5, 1, -2.5, -3.25, 1, -3.75, -3.25, 1, -5.5, -5, 1, -7.5, -7.75, 1, 0.75, -4.5, 1, 0.75, -4.5, 1, -2.5, -2.75, 1, -3.5, -2.75, 1, -2.75, -2.25, 1, -2.5, -1, 1, -3.75, 3.75, 1, -2.75, 4, 1, -1.5, 4.5, 1, -1.75, 4.5, 1, -8.5, 1, 1, 0.75, 1.75, 1, -0.75, 2, 1, -2.75, -1, 1, -3.75, -2.25, 1, -2.5, -2.25, 1, 0.75, 1, 1, 0.75, 1.25, 1, 1.25, 2.25, 1, -0.5, 1.75, 1, -0.75, 4.5, 1, -8.5, 0, 1, -8.75, -0.25, 1, -7.5, -2.25, 1, -7.5, -2.25, 1, -5.75, -1, 1, -5.5, -0.25, 1, -7.5, -0.25, 1, -7.5, -1, 1, -5.5, -1, 1, -3.75, 2, 1, -2.75, 3.75, 1, -2.75, 4.5, 1, -8.5, 4.75, 1, -0.5, 4.5, 1, -1.75, 4, 1, -1.5, 3.75, 1, -0.5, -2.25, 1, 6.25, -3.25, 1, 6.5, -3.25, 1, 14.5, 3.75, 1, -0.5, 2.25, 1, -0.5, 1.25, 1, 1.25, 4.75, 1, -0.5, 3.75, 1, -0.5, 1.25, 1, 1.25, 1, 1, 3, -2.25, 1, 3, -2.25, 1, 6.25, 4.75, 1, -0.5, 1.25, 1, 1.25, 1, 1, 3, 6.25, 1, -0.5, 6.25, 1, -0.5, 1, 1, 3, -2.25, 1, 6.25, -3.25, 1, 14.5, 14.5, 1, 14.5, 14.5, 1, -0.25, -3.75, 5, 2.25, 0, 5, 2, -3.25, 5, 1.5, -7, 5, 1.75, -4.5, 1, 6.25, -4.5, 1, 3, -7.75, 1, 3, -7.75, 1, 3, -8, 1, 2, -14.5, 1, 2, -3.25, 1, 14.5, -3.25, 1, 6.5, -4.5, 1, 6.25, -4.5, 1, 6.25, -7.75, 1, 3, -14.5, 1, 2, -14.5, 1, 14.5, -3.25, 1, 14.5)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(12, 11, 10), PackedInt32Array(14, 13, 15), PackedInt32Array(15, 13, 16), PackedInt32Array(18, 17, 19), PackedInt32Array(19, 17, 21), PackedInt32Array(19, 21, 20), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 25), PackedInt32Array(28, 27, 26), PackedInt32Array(30, 29, 31), PackedInt32Array(31, 29, 32), PackedInt32Array(36, 35, 33), PackedInt32Array(33, 35, 34), PackedInt32Array(38, 37, 39), PackedInt32Array(39, 37, 40), PackedInt32Array(43, 42, 41), PackedInt32Array(45, 44, 46), PackedInt32Array(46, 44, 47), PackedInt32Array(49, 48, 50), PackedInt32Array(50, 48, 53), PackedInt32Array(50, 53, 51), PackedInt32Array(51, 53, 52), PackedInt32Array(55, 54, 56), PackedInt32Array(56, 54, 57), PackedInt32Array(60, 59, 58), PackedInt32Array(62, 61, 63), PackedInt32Array(63, 61, 64), PackedInt32Array(66, 65, 67), PackedInt32Array(67, 65, 68), PackedInt32Array(70, 69, 71), PackedInt32Array(71, 69, 72), PackedInt32Array(72, 69, 73), PackedInt32Array(73, 69, 74), PackedInt32Array(78, 77, 75), PackedInt32Array(75, 77, 76), PackedInt32Array(79, 81, 80), PackedInt32Array(83, 82, 84), PackedInt32Array(84, 82, 85), PackedInt32Array(87, 86, 88), PackedInt32Array(88, 86, 89), PackedInt32Array(89, 86, 90), PackedInt32Array(90, 86, 91), PackedInt32Array(94, 93, 95), PackedInt32Array(95, 93, 92), PackedInt32Array(96, 98, 97), PackedInt32Array(99, 101, 100), PackedInt32Array(104, 103, 102), PackedInt32Array(107, 106, 105), PackedInt32Array(108, 111, 109), PackedInt32Array(109, 111, 110), PackedInt32Array(113, 112, 114), PackedInt32Array(114, 112, 115), PackedInt32Array(115, 112, 117), PackedInt32Array(115, 117, 116), PackedInt32Array(121, 120, 118), PackedInt32Array(118, 120, 119), PackedInt32Array(124, 123, 122), PackedInt32Array(127, 126, 125), PackedInt32Array(130, 129, 128), PackedInt32Array(132, 131, 133), PackedInt32Array(133, 131, 135), PackedInt32Array(133, 135, 134)]
-agent_height = 1.8
-
-[sub_resource type="BoxMesh" id="BoxMesh_7cfkf"]
-lightmap_size_hint = Vector2i(304, 166)
-material = ExtResource("8_jadq6")
-add_uv2 = true
-size = Vector3(30, 1, 30)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hsio4"]
-size = Vector3(30, 1, 30)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1brvr"]
-albedo_texture = ExtResource("8_yhhaq")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_32wk0"]
-lightmap_size_hint = Vector2i(49, 86)
-material = SubResource("StandardMaterial3D_1brvr")
-add_uv2 = true
-size = Vector3(8, 4, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_c3ds7"]
-size = Vector3(8, 4, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btvxf"]
-albedo_texture = ExtResource("4_mlklw")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_8onhu"]
-lightmap_size_hint = Vector2i(14, 41)
-material = SubResource("StandardMaterial3D_btvxf")
-add_uv2 = true
-size = Vector3(1, 3, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hjibt"]
-size = Vector3(1, 3, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_aypgd"]
-size = Vector3(4, 1, 3)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2h3ml"]
-albedo_texture = ExtResource("10_ounve")
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_6fsdu"]
-lightmap_size_hint = Vector2i(39, 36)
-material = SubResource("StandardMaterial3D_2h3ml")
-add_uv2 = true
-size = Vector3(4, 1, 3)
-
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1w3ho"]
 streams_count = 4
 stream_0/stream = ExtResource("11_tb5sx")
@@ -93,149 +41,191 @@ stream_2/weight = 1.0
 stream_3/stream = ExtResource("14_ttvlp")
 stream_3/weight = 1.0
 
-[node name="demolevel" type="Node3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_ekv48"]
+lightmap_size_hint = Vector2i(304, 166)
+material = ExtResource("8_jadq6")
+add_uv2 = true
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2hphy"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1brvr"]
+albedo_texture = ExtResource("8_yhhaq")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_f7163"]
+lightmap_size_hint = Vector2i(49, 86)
+material = SubResource("StandardMaterial3D_1brvr")
+add_uv2 = true
+size = Vector3(8, 4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n87oi"]
+size = Vector3(8, 4, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_btvxf"]
+albedo_texture = ExtResource("4_mlklw")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_7md4q"]
+lightmap_size_hint = Vector2i(14, 41)
+material = SubResource("StandardMaterial3D_btvxf")
+add_uv2 = true
+size = Vector3(1, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wty26"]
+size = Vector3(1, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6hjd4"]
+size = Vector3(4, 1, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2h3ml"]
+albedo_texture = ExtResource("10_ounve")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_mhelc"]
+lightmap_size_hint = Vector2i(39, 36)
+material = SubResource("StandardMaterial3D_2h3ml")
+add_uv2 = true
+size = Vector3(4, 1, 3)
+
+[node name="demolevel" instance=ExtResource("1_44vl2")]
 script = ExtResource("1_8ijdj")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.843954, -0.0693566, 0.531913, -0.302068, 0.757989, 0.578108, -0.443279, -0.64857, 0.618757, 0, 2.58894, 4.37906)
-light_angular_distance = 1.0
-light_bake_mode = 1
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" parent="." index="0"]
 environment = SubResource("Environment_hrqk3")
 
-[node name="player" parent="." instance=ExtResource("2_5xhdw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 1.39079, 2.36671)
+[node name="DirectionalLight3D" parent="." index="1"]
+transform = Transform3D(0.843954, -0.0693561, 0.531913, -0.302068, 0.757989, 0.578108, -0.443279, -0.64857, 0.618757, 0, 0, 0)
+light_angular_distance = 1.0
+shadow_enabled = true
 
-[node name="simulated" type="Node3D" parent="."]
-
-[node name="cube" parent="simulated" instance=ExtResource("3_eo1n3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40071, 3.23504, -3.41817)
-
-[node name="cube2" parent="simulated" instance=ExtResource("3_eo1n3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37187, 3.23504, -4.10598)
-
-[node name="cube3" parent="simulated" instance=ExtResource("3_eo1n3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68663, 3.83891, -4.11389)
-
-[node name="cube4" parent="simulated" instance=ExtResource("3_eo1n3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62633, 3.83891, -3.36532)
-
-[node name="cube5" parent="simulated" instance=ExtResource("3_eo1n3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.30077, 4.37783, -3.4828)
-
-[node name="cube6" parent="simulated" instance=ExtResource("3_eo1n3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70695, 4.37783, -4.05371)
-
-[node name="cube7" parent="simulated" instance=ExtResource("3_eo1n3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67835, 4.37783, -3.35477)
-
-[node name="cube8" parent="simulated" instance=ExtResource("3_eo1n3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37484, 4.37783, -4.04599)
-
-[node name="entities" type="Node3D" parent="."]
-
-[node name="AreaDetection" parent="entities" instance=ExtResource("5_fvnkl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53788, -4.08371)
-
-[node name="grenade_stash" parent="entities" instance=ExtResource("6_jul6r")]
-transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.72247, 0.5008, -8.8345)
-
-[node name="grenade" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03405, 2.0412, -8.47526)
-
-[node name="grenade2" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23895, 2.0412, -8.42896)
-
-[node name="grenade3" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49631, 2.0412, -8.48019)
-
-[node name="grenade4" parent="entities" instance=ExtResource("8_ml6o5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70993, 2.0412, -8.50221)
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_co0ng")
-enabled = false
-
-[node name="geo" type="Node3D" parent="NavigationRegion3D"]
-
-[node name="floor" type="StaticBody3D" parent="NavigationRegion3D/geo"]
-
-[node name="floormesh" type="MeshInstance3D" parent="NavigationRegion3D/geo/floor"]
-gi_lightmap_scale = 3
-mesh = SubResource("BoxMesh_7cfkf")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/floor"]
-shape = SubResource("BoxShape3D_hsio4")
-
-[node name="wall1" type="StaticBody3D" parent="NavigationRegion3D/geo"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.5, 2.5, -5.20941)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/wall1"]
-gi_lightmap_scale = 2
-mesh = SubResource("BoxMesh_32wk0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/wall1"]
-shape = SubResource("BoxShape3D_c3ds7")
-
-[node name="wall2" type="StaticBody3D" parent="NavigationRegion3D/geo"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 2.5, 1.79059)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/wall2"]
-gi_lightmap_scale = 2
-mesh = SubResource("BoxMesh_32wk0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/wall2"]
-shape = SubResource("BoxShape3D_c3ds7")
-
-[node name="wall3" type="StaticBody3D" parent="NavigationRegion3D/geo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.5, 1.79059)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/wall3"]
-gi_lightmap_scale = 2
-mesh = SubResource("BoxMesh_32wk0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/wall3"]
-shape = SubResource("BoxShape3D_c3ds7")
-
-[node name="pillar" type="StaticBody3D" parent="NavigationRegion3D/geo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0354, 2, -4.62685)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/pillar"]
-gi_lightmap_scale = 2
-mesh = SubResource("BoxMesh_8onhu")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/pillar"]
-shape = SubResource("BoxShape3D_hjibt")
-
-[node name="pillar2" type="StaticBody3D" parent="NavigationRegion3D/geo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9646, 2, -1.62685)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/pillar2"]
-gi_lightmap_scale = 2
-mesh = SubResource("BoxMesh_8onhu")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/pillar2"]
-shape = SubResource("BoxShape3D_hjibt")
-
-[node name="platform" type="StaticBody3D" parent="NavigationRegion3D/geo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5354, 1, -9.62685)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/platform"]
-shape = SubResource("BoxShape3D_aypgd")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/platform"]
-gi_lightmap_scale = 2
-mesh = SubResource("BoxMesh_6fsdu")
-
-[node name="DetailStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = SubResource("AudioStreamRandomizer_1w3ho")
-
-[node name="AmbAudioPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AmbientAudioPlayer" parent="." index="2"]
 stream = ExtResource("9_y12aj")
 volume_db = -30.0
 autoplay = true
 
+[node name="DetailStreamPlayer" parent="." index="3"]
+stream = SubResource("AudioStreamRandomizer_1w3ho")
+
+[node name="floor" type="StaticBody3D" parent="NavigationRegion3D/geo" index="0"]
+
+[node name="floormesh" type="MeshInstance3D" parent="NavigationRegion3D/geo/floor" index="0"]
+gi_lightmap_scale = 3
+mesh = SubResource("BoxMesh_ekv48")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/floor" index="1"]
+shape = SubResource("BoxShape3D_2hphy")
+
+[node name="wall1" type="StaticBody3D" parent="NavigationRegion3D/geo" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.5, 2.5, -5.20941)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/wall1" index="0"]
+gi_lightmap_scale = 2
+mesh = SubResource("BoxMesh_f7163")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/wall1" index="1"]
+shape = SubResource("BoxShape3D_n87oi")
+
+[node name="wall2" type="StaticBody3D" parent="NavigationRegion3D/geo" index="2"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 2.5, 1.79059)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/wall2" index="0"]
+gi_lightmap_scale = 2
+mesh = SubResource("BoxMesh_f7163")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/wall2" index="1"]
+shape = SubResource("BoxShape3D_n87oi")
+
+[node name="wall3" type="StaticBody3D" parent="NavigationRegion3D/geo" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.5, 1.79059)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/wall3" index="0"]
+gi_lightmap_scale = 2
+mesh = SubResource("BoxMesh_f7163")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/wall3" index="1"]
+shape = SubResource("BoxShape3D_n87oi")
+
+[node name="pillar" type="StaticBody3D" parent="NavigationRegion3D/geo" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0354, 2, -4.62685)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/pillar" index="0"]
+gi_lightmap_scale = 2
+mesh = SubResource("BoxMesh_7md4q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/pillar" index="1"]
+shape = SubResource("BoxShape3D_wty26")
+
+[node name="pillar2" type="StaticBody3D" parent="NavigationRegion3D/geo" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9646, 2, -1.62685)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/pillar2" index="0"]
+gi_lightmap_scale = 2
+mesh = SubResource("BoxMesh_7md4q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/pillar2" index="1"]
+shape = SubResource("BoxShape3D_wty26")
+
+[node name="platform" type="StaticBody3D" parent="NavigationRegion3D/geo" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5354, 1, -9.62685)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/platform" index="0"]
+shape = SubResource("BoxShape3D_6hjd4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/platform" index="1"]
+gi_lightmap_scale = 2
+mesh = SubResource("BoxMesh_mhelc")
+
+[node name="simulated" type="Node3D" parent="." index="5"]
+
+[node name="cube" parent="simulated" index="0" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40071, 3.23504, -3.41817)
+
+[node name="cube2" parent="simulated" index="1" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37187, 3.23504, -4.10598)
+
+[node name="cube3" parent="simulated" index="2" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.68663, 3.83891, -4.11389)
+
+[node name="cube4" parent="simulated" index="3" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.62633, 3.83891, -3.36532)
+
+[node name="cube5" parent="simulated" index="4" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.30077, 4.37783, -3.4828)
+
+[node name="cube6" parent="simulated" index="5" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.70695, 4.37783, -4.05371)
+
+[node name="cube7" parent="simulated" index="6" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67835, 4.37783, -3.35477)
+
+[node name="cube8" parent="simulated" index="7" instance=ExtResource("3_eo1n3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37484, 4.37783, -4.04599)
+
+[node name="entities" type="Node3D" parent="." index="6"]
+
+[node name="AreaDetection" parent="entities" index="0" instance=ExtResource("5_fvnkl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53788, -4.08371)
+
+[node name="grenade_stash" parent="entities" index="1" instance=ExtResource("6_jul6r")]
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.72247, 0.5008, -8.8345)
+
+[node name="grenade" parent="entities" index="2" instance=ExtResource("8_ml6o5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03405, 2.0412, -8.47526)
+
+[node name="grenade2" parent="entities" index="3" instance=ExtResource("8_ml6o5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23895, 2.0412, -8.42896)
+
+[node name="grenade3" parent="entities" index="4" instance=ExtResource("8_ml6o5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49631, 2.0412, -8.48019)
+
+[node name="grenade4" parent="entities" index="5" instance=ExtResource("8_ml6o5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70993, 2.0412, -8.50221)
+
+[node name="player" parent="entities" index="6" instance=ExtResource("2_5xhdw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 1.39079, 2.36671)
+
 [connection signal="body_entered" from="entities/AreaDetection" to="." method="_on_area_detection_body_entered"]
+[connection signal="body_exited" from="entities/AreaDetection" to="." method="_on_area_detection_body_exited"]

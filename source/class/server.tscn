@@ -4,10 +4,12 @@
 [ext_resource type="FontFile" uid="uid://bp1pnfuqrg8tu" path="res://assets/fonts/Neou-Bold.ttf" id="2_2qn5c"]
 
 [node name="server" type="Node"]
+process_mode = 3
 script = ExtResource("1_pmp71")
 
 [node name="pausemenu" type="Control" parent="."]
-visible = false
+process_mode = 2
+z_index = 50
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,38 +17,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="pausemenu"]
-layout_mode = 1
+[node name="pausemenuCanvas" type="CanvasLayer" parent="pausemenu"]
+layer = 0
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="pausemenu/pausemenuCanvas"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.168627, 0.168627, 0.168627, 0.776471)
+color = Color(0, 0, 0, 0.568627)
 
-[node name="CanvasModulate" type="CanvasModulate" parent="pausemenu"]
-visible = false
-modulate = Color(0.168627, 0.168627, 0.168627, 0.776471)
-show_behind_parent = true
-
-[node name="resumeButton" type="Button" parent="pausemenu"]
-layout_mode = 0
+[node name="resumeButton" type="Button" parent="pausemenu/pausemenuCanvas"]
 offset_left = 56.0
 offset_top = 464.0
 offset_right = 126.0
 offset_bottom = 495.0
 text = "Resume"
 
-[node name="QuitButton" type="Button" parent="pausemenu"]
-layout_mode = 0
+[node name="QuitButton" type="Button" parent="pausemenu/pausemenuCanvas"]
 offset_left = 56.0
 offset_top = 504.0
 offset_right = 167.0
 offset_bottom = 535.0
 text = "Quit to menu"
 
-[node name="pausedtxt" type="Label" parent="pausemenu"]
-layout_mode = 0
+[node name="pausedtxt" type="Label" parent="pausemenu/pausemenuCanvas"]
 offset_left = 56.0
 offset_top = 328.0
 offset_right = 431.0
@@ -55,5 +52,15 @@ theme_override_fonts/font = ExtResource("2_2qn5c")
 theme_override_font_sizes/font_size = 100
 text = "Paused"
 
-[connection signal="pressed" from="pausemenu/resumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="pausemenu/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="roundTimer" type="Timer" parent="."]
+process_mode = 1
+one_shot = true
+
+[node name="auxTimer" type="Timer" parent="."]
+process_mode = 1
+one_shot = true
+
+[connection signal="pressed" from="pausemenu/pausemenuCanvas/resumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="pausemenu/pausemenuCanvas/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="roundTimer" to="." method="_on_round_timer_timeout"]
+[connection signal="timeout" from="auxTimer" to="." method="_on_aux_timer_timeout"]

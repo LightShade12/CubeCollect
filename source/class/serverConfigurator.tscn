@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://odax3uen4ae5"]
 
-[ext_resource type="Script" path="res://scenes/serverConfigurator.gd" id="1_ix20y"]
+[ext_resource type="Script" path="res://source/class/serverConfigurator.gd" id="1_ix20y"]
 
 [node name="serverpopup" type="Popup"]
 title = "Server Configurator"

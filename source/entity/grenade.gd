@@ -4,7 +4,9 @@ class_name Grenade
 @onready var core_audioplayer = $coreAudioplayer
 @onready var aux_audioplayer = $auxAudioplayer
 @onready var fuse_timer = $FuseTimer
-
+@onready var ray_cast = $RayCast
+const GRENADEDECAL = preload("res://source/entity/grenadedecal.tscn")
+const GRENADE_PARTICLE_SYSTEM = preload("res://source/entity/grenade_particle_system.tscn")
 var exploded:bool=false;
 var is_active=false;
 var items_in_rad:Array
@@ -32,8 +34,8 @@ func getInterctionHint()->String:
 		return "Lclick to equip"
 
 func _physics_process(_delta):
-	#print(items_in_rad)
-	pass
+	ray_cast.look_at(Vector3(self.global_transform.origin.x,self.global_transform.origin.y-2,self.global_transform.origin.z),Vector3(1,0,0))
+	ray_cast.global_rotation.x+=deg_to_rad(90)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -55,6 +57,16 @@ func explode():
 	core_audioplayer.play()
 	visible=false
 	var force_dir:Vector3
+	
+	var spnpt=ray_cast.get_collision_point()
+	
+	var decalnode=GRENADEDECAL.instantiate()
+	add_sibling(decalnode)
+	decalnode.global_transform.origin=spnpt
+	var smokeptclsys=GRENADE_PARTICLE_SYSTEM.instantiate()
+	add_sibling(smokeptclsys)
+	smokeptclsys.global_transform.origin=spnpt
+	
 	
 	for obj in items_in_rad:
 		if obj is RigidBody3D:

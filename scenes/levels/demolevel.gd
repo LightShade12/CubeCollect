@@ -13,7 +13,6 @@ func _process(_delta):
 	if randn<vmax && randn>vmin and !detail_stream_player.playing:
 		print("played sound")
 		detail_stream_player.play()
-	pass
 
 
 func _on_area_detection_body_entered(body):

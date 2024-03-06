@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bo4dcv0w78veg"]
+[gd_scene load_steps=17 format=3 uid="uid://bo4dcv0w78veg"]
 
 [ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_i6ns8"]
 [ext_resource type="Script" path="res://scenes/levels/testlevel.gd" id="1_tstgm"]
@@ -22,6 +22,12 @@ tonemap_mode = 2
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
 sdfgi_min_cell_size = 0.046875
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_i1m4y"]
+vertices = PackedVector3Array(3, 1, 1.25, 3.25, 1, 2.25, 9.5, 1, 2.25, 9.5, 1, -9.5, -9.5, 1, 2.25, -3, 1, 2.25, -2.75, 1, 1.25, -9.5, 1, -9.5, -2.75, 1, 1.25, 3, 1, 1.25, 9.5, 1, -9.5, -9.5, 1, -9.5, -0.75, 1, 9.5, -0.75, 1, 3.5, -2.75, 1, 3.5, -2.75, 1, 3.5, -3, 1, 2.25, -9.5, 1, 2.25, -2.75, 1, 3.5, -9.5, 1, 2.25, -9.5, 1, 9.5, -0.75, 1, 9.5, 9.5, 1, 2.25, 3.25, 1, 2.25, 3, 1, 3.5, 3, 1, 3.5, -0.75, 1, 3.5, -0.75, 1, 9.5, 9.5, 1, 9.5, 9.5, 1, 2.25, 3, 1, 3.5, -0.75, 1, 9.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(9, 8, 10), PackedInt32Array(10, 8, 11), PackedInt32Array(14, 13, 12), PackedInt32Array(17, 16, 15), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 21), PackedInt32Array(22, 24, 23), PackedInt32Array(27, 26, 25), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31)]
+agent_height = 1.8
+agent_radius = 0.3
 
 [sub_resource type="BoxMesh" id="BoxMesh_8y3wm"]
 lightmap_size_hint = Vector2i(204, 116)
@@ -49,6 +55,9 @@ environment = SubResource("Environment_pyumv")
 transform = Transform3D(0.951836, -0.0810432, 0.295704, -0.0661402, 0.887456, 0.456122, -0.29939, -0.453711, 0.839352, 0, 0, 0)
 light_angular_distance = 0.5
 shadow_enabled = true
+
+[node name="NavigationRegion3D" parent="." index="4"]
+navigation_mesh = SubResource("NavigationMesh_i1m4y")
 
 [node name="floor" type="StaticBody3D" parent="NavigationRegion3D/geo" index="0"]
 

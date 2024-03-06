@@ -4,7 +4,7 @@ var current_server_settings:Global.ServerSettings=null;
 @onready var mapselect_button = $MapselectButton
 
 var maplist:Dictionary={"TestLevel":"res://scenes/levels/testlevel.tscn",
-"DemoLevel":"res://scenes/levels/demolevel.tscn"}
+"DemoLevel":"res://scenes/levels/demolevel.tscn","Deadhouse":"res://scenes/levels/deadhouse.tscn"}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

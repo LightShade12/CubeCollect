@@ -1,0 +1,26 @@
+[remap]
+
+importer="3d_texture"
+type="CompressedTexture3D"
+uid="uid://lto8sxrpp1ye"
+path="res://.godot/imported/celluloid.png-d3b6a682b6a9d91b384f7372110f61b6.ctex3d"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/textures/luts/celluloid.png"
+dest_files=["res://.godot/imported/celluloid.png-d3b6a682b6a9d91b384f7372110f61b6.ctex3d"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=33
+slices/vertical=1

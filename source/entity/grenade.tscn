@@ -49,5 +49,5 @@ target_position = Vector3(0, -0.5, 0)
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
-[connection signal="timeout" from="FuseTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="FuseTimer" to="." method="_on_fuse_timer_timeout"]
 [connection signal="finished" from="coreAudioplayer" to="." method="_on_audio_stream_player_3d_finished"]

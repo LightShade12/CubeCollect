@@ -51,17 +51,18 @@ particle_flag_rotate_y = true
 angle_min = -90.0
 angle_max = 90.0
 direction = Vector3(0, 1, 0)
-spread = 60.0
 initial_velocity_min = 5.0
 initial_velocity_max = 20.0
-gravity = Vector3(0, -30, 0)
+gravity = Vector3(0, -9, 0)
+scale_min = 0.5
+scale_max = 1.5
 scale_curve = SubResource("CurveTexture_iwis8")
 collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 0.0
 
 [sub_resource type="PrismMesh" id="PrismMesh_bi8yl"]
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.05, 0.05, 0.05)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pticl"]
 vertex_color_use_as_albedo = true
@@ -91,6 +92,7 @@ emission = Color(1, 0.564706, 0.490196, 1)
 emission_energy_multiplier = 10.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x7hqx"]
+lifetime_randomness = 0.2
 particle_flag_align_y = true
 direction = Vector3(0, 1, 0)
 spread = 25.0
@@ -183,7 +185,6 @@ script = ExtResource("1_lp7rx")
 [node name="smokeptcls" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_h5m2i")
 cast_shadow = 0
-emitting = false
 amount = 256
 lifetime = 3.0
 explosiveness = 1.0
@@ -202,11 +203,10 @@ omni_attenuation = 2.0
 [node name="debrisptcls" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32125, 0)
 material_override = SubResource("StandardMaterial3D_5jrc8")
-amount = 32
-lifetime = 2.0
-speed_scale = 2.0
+amount = 64
+lifetime = 5.0
 explosiveness = 1.0
-collision_base_size = 0.5
+collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_uxoun")
 draw_pass_1 = SubResource("PrismMesh_bi8yl")
 
@@ -215,7 +215,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.312405, 0)
 material_override = SubResource("StandardMaterial3D_pticl")
 cast_shadow = 0
 amount = 64
-speed_scale = 2.0
+speed_scale = 2.5
 explosiveness = 1.0
 collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_pb5gf")
@@ -225,10 +225,10 @@ draw_pass_1 = SubResource("TubeTrailMesh_cj8ai")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20253, 0)
 material_override = SubResource("StandardMaterial3D_1fqw2")
 cast_shadow = 0
-amount = 64
-lifetime = 3.5
+amount = 128
+lifetime = 6.0
 preprocess = 1.0
-speed_scale = 0.5
+speed_scale = 1.75
 explosiveness = 1.0
 collision_base_size = 0.1
 process_material = SubResource("ParticleProcessMaterial_x7hqx")

@@ -11,9 +11,8 @@ func _ready():
 func _process(_delta):
 	var randn=randi_range(0,10000)
 	if randn<vmax && randn>vmin and !detail_stream_player.playing:
-		print("played sound")
 		detail_stream_player.play()
-
+	
 
 func _on_area_detection_body_entered(body):
 	if body is Cube:

@@ -48,7 +48,7 @@ func _process(_delta):
 			int_timer-=1
 	
 	if exploded:
-		await get_tree().create_timer(1.5).timeout
+		await get_tree().create_timer(3.5).timeout
 		self.call_deferred("free")
 
 func explode():
@@ -75,6 +75,14 @@ func explode():
 		elif obj is CharacterClass:
 			obj.damage(50)
 	exploded=true
+	
+	await get_tree().create_timer(1).timeout
+	core_audioplayer.volume_db=-5
+	aux_audioplayer.volume_db=0
+	aux_audioplayer.stream=preload("res://assets/sounds/grenade/zapsplat_foley_sand_handful_drop_ground_002_43847.mp3")
+	core_audioplayer.stream=preload("res://assets/sounds/grenade/debris.wav")
+	core_audioplayer.play()
+	aux_audioplayer.play()
 
 func _on_area_3d_body_entered(body):
 	if body.name!=self.name:
@@ -86,7 +94,6 @@ func _on_area_3d_body_exited(body):
 	items_in_rad.erase(body)
 
 func _on_timer_timeout():
-	explode()
 	pass # Replace with function body.
 
 #collision sound
@@ -95,4 +102,9 @@ func _on_body_entered(_body):
 		if linear_velocity.length()>1:
 			#aux_audioplayer.pitch_scale=randf_range(0.95,1.05)
 			aux_audioplayer.play()
+	pass # Replace with function body.
+
+
+func _on_fuse_timer_timeout():
+	explode()
 	pass # Replace with function body.

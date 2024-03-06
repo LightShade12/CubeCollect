@@ -32,6 +32,7 @@ tonemap_mode = 2
 tonemap_exposure = 1.5
 tonemap_white = 6.0
 ssr_max_steps = 512
+ssr_fade_in = 1e-05
 sdfgi_use_occlusion = true
 glow_enabled = true
 glow_levels/1 = 1.0
@@ -228,12 +229,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03405, 2.0412, -8.47526)
 [node name="player" parent="entities" index="3" instance=ExtResource("2_5xhdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 1.39079, 2.36671)
 
+[node name="grenadeParticleSystem" parent="entities" index="4" instance=ExtResource("18_f8een")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.690992, 0.820904, -1.54296)
+
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
 bounces = 6
 light_data = ExtResource("18_e6rtr")
-
-[node name="grenadeParticleSystem" parent="." index="8" instance=ExtResource("18_f8een")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.690992, 0.820904, -1.54296)
 
 [connection signal="body_entered" from="entities/AreaDetection" to="." method="_on_area_detection_body_entered"]
 [connection signal="body_exited" from="entities/AreaDetection" to="." method="_on_area_detection_body_exited"]

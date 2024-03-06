@@ -31,43 +31,49 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -182.0
-offset_top = -171.0
-offset_right = 182.0
-offset_bottom = -69.0
+offset_left = -402.0
+offset_top = -313.5
+offset_right = 402.0
+offset_bottom = -86.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_bfq0r")
-theme_override_font_sizes/font_size = 90
+theme_override_font_sizes/font_size = 200
 text = "CubeCollect"
 horizontal_alignment = 1
 
 [node name="buttons" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 64.0
-offset_top = 432.0
-offset_right = 104.0
-offset_bottom = 472.0
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 168.0
+offset_top = 20.0
+offset_right = 208.0
+offset_bottom = 60.0
+grow_vertical = 2
 
 [node name="exitButton" type="Button" parent="CanvasLayer/buttons"]
 layout_mode = 0
-offset_top = 80.0
-offset_right = 83.0
-offset_bottom = 111.0
+offset_top = 128.0
+offset_right = 126.0
+offset_bottom = 171.0
+theme_override_font_sizes/font_size = 20
 text = "Exit to OS"
 
 [node name="optionsButton" type="Button" parent="CanvasLayer/buttons"]
 layout_mode = 0
-offset_top = 40.0
-offset_right = 70.0
-offset_bottom = 71.0
+offset_top = 64.0
+offset_right = 132.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 20
 text = "Options"
 
 [node name="startButton" type="Button" parent="CanvasLayer/buttons"]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_right = 134.0
+offset_bottom = 39.0
+theme_override_font_sizes/font_size = 20
 text = "Start Server"
 
 [node name="exitDialog" type="ConfirmationDialog" parent="CanvasLayer"]

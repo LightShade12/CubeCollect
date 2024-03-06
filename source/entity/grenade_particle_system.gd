@@ -55,7 +55,6 @@ func _ready():
 	scorchsmoke.emitting=true;
 	
 	scorchsmoke.transparency=1;
-	var temp:StandardMaterial3D=self.scorchsmoke.get_material_override()
 	
 	if is_instance_valid(stween):
 		stween.kill()

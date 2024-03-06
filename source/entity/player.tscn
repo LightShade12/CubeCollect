@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://blxboep0qk3au"]
+[gd_scene load_steps=9 format=3 uid="uid://blxboep0qk3au"]
 
 [ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_yu631"]
 [ext_resource type="Texture2D" uid="uid://ds3lmp3uvbt5p" path="res://assets/textures/ui/crosshair011.png" id="2_6255a"]
 [ext_resource type="Script" path="res://source/entity/player.gd" id="2_hxpo6"]
 [ext_resource type="FontFile" uid="uid://bp1pnfuqrg8tu" path="res://assets/fonts/Neou-Bold.ttf" id="3_n5uxe"]
 [ext_resource type="FontFile" uid="uid://b31kpgg2mx274" path="res://assets/fonts/AgencyFB-Bold.ttf" id="4_ynmp2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nud68"]
+noise_type = 0
+frequency = 0.05
+fractal_octaves = 4
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_2jts0"]
 radius = 0.3
@@ -16,6 +21,12 @@ height = 1.8
 
 [node name="player" instance=ExtResource("1_yu631")]
 script = ExtResource("2_hxpo6")
+trauma_reduction_rate = 1.0
+max_x = 10.0
+max_y = 10.0
+max_z = 5.0
+noise = SubResource("FastNoiseLite_nud68")
+noise_speed = 50.0
 
 [node name="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -50,7 +61,17 @@ metadata/_edit_use_anchors_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Control" index="0"]
 
-[node name="typetooltip" type="Label" parent="Control/CanvasLayer" index="0"]
+[node name="hudControl" type="Control" parent="Control/CanvasLayer" index="0"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(576, 324)
+
+[node name="typetooltip" type="Label" parent="Control/CanvasLayer/hudControl" index="0"]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -61,7 +82,8 @@ offset_bottom = 280.0
 grow_horizontal = 2
 text = "type"
 
-[node name="crosshair" type="TextureRect" parent="Control/CanvasLayer" index="1"]
+[node name="crosshair" type="TextureRect" parent="Control/CanvasLayer/hudControl" index="1"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -75,25 +97,26 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_6255a")
 
-[node name="timerdisplay" type="Label" parent="Control/CanvasLayer" index="2"]
+[node name="timerdisplay" type="Label" parent="Control/CanvasLayer/hudControl" index="2"]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
+offset_left = -38.0
+offset_right = 38.0
+offset_bottom = 42.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 30
 text = "00:00"
 
-[node name="cubestxt" type="Label" parent="Control/CanvasLayer" index="3"]
+[node name="cubestxt" type="Label" parent="Control/CanvasLayer/hudControl" index="3"]
 offset_left = 16.0
 offset_top = 8.0
 offset_right = 66.0
 offset_bottom = 31.0
 text = "cubes:"
 
-[node name="cubecountdisplay" type="Label" parent="Control/CanvasLayer/cubestxt" index="0"]
+[node name="cubecountdisplay" type="Label" parent="Control/CanvasLayer/hudControl/cubestxt" index="0"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 19.0
@@ -102,7 +125,8 @@ offset_bottom = 74.0
 theme_override_font_sizes/font_size = 40
 text = "00"
 
-[node name="currentobjectivetext" type="Label" parent="Control/CanvasLayer" index="4"]
+[node name="currentobjectivetext" type="Label" parent="Control/CanvasLayer/hudControl" index="4"]
+layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -116,7 +140,7 @@ grow_horizontal = 0
 grow_vertical = 2
 text = "Current Objective:"
 
-[node name="objectivesdisplay" type="Label" parent="Control/CanvasLayer/currentobjectivetext" index="0"]
+[node name="objectivesdisplay" type="Label" parent="Control/CanvasLayer/hudControl/currentobjectivetext" index="0"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -132,16 +156,17 @@ grow_vertical = 2
 text = "No objectives"
 horizontal_alignment = 1
 
-[node name="playermessagedisplay" type="Label" parent="Control/CanvasLayer" index="5"]
+[node name="playermessagedisplay" type="Label" parent="Control/CanvasLayer/hudControl" index="5"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -22.0
-offset_top = -91.5
+offset_top = -95.5
 offset_right = 22.0
-offset_bottom = -68.5
+offset_bottom = -64.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_n5uxe")
@@ -150,7 +175,8 @@ text = "
 "
 horizontal_alignment = 1
 
-[node name="interactionHintDislpay" type="Label" parent="Control/CanvasLayer" index="6"]
+[node name="interactionHintDislpay" type="Label" parent="Control/CanvasLayer/hudControl" index="6"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -168,7 +194,8 @@ text = "
 "
 horizontal_alignment = 1
 
-[node name="healthdispbg" type="ColorRect" parent="Control/CanvasLayer" index="7"]
+[node name="healthdispbg" type="ColorRect" parent="Control/CanvasLayer/hudControl" index="7"]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -179,7 +206,7 @@ offset_bottom = -19.0
 grow_vertical = 0
 color = Color(0.141176, 0.141176, 0.141176, 0.301961)
 
-[node name="healthtxt" type="Label" parent="Control/CanvasLayer/healthdispbg" index="0"]
+[node name="healthtxt" type="Label" parent="Control/CanvasLayer/hudControl/healthdispbg" index="0"]
 layout_mode = 0
 offset_left = 8.0
 offset_right = 70.0
@@ -187,7 +214,7 @@ offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("4_ynmp2")
 text = "HEALTH"
 
-[node name="healthdisplay" type="Label" parent="Control/CanvasLayer/healthdispbg/healthtxt" index="0"]
+[node name="healthdisplay" type="Label" parent="Control/CanvasLayer/hudControl/healthdispbg/healthtxt" index="0"]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 19.0

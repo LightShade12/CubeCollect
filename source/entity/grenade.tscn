@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ck3whm0a2psc8"]
+[gd_scene load_steps=9 format=3 uid="uid://ck3whm0a2psc8"]
 
 [ext_resource type="Script" path="res://source/entity/grenade.gd" id="1_evhr4"]
 [ext_resource type="PackedScene" uid="uid://cksulrt84kvn7" path="res://assets/models/grenadegeo.tscn" id="1_s0ffn"]
@@ -10,6 +10,9 @@ bounce = 0.5
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_chl6g"]
 size = Vector3(0.06, 0.165, 0.06)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_owxnl"]
+radius = 15.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5oexs"]
 radius = 2.0
@@ -27,9 +30,14 @@ shape = SubResource("BoxShape3D_chl6g")
 
 [node name="grenade" parent="." instance=ExtResource("1_s0ffn")]
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="traumaArea" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="traumaArea"]
+shape = SubResource("SphereShape3D_owxnl")
+
+[node name="damageArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="damageArea"]
 shape = SubResource("SphereShape3D_5oexs")
 
 [node name="FuseTimer" type="Timer" parent="."]
@@ -47,7 +55,9 @@ pitch_scale = 1.5
 target_position = Vector3(0, -0.5, 0)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="traumaArea" to="." method="_on_trauma_area_body_entered"]
+[connection signal="body_exited" from="traumaArea" to="." method="_on_trauma_area_body_exited"]
+[connection signal="body_entered" from="damageArea" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="damageArea" to="." method="_on_area_3d_body_exited"]
 [connection signal="timeout" from="FuseTimer" to="." method="_on_fuse_timer_timeout"]
 [connection signal="finished" from="coreAudioplayer" to="." method="_on_audio_stream_player_3d_finished"]

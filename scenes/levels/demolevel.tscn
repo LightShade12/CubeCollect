@@ -231,6 +231,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 1.39079, 2.36671)
 
 [node name="grenadeParticleSystem" parent="entities" index="4" instance=ExtResource("18_f8een")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.690992, 0.820904, -1.54296)
+visible = false
 
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
 bounces = 6

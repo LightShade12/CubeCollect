@@ -10,16 +10,31 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var head = $head
 @onready var interaction_ray_cast = $head/Camera3D/interactionRayCast
 @onready var manip_marker = $head/Camera3D/ManipMarker
-@onready var camera_3d = $head/Camera3D
-@onready var interaction_hint_dislpay = $Control/CanvasLayer/interactionHintDislpay
-@onready var healthdisplay = $Control/CanvasLayer/healthdispbg/healthtxt/healthdisplay
+@onready var camera:Camera3D = $head/Camera3D
+@onready var interaction_hint_dislpay = $Control/CanvasLayer/hudControl/interactionHintDislpay
+@onready var healthdisplay = $Control/CanvasLayer/hudControl/healthdispbg/healthtxt/healthdisplay
+@onready var hud_control = $Control/CanvasLayer/hudControl
+
+@export var trauma_reduction_rate := 1.0
+
+@export var max_x := 10.0
+@export var max_y := 10.0
+@export var max_z := 5.0
+
+@export var noise :FastNoiseLite= FastNoiseLite.new()
+@export var noise_speed := 50.0
+@onready var initial_rotation := camera.rotation_degrees as Vector3
+
+var trauma := 0.0
+
+var time := 0.0
 
 #public
-@onready var typetooltip = $Control/CanvasLayer/typetooltip
-@onready var cubecountdisplay = $Control/CanvasLayer/cubestxt/cubecountdisplay
-@onready var objectivesdisplay = $Control/CanvasLayer/currentobjectivetext/objectivesdisplay
-@onready var timerdisplay = $Control/CanvasLayer/timerdisplay
-@onready var playermessagedisplay = $Control/CanvasLayer/playermessagedisplay
+@onready var typetooltip = $Control/CanvasLayer/hudControl/typetooltip
+@onready var cubecountdisplay = $Control/CanvasLayer/hudControl/cubestxt/cubecountdisplay
+@onready var objectivesdisplay = $Control/CanvasLayer/hudControl/currentobjectivetext/objectivesdisplay
+@onready var timerdisplay = $Control/CanvasLayer/hudControl/timerdisplay
+@onready var playermessagedisplay = $Control/CanvasLayer/hudControl/playermessagedisplay
 
 
 var picked_obj:RigidBody3D=null;
@@ -27,6 +42,16 @@ var pull_fac:float=20;
 var throw_fac:float=5;
 var object_in_range=null
 var vtween:Tween=null;
+
+func add_trauma(trauma_amount : float)-> void:
+	trauma = clamp(trauma + trauma_amount, 0.0, 1.0)
+
+func get_shake_intensity() -> float:
+	return trauma * trauma
+
+func get_noise_from_seed(_seed : int) -> float:
+	noise.seed = _seed
+	return noise.get_noise_1d(time * noise_speed)
 
 func _ready():
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED;
@@ -40,7 +65,28 @@ func playermessagedisplayUpdate(message:String):
 	vtween = create_tween()
 	vtween.tween_property(playermessagedisplay, "self_modulate", Color.TRANSPARENT, 1).set_delay(3)
 
-func _process(_delta):
+var x_shake:float=0;
+var y_shake:float=0;
+var z_shake:float=0;
+
+func _process(delta):
+	time += delta
+	trauma = max(trauma - delta * trauma_reduction_rate, 0.0)
+	
+	x_shake=max_x * get_shake_intensity() * get_noise_from_seed(0)
+	y_shake=max_y * get_shake_intensity() * get_noise_from_seed(1)
+	z_shake=max_z * get_shake_intensity() * get_noise_from_seed(2)
+	
+	camera.rotation_degrees.x = initial_rotation.x + x_shake
+	camera.rotation_degrees.y = initial_rotation.y + y_shake
+	camera.rotation_degrees.z = initial_rotation.z + z_shake
+	
+	hud_control.rotation = z_shake *0.01
+	hud_control.position.x = y_shake *10
+	hud_control.position.y = x_shake *10
+	
+	Control
+	
 	healthdisplay.text=str(health)
 	pass
 
@@ -67,7 +113,7 @@ func _input(event):
 
 func throw_obj():
 	if picked_obj!=null:
-		picked_obj.apply_impulse((picked_obj.global_transform.origin- camera_3d.global_transform.origin)*throw_fac)
+		picked_obj.apply_impulse((picked_obj.global_transform.origin- camera.global_transform.origin)*throw_fac)
 		if picked_obj is Grenade && !picked_obj.is_active:
 			picked_obj.grenade_activate()
 		picked_obj.is_picked=false

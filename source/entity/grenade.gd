@@ -15,6 +15,7 @@ var interval:int =10
 var int_timer:int=interval;
 var fuse_time_secs:float=4;
 var is_picked=false;
+var player_in_rad:Player=null;#can make it an array
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
@@ -74,8 +75,16 @@ func explode():
 			obj.apply_impulse(force_dir*explosion_force)
 		elif obj is CharacterClass:
 			obj.damage(50)
+	
+	if player_in_rad:
+		var dist=(player_in_rad.global_position-self.global_position).length()
+		var trauma_amt=max(0.3+(1-(0.066*dist)),0)
+		print(trauma_amt)
+		player_in_rad.add_trauma(trauma_amt)#0-1
+	
 	exploded=true
 	
+	#debris sfx
 	await get_tree().create_timer(1).timeout
 	core_audioplayer.volume_db=-5
 	aux_audioplayer.volume_db=0
@@ -107,4 +116,15 @@ func _on_body_entered(_body):
 
 func _on_fuse_timer_timeout():
 	explode()
+	pass # Replace with function body.
+
+
+func _on_trauma_area_body_entered(body):
+	if body is Player:
+		player_in_rad=body;
+	pass # Replace with function body.
+
+func _on_trauma_area_body_exited(body):
+	if body is Player:
+		player_in_rad=null;
 	pass # Replace with function body.

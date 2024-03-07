@@ -110,6 +110,7 @@ theme_override_font_sizes/font_size = 30
 text = "00:00"
 
 [node name="cubestxt" type="Label" parent="Control/CanvasLayer/hudControl" index="3"]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 8.0
 offset_right = 66.0

@@ -2,15 +2,18 @@ extends Node
 
 var current_scene = null
 
-var gamepaused:bool=false
+var gamepaused: bool = false
+
 
 class ServerSettings:
-	var map=null;
-	var text:String="uninitialized server text"
+	var map = null
+	var text: String = "uninitialized server text"
+
 
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)
+
 
 func goto_scene(path):
 	# This function will usually be called from a signal callback,
@@ -21,6 +24,7 @@ func goto_scene(path):
 	# The solution is to defer the load to a later time, when
 	# we can be sure that no code from the current scene is running:
 	call_deferred("_deferred_goto_scene", path)
+
 
 func _deferred_goto_scene(path):
 	# It is now safe to remove the current scene.
@@ -38,14 +42,13 @@ func _deferred_goto_scene(path):
 	# Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
 	get_tree().current_scene = current_scene
 
-	# Optionally, to make it compatible with the SceneTree.change_scene_to_file() API.
-	get_tree().current_scene = current_scene
 
-func _start_server(path:String, serversettings:ServerSettings):
+func _start_server(path: String, serversettings: ServerSettings):
 	call_deferred("_deferred_start_server", path, serversettings)
 
-func _deferred_start_server(path:String, serversettings:ServerSettings):
-	current_scene.free() #i.e launcherscene
+
+func _deferred_start_server(path: String, serversettings: ServerSettings):
+	current_scene.free()  #i.e launcherscene
 
 	# Load the new scene, i.e serverscene
 	var s = ResourceLoader.load(path)
@@ -55,5 +58,3 @@ func _deferred_start_server(path:String, serversettings:ServerSettings):
 	current_scene.constructor(serversettings)
 	# Add it to the active scene, as child of root.
 	get_tree().root.add_child(current_scene)
-
-

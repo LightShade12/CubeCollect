@@ -9,53 +9,55 @@ extends Node3D
 @onready var ember_explosive_ptcls = $ember_explosive_ptcls
 @onready var ember_after_ptcls = $ember_after_ptcls
 
-var stween:Tween=null;
-var ftween:Tween=null;
+var stween: Tween = null
+var ftween: Tween = null
+
 
 func flash():
-	blastlightomni.light_energy=0;
-	
+	blastlightomni.light_energy = 0
+
 	if is_instance_valid(ftween):
 		ftween.kill()
 	ftween = create_tween()
-	
-	explosionfire.emitting=true;
+
+	explosionfire.emitting = true
 	ftween.tween_property(blastlightomni, "light_energy", 264, 0.1)
 	ftween.tween_property(blastlightomni, "light_energy", 0, 0.2)
 	pass
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	kill_timer.start(16)
-	
-	scorchsmoke.visible=true;
-	explosionfire.visible=true
-	debrisptcls.visible=true;
-	ember_explosive_ptcls.visible=true;
-	ember_after_ptcls.visible=true;
-	smokeptcls.visible=true;
-	
+
+	scorchsmoke.visible = true
+	explosionfire.visible = true
+	debrisptcls.visible = true
+	ember_explosive_ptcls.visible = true
+	ember_after_ptcls.visible = true
+	smokeptcls.visible = true
+
 	#scorchsmoke.one_shot=true;
-	explosionfire.one_shot=true
-	debrisptcls.one_shot=true;
-	ember_explosive_ptcls.one_shot=true;
-	ember_after_ptcls.one_shot=true;
-	smokeptcls.one_shot=true;
-	
+	explosionfire.one_shot = true
+	debrisptcls.one_shot = true
+	ember_explosive_ptcls.one_shot = true
+	ember_after_ptcls.one_shot = true
+	smokeptcls.one_shot = true
+
 	#emission order
 	flash()
 	await get_tree().create_timer(0.1).timeout
-	debrisptcls.emitting=true;
+	debrisptcls.emitting = true
 	await get_tree().create_timer(0.1).timeout
-	ember_explosive_ptcls.emitting=true;
+	ember_explosive_ptcls.emitting = true
 	await get_tree().create_timer(0.1).timeout
-	smokeptcls.emitting=true;
-	ember_after_ptcls.emitting=true;
+	smokeptcls.emitting = true
+	ember_after_ptcls.emitting = true
 	await get_tree().create_timer(0.1).timeout
-	scorchsmoke.emitting=true;
-	
-	scorchsmoke.transparency=1;
-	
+	scorchsmoke.emitting = true
+
+	scorchsmoke.transparency = 1
+
 	if is_instance_valid(stween):
 		stween.kill()
 	stween = create_tween()
@@ -70,4 +72,4 @@ func _process(_delta):
 
 func _on_kill_timer_timeout():
 	self.call_deferred("free")
-	pass # Replace with function body.
+	pass  # Replace with function body.

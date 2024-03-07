@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://ck3whm0a2psc8"]
 
-[ext_resource type="Script" path="res://source/entity/grenade.gd" id="1_evhr4"]
-[ext_resource type="PackedScene" uid="uid://cksulrt84kvn7" path="res://assets/models/grenadegeo.tscn" id="1_s0ffn"]
-[ext_resource type="AudioStream" uid="uid://50s63poex01k" path="res://assets/sounds/grenade/beep-sound-8333.mp3" id="3_o7qul"]
-[ext_resource type="AudioStream" uid="uid://dk2qth1rolrs0" path="res://assets/sounds/grenade/bounce1.wav" id="4_kgaeu"]
+[ext_resource type="Script" path="res://source/entity/grenade.gd" id="1_rf0ih"]
+[ext_resource type="PackedScene" uid="uid://cksulrt84kvn7" path="res://assets/models/grenadegeo.tscn" id="2_p1xur"]
+[ext_resource type="AudioStream" uid="uid://50s63poex01k" path="res://assets/sounds/grenade/beep-sound-8333.mp3" id="3_1x3ko"]
+[ext_resource type="AudioStream" uid="uid://dk2qth1rolrs0" path="res://assets/sounds/grenade/bounce1.wav" id="4_a35uc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qv4er"]
 bounce = 0.5
@@ -22,13 +22,13 @@ physics_material_override = SubResource("PhysicsMaterial_qv4er")
 continuous_cd = true
 max_contacts_reported = 1
 contact_monitor = true
-script = ExtResource("1_evhr4")
+script = ExtResource("1_rf0ih")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0128137, 0)
 shape = SubResource("BoxShape3D_chl6g")
 
-[node name="grenade" parent="." instance=ExtResource("1_s0ffn")]
+[node name="grenade" parent="." instance=ExtResource("2_p1xur")]
 
 [node name="traumaArea" type="Area3D" parent="."]
 
@@ -44,10 +44,10 @@ shape = SubResource("SphereShape3D_5oexs")
 one_shot = true
 
 [node name="coreAudioplayer" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_o7qul")
+stream = ExtResource("3_1x3ko")
 
 [node name="auxAudioplayer" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("4_kgaeu")
+stream = ExtResource("4_a35uc")
 volume_db = -15.0
 pitch_scale = 1.5
 

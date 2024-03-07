@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://o4ytvvnx6xjw"]
+
+[ext_resource type="StyleBox" uid="uid://1cxeybyp3kbt" path="res://addons/script_search/res/input_style_focus.tres" id="1_amws0"]
+[ext_resource type="Script" path="res://addons/script_search/src/scene_scripts/SearchMenu/SearchInput.gd" id="2_mj86d"]
+
+[node name="SearchInput" type="LineEdit"]
+size_flags_vertical = 0
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+theme_override_styles/focus = ExtResource("1_amws0")
+placeholder_text = "Search scripts by name"
+caret_force_displayed = true
+script = ExtResource("2_mj86d")
+
+[connection signal="focus_exited" from="." to="." method="_on_focus_exited"]

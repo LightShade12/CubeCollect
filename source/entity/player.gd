@@ -1,9 +1,9 @@
 extends CharacterClass
 class_name Player
+
 const JUMP_VELOCITY = 4.5
 
-const mouse_sens: float = 0.2
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+var mouse_sens: float = 0.2
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 #private
@@ -15,19 +15,14 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var healthdisplay = $Control/CanvasLayer/hudControl/healthdispbg/healthtxt/healthdisplay
 @onready var hud_control = $Control/CanvasLayer/hudControl
 
-@export var trauma_reduction_rate := 1.0
+@export var trauma_reduction_rate := 1.0  #per process tick
+@export var trauma_shake_max_x := 10.0
+@export var trauma_shake_max_y := 10.0
+@export var trauma_shake_max_z := 5.0
 
-@export var max_x := 10.0
-@export var max_y := 10.0
-@export var max_z := 5.0
-
-@export var noise: FastNoiseLite = FastNoiseLite.new()
-@export var noise_speed := 50.0
+@export var trauma_shake_noise: FastNoiseLite
+@export var trauma_shake_noise_speed := 50.0
 @onready var initial_rotation := camera.rotation_degrees as Vector3
-
-var trauma := 0.0
-
-var time := 0.0
 
 #public
 @onready var typetooltip = $Control/CanvasLayer/hudControl/typetooltip
@@ -37,11 +32,20 @@ var objectivesdisplay = $Control/CanvasLayer/hudControl/currentobjectivetext/obj
 @onready var timerdisplay = $Control/CanvasLayer/hudControl/timerdisplay
 @onready var playermessagedisplay = $Control/CanvasLayer/hudControl/playermessagedisplay
 
+var trauma := 0.0
+
+var time := 0.0
+
+#intermediate working vars
+var x_shake: float = 0
+var y_shake: float = 0
+var z_shake: float = 0
+var vtween: Tween = null
 var picked_obj: RigidBody3D = null
+var object_in_range = null
+
 var pull_fac: float = 20
 var throw_fac: float = 5
-var object_in_range = null
-var vtween: Tween = null
 
 
 func add_trauma(trauma_amount: float) -> void:
@@ -52,9 +56,9 @@ func get_shake_intensity() -> float:
 	return trauma * trauma
 
 
-func get_noise_from_seed(_seed: int) -> float:
-	noise.seed = _seed
-	return noise.get_noise_1d(time * noise_speed)
+func get_trauma_shake_noise_from_seed(_seed: int) -> float:
+	trauma_shake_noise.seed = _seed
+	return trauma_shake_noise.get_noise_1d(time * trauma_shake_noise_speed)
 
 
 func _ready():
@@ -71,18 +75,13 @@ func playermessagedisplayUpdate(message: String):
 	vtween.tween_property(playermessagedisplay, "self_modulate", Color.TRANSPARENT, 1).set_delay(3)
 
 
-var x_shake: float = 0
-var y_shake: float = 0
-var z_shake: float = 0
-
-
 func _process(delta):
 	time += delta
 	trauma = max(trauma - delta * trauma_reduction_rate, 0.0)
 
-	x_shake = max_x * get_shake_intensity() * get_noise_from_seed(0)
-	y_shake = max_y * get_shake_intensity() * get_noise_from_seed(1)
-	z_shake = max_z * get_shake_intensity() * get_noise_from_seed(2)
+	x_shake = trauma_shake_max_x * get_shake_intensity() * get_trauma_shake_noise_from_seed(0)
+	y_shake = trauma_shake_max_y * get_shake_intensity() * get_trauma_shake_noise_from_seed(1)
+	z_shake = trauma_shake_max_z * get_shake_intensity() * get_trauma_shake_noise_from_seed(2)
 
 	camera.rotation_degrees.x = initial_rotation.x + x_shake
 	camera.rotation_degrees.y = initial_rotation.y + y_shake

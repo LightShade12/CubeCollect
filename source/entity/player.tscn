@@ -6,7 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bp1pnfuqrg8tu" path="res://assets/fonts/Neou-Bold.ttf" id="3_n5uxe"]
 [ext_resource type="FontFile" uid="uid://b31kpgg2mx274" path="res://assets/fonts/AgencyFB-Bold.ttf" id="4_ynmp2"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_nud68"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1lm78"]
 noise_type = 0
 frequency = 0.05
 fractal_octaves = 4
@@ -22,11 +22,11 @@ height = 1.8
 [node name="player" instance=ExtResource("1_yu631")]
 script = ExtResource("2_hxpo6")
 trauma_reduction_rate = 1.0
-max_x = 10.0
-max_y = 10.0
-max_z = 5.0
-noise = SubResource("FastNoiseLite_nud68")
-noise_speed = 50.0
+trauma_shake_max_x = 10.0
+trauma_shake_max_y = 10.0
+trauma_shake_max_z = 5.0
+trauma_shake_noise = SubResource("FastNoiseLite_1lm78")
+trauma_shake_noise_speed = 50.0
 
 [node name="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)

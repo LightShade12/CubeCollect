@@ -9,6 +9,10 @@ script = ExtResource("1_liffy")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.929918, 0.367768, 0, -0.367768, 0.929918, 0, 0.469863, 0)
+light_energy = 3.0
+light_angular_distance = 1.0
+shadow_enabled = true
 
 [node name="AmbientAudioPlayer" type="AudioStreamPlayer" parent="."]
 

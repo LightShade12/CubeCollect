@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://rhbqthiinyyd"]
+[gd_scene load_steps=36 format=3 uid="uid://rhbqthiinyyd"]
 
 [ext_resource type="Script" path="res://scenes/levels/demolevel.gd" id="1_8ijdj"]
 [ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_44vl2"]
@@ -100,6 +100,13 @@ material = SubResource("StandardMaterial3D_2h3ml")
 add_uv2 = true
 size = Vector3(4, 1, 3)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0waas"]
+metallic = 1.0
+roughness = 0.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j6xbd"]
+size = Vector2(2, 3)
+
 [node name="demolevel" instance=ExtResource("1_44vl2")]
 script = ExtResource("1_8ijdj")
 
@@ -108,8 +115,6 @@ environment = SubResource("Environment_hrqk3")
 
 [node name="DirectionalLight3D" parent="." index="1"]
 transform = Transform3D(0.843954, -0.0693561, 0.531913, -0.302068, 0.757989, 0.578108, -0.443279, -0.64857, 0.618757, 0, 0, 0)
-light_angular_distance = 1.0
-shadow_enabled = true
 
 [node name="AmbientAudioPlayer" parent="." index="2"]
 stream = ExtResource("9_y12aj")
@@ -227,7 +232,7 @@ transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.72247, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03405, 2.0412, -8.47526)
 
 [node name="player" parent="entities" index="3" instance=ExtResource("2_5xhdw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 1.39079, 2.36671)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 3.61827, 2.36671)
 
 [node name="grenadeParticleSystem" parent="entities" index="4" instance=ExtResource("18_f8een")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.690992, 0.820904, -1.54296)
@@ -236,6 +241,19 @@ visible = false
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
 bounces = 6
 light_data = ExtResource("18_e6rtr")
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="." index="8"]
+transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, -0.0179465, 2.78819, -0.11459)
+update_mode = 1
+size = Vector3(29.7046, 30.2058, 6.53119)
+origin_offset = Vector3(1.334, -1.511, 0.478)
+box_projection = true
+enable_shadows = true
+
+[node name="mirror" type="MeshInstance3D" parent="." index="9"]
+transform = Transform3D(-1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, -1, -8.74228e-08, -1, -4.37114e-08, -1.3429, 2.27219, 1.20291)
+material_override = SubResource("StandardMaterial3D_0waas")
+mesh = SubResource("PlaneMesh_j6xbd")
 
 [connection signal="body_entered" from="entities/AreaDetection" to="." method="_on_area_detection_body_entered"]
 [connection signal="body_exited" from="entities/AreaDetection" to="." method="_on_area_detection_body_exited"]

@@ -1,0 +1,2 @@
+player.gd: movable hud moves completely offscreen when velocity is too high e.g falling
+player.gd: crouching is not vertical; causes localised crouch i.e shifting of head in local y; not global axis y

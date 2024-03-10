@@ -15,7 +15,7 @@ size = Vector3(0.06, 0.165, 0.06)
 radius = 15.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5oexs"]
-radius = 2.0
+radius = 8.0
 
 [node name="grenade" type="RigidBody3D" groups=["InteractableEntity"]]
 physics_material_override = SubResource("PhysicsMaterial_qv4er")

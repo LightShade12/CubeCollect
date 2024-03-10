@@ -6,7 +6,8 @@ var current_server_settings: Global.ServerSettings = null
 var maplist: Dictionary = {
 	"TestLevel": "res://scenes/levels/testlevel.tscn",
 	"DemoLevel": "res://scenes/levels/demolevel.tscn",
-	"Deadhouse": "res://scenes/levels/deadhouse.tscn"
+	"Deadhouse": "res://scenes/levels/deadhouse.tscn",
+	"TestLevel01": "res://scenes/levels/testlevel01.tscn"
 }
 
 

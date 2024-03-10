@@ -8,12 +8,20 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 #private
 @onready var head = $head
-@onready var interaction_ray_cast = $head/Camera3D/interactionRayCast
-@onready var manip_marker = $head/Camera3D/ManipMarker
-@onready var camera: Camera3D = $head/Camera3D
-@onready var interaction_hint_dislpay = $Control/CanvasLayer/hudControl/interactionHintDislpay
-@onready var healthdisplay = $Control/CanvasLayer/hudControl/healthdispbg/healthtxt/healthdisplay
+@onready
+var interaction_hint_dislpay = $Control/CanvasLayer/hudControl/movableHudControl/interactionHintDislpay
+@onready
+var healthdisplay = $Control/CanvasLayer/hudControl/movableHudControl/healthdispbg/healthtxt/healthdisplay
 @onready var hud_control = $Control/CanvasLayer/hudControl
+@onready var crouching_collisionshape = $crouchingCollisionshape
+@onready var standing_collisionshape = $CollisionShape3D
+@onready var cieling_raycast = $cielingRaycast
+@onready var animation_player = $AnimationPlayer
+@onready var camera_pivot = $head/camera_pivot
+@onready var camera = $head/camera_pivot/Camera3D
+@onready var manip_marker = $head/camera_pivot/Camera3D/ManipMarker
+@onready var interaction_ray_cast = $head/camera_pivot/Camera3D/interactionRayCast
+@onready var movable_hud_control: Control = $Control/CanvasLayer/hudControl/movableHudControl
 
 @export var trauma_reduction_rate := 1.0  #per process tick
 @export var trauma_shake_max_x := 10.0
@@ -25,12 +33,55 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var initial_rotation := camera.rotation_degrees as Vector3
 
 #public
-@onready var typetooltip = $Control/CanvasLayer/hudControl/typetooltip
-@onready var cubecountdisplay = $Control/CanvasLayer/hudControl/cubestxt/cubecountdisplay
+@onready var typetooltip = $Control/CanvasLayer/hudControl/movableHudControl/typetooltip
 @onready
-var objectivesdisplay = $Control/CanvasLayer/hudControl/currentobjectivetext/objectivesdisplay
-@onready var timerdisplay = $Control/CanvasLayer/hudControl/timerdisplay
-@onready var playermessagedisplay = $Control/CanvasLayer/hudControl/playermessagedisplay
+var cubecountdisplay = $Control/CanvasLayer/hudControl/movableHudControl/cubestxt/cubecountdisplay
+@onready
+var objectivesdisplay = $Control/CanvasLayer/hudControl/movableHudControl/currentobjectivetext/objectivesdisplay
+@onready var timerdisplay = $Control/CanvasLayer/hudControl/movableHudControl/timerdisplay
+@onready
+var playermessagedisplay = $Control/CanvasLayer/hudControl/movableHudControl/playermessagedisplay
+
+#states
+var sliding: bool = false
+var walking: bool = false
+var sprinting: bool = false
+var crouching: bool = false
+var freelooking: bool = false
+
+var current_speed: float = 5.0
+
+var slide_timer: float = 0.0
+var slide_timer_max: float = 1.0
+var slide_vector: Vector2 = Vector2.ZERO
+var slide_speed: float = 10.0
+
+var head_bobbing_crouching_intensity: float = 0.01
+var head_bobbing_walking_intensity: float = 0.1
+var head_bobbing_sprinting_intensity: float = 0.2
+
+const head_bobbing_sprinting_speed: float = 22.0
+const head_bobbing_walking_speed: float = 18.0
+const head_bobbing_crouching_speed: float = 10.0
+
+var head_bobbing_index: float = 0.0
+var head_bobbing_vector: Vector2 = Vector2.ZERO
+var head_bobbing_current_intensity: float = 0.0
+
+const walking_speed: float = 3.0
+const sprinting_speed: float = 6.0
+const crouching_speed: float = 1.4
+const crouching_depth: float = -0.6
+
+const freelook_tilt_scale: float = 5.0
+
+const sprint_fov: float = 110.0
+const walk_fov: float = 90.0
+
+var direction: Vector3 = Vector3.ZERO
+const jump_velocity: float = 4.5
+var lerp_speed: float = 12
+var last_velocity: Vector3 = Vector3.ZERO
 
 var trauma := 0.0
 
@@ -79,6 +130,9 @@ func _process(delta):
 	time += delta
 	trauma = max(trauma - delta * trauma_reduction_rate, 0.0)
 
+	movable_hud_control.position.x = lerpf(movable_hud_control.position.x, 0, delta * 5)
+	movable_hud_control.position.y = lerpf(movable_hud_control.position.y, 0, delta * 5)
+
 	x_shake = trauma_shake_max_x * get_shake_intensity() * get_trauma_shake_noise_from_seed(0)
 	y_shake = trauma_shake_max_y * get_shake_intensity() * get_trauma_shake_noise_from_seed(1)
 	z_shake = trauma_shake_max_z * get_shake_intensity() * get_trauma_shake_noise_from_seed(2)
@@ -96,7 +150,10 @@ func _process(delta):
 
 
 func _input(event):
-	if event is InputEventMouseMotion && !Global.gamepaused:
+	if event is InputEventMouseMotion:
+		movable_hud_control.position.x -= event.relative.x
+		movable_hud_control.position.y -= event.relative.y
+
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 
 		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
@@ -136,8 +193,8 @@ func pick_obj():
 
 func drop_obj():
 	if picked_obj != null:
-		picked_obj = null
 		picked_obj.is_picked = false
+		picked_obj = null
 
 
 func _physics_process(delta):
@@ -147,24 +204,134 @@ func _physics_process(delta):
 			interaction_hint_dislpay.text = object_in_range.getInterctionHint()
 	else:
 		interaction_hint_dislpay.text = ""
-	# Add the gravity.
+
+	# Get the input direction and handle the movement/deceleration.
+	var input_dir = Input.get_vector("move_left", "move_right", "move_front", "move_back")
+
+	# Add the gravity.`
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
 	# Handle Jump.
 	if Input.is_action_just_pressed("key_jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		#animation_player.play("jump")
+		crouching = false
+		velocity.y = jump_velocity
+		sliding = false
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("move_left", "move_right", "move_front", "move_back")
-	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+	#CROUCH
+	if Input.is_action_just_pressed("key_crouch"):
+		crouching = !crouching
+		if sliding:
+			sliding = false
+			crouching = true
+
+	if crouching || sliding:
+		if is_on_floor():
+			current_speed = lerp(current_speed, crouching_speed, delta * lerp_speed)
+		camera_pivot.position.y = lerp(camera_pivot.position.y, crouching_depth, lerp_speed * delta)
+
+		standing_collisionshape.disabled = true
+		crouching_collisionshape.disabled = false
+
+		#SLIDE START
+		if sprinting && (input_dir != Vector2.ZERO) && is_on_floor():
+			slide_vector = input_dir
+			sliding = true
+			slide_timer = slide_timer_max
+
+		walking = false
+		sprinting = false
+
+	elif !cieling_raycast.is_colliding():
+		#STANDING
+		standing_collisionshape.disabled = false
+		crouching_collisionshape.disabled = true
+
+		camera_pivot.position.y = lerp(camera_pivot.position.y, 0.0, lerp_speed * delta)
+
+		if Input.is_action_pressed("key_sprint"):
+			#SPRINT
+			camera.fov = lerp(camera.fov, sprint_fov, delta * lerp_speed * 0.3)
+			current_speed = lerp(current_speed, sprinting_speed, delta * lerp_speed)
+
+			walking = false
+			sprinting = true
+			crouching = false
+		else:
+			#WALK
+			camera.fov = lerp(camera.fov, walk_fov, delta * lerp_speed * 0.2)
+			current_speed = lerp(current_speed, walking_speed, delta * lerp_speed)
+
+			walking = true
+			sprinting = false
+			crouching = false
+
+	#SLIDE END
+	if sliding:
+		slide_timer -= delta
+		if slide_timer <= 0:
+			sliding = false
+			crouching = false
+			freelooking = false
+
+	#HEADBOBBING
+	if sprinting:
+		head_bobbing_current_intensity = head_bobbing_sprinting_intensity
+		head_bobbing_index += head_bobbing_sprinting_speed * delta
+	elif walking:
+		head_bobbing_current_intensity = head_bobbing_walking_intensity
+		head_bobbing_index += head_bobbing_walking_speed * delta
+	elif crouching:
+		head_bobbing_current_intensity = head_bobbing_crouching_intensity
+		head_bobbing_index += head_bobbing_crouching_speed * delta
+
+	if is_on_floor() && !sliding && input_dir != Vector2.ZERO:
+		head_bobbing_vector.y = sin(head_bobbing_index)
+		head_bobbing_vector.x = sin(head_bobbing_index / 2.0) + 0.5
+		camera_pivot.position.y = lerp(
+			camera_pivot.position.y,
+			head_bobbing_vector.y * (head_bobbing_current_intensity / 2.0),
+			delta * lerp_speed
+		)
+		camera_pivot.position.x = lerp(
+			camera_pivot.position.x,
+			head_bobbing_vector.x * head_bobbing_current_intensity,
+			delta * lerp_speed
+		)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		#idle/still
+		camera_pivot.position.y = lerp(camera_pivot.position.y, 0.0, delta * lerp_speed)
+		camera_pivot.position.x = lerp(camera_pivot.position.x, 0.0, delta * lerp_speed)
+
+	if is_on_floor() && last_velocity.y < 0:
+		animation_player.play("jump_landing")
+		pass
+
+	#AIR CONTROL
+	if is_on_floor():
+		direction = lerp(
+			direction,
+			(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(),
+			lerp_speed * delta
+		)
+
+	if sliding:
+		direction = (transform.basis * Vector3(slide_vector.x, 0, slide_vector.y)).normalized()
+		current_speed = (slide_timer + 0.1) * slide_speed
+
+	if direction:
+		velocity.x = direction.x * current_speed
+		velocity.z = direction.z * current_speed
+
+	#DEACCEL (currently apparently nonfunctional)
+	else:
+		velocity.x = move_toward(velocity.x, 0, current_speed)
+		velocity.z = move_toward(velocity.z, 0, current_speed)
+
+	movable_hud_control.position.x -= (velocity.x * cos(rotation.y) + -velocity.z * sin(rotation.y))
+	movable_hud_control.position.y += velocity.y
+	last_velocity = velocity
 
 	move_and_slide()
 

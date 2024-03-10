@@ -11,7 +11,7 @@ func update_target_location(target_loc):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	SPEED = 2.5
+	SPEED = 1.5
 	set_physics_process(false)
 	call_deferred("actor_setup")
 

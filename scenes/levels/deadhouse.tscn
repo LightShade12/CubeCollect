@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="7_f1ank"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_l4ueo"]
+energy_multiplier = 2.0
 
 [sub_resource type="Sky" id="Sky_c30w8"]
 sky_material = SubResource("PhysicalSkyMaterial_l4ueo")
@@ -17,6 +18,8 @@ sky_material = SubResource("PhysicalSkyMaterial_l4ueo")
 background_mode = 2
 sky = SubResource("Sky_c30w8")
 tonemap_mode = 2
+tonemap_exposure = 1.5
+tonemap_white = 6.0
 sdfgi_use_occlusion = true
 sdfgi_min_cell_size = 0.166016
 sdfgi_cascade0_distance = 10.625
@@ -31,7 +34,6 @@ glow_blend_mode = 1
 glow_hdr_threshold = 0.0
 volumetric_fog_enabled = true
 volumetric_fog_sky_affect = 0.0
-adjustment_enabled = true
 
 [node name="deadhouse" instance=ExtResource("1_8rypa")]
 script = ExtResource("2_cftfw")
@@ -41,8 +43,8 @@ environment = SubResource("Environment_te1jj")
 
 [node name="DirectionalLight3D" parent="." index="1"]
 transform = Transform3D(-0.999815, -0.011031, 0.0157392, -0.00314798, 0.901827, 0.432086, -0.0189604, 0.431956, -0.901695, 6.06795, 6.5974, 0)
+light_energy = 1.0
 light_angular_distance = 0.5
-shadow_enabled = true
 
 [node name="house_geo" parent="NavigationRegion3D/geo" index="0" instance=ExtResource("3_ypa2t")]
 

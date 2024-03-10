@@ -83,11 +83,14 @@ func explode():
 	smokeptclsys.global_transform.origin = spnpt
 
 	for obj in items_in_rad:
+		var dist_fac: float = (
+			1 - (0.125 * (self.global_transform.origin - obj.global_transform.origin).length())
+		)
 		if obj is RigidBody3D:
 			force_dir = self.global_transform.origin.direction_to(obj.global_transform.origin)
-			obj.apply_impulse(force_dir * explosion_force)
+			obj.apply_impulse(force_dir * explosion_force * dist_fac)
 		elif obj is CharacterClass:
-			obj.damage(50)
+			obj.damage(90 * dist_fac)
 
 	if player_in_rad:
 		var dist = (player_in_rad.global_position - self.global_position).length()

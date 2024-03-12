@@ -1,19 +1,19 @@
 extends Node3D
 
-@onready var debrisptcls = $debrisptcls
-@onready var smokeptcls = $smokeptcls
-@onready var blastlightomni = $blastlightomni
-@onready var kill_timer = $killTimer
-@onready var explosionfire = $explosionfire
-@onready var scorchsmoke = $scorchsmoke
-@onready var ember_explosive_ptcls = $ember_explosive_ptcls
-@onready var ember_after_ptcls = $ember_after_ptcls
+@onready var debrisptcls: GPUParticles3D = $debrisptcls
+@onready var smokeptcls: GPUParticles3D = $smokeptcls
+@onready var blastlightomni: OmniLight3D = $blastlightomni
+@onready var kill_timer: Timer = $killTimer
+@onready var explosionfire: GPUParticles3D = $explosionfire
+@onready var scorchsmoke: GPUParticles3D = $scorchsmoke
+@onready var ember_explosive_ptcls: GPUParticles3D = $ember_explosive_ptcls
+@onready var ember_after_ptcls: GPUParticles3D = $ember_after_ptcls
 
 var stween: Tween = null
 var ftween: Tween = null
 
 
-func flash():
+func flash() -> void:
 	blastlightomni.light_energy = 0
 
 	if is_instance_valid(ftween):
@@ -27,7 +27,7 @@ func flash():
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	kill_timer.start(16)
 
 	scorchsmoke.visible = true
@@ -66,10 +66,10 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta: float) -> void:
 	pass
 
 
-func _on_kill_timer_timeout():
+func _on_kill_timer_timeout() -> void:
 	self.call_deferred("free")
 	pass  # Replace with function body.

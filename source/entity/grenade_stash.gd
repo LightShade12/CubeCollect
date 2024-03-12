@@ -3,22 +3,22 @@ class_name GrenadeSpawner
 # Called when the node enters the scene tree for the first time.
 
 var grenadeSet: Array[Grenade]
-@onready var spawnpoint_3d = $spawnpoint3d
+@onready var spawnpoint_3d: Marker3D = $spawnpoint3d
 @onready var grenaderef: PackedScene = preload("res://source/entity/grenade.tscn")
 
 
-func _ready():
+func _ready() -> void:
 	pass  # Replace with function body.
 
 
-func identify():
+func identify() -> void:
 	print(self)
 
 
-func interact():
-	for row in range(0, 2):
-		for col in range(0, 3):
-			var gren = grenaderef.instantiate()
+func interact() -> void:
+	for row: float in range(0, 2):
+		for col: float in range(0, 3):
+			var gren: Grenade = grenaderef.instantiate()
 			add_child(gren)
 			gren.position = spawnpoint_3d.position + (Vector3(row, 0, -col) * 0.2)
 	pass
@@ -29,5 +29,5 @@ func getInterctionHint() -> String:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
+func _process(_delta: float) -> void:
 	pass

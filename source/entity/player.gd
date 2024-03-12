@@ -1,46 +1,46 @@
 extends CharacterClass
 class_name Player
 
-const JUMP_VELOCITY = 4.5
+const JUMP_VELOCITY: float = 4.5
 
 var mouse_sens: float = 0.2
-var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 #private
-@onready var head = $head
+@onready var head: Node3D = $head
 @onready
-var interaction_hint_dislpay = $Control/CanvasLayer/hudControl/movableHudControl/interactionHintDislpay
+var interaction_hint_dislpay: Label = $Control/CanvasLayer/hudControl/movableHudControl/interactionHintDislpay
 @onready
-var healthdisplay = $Control/CanvasLayer/hudControl/movableHudControl/healthdispbg/healthtxt/healthdisplay
-@onready var hud_control = $Control/CanvasLayer/hudControl
-@onready var crouching_collisionshape = $crouchingCollisionshape
-@onready var standing_collisionshape = $CollisionShape3D
-@onready var cieling_raycast = $cielingRaycast
-@onready var animation_player = $AnimationPlayer
-@onready var camera_pivot = $head/camera_pivot
-@onready var camera = $head/camera_pivot/Camera3D
-@onready var manip_marker = $head/camera_pivot/Camera3D/ManipMarker
-@onready var interaction_ray_cast = $head/camera_pivot/Camera3D/interactionRayCast
+var healthdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/healthdispbg/healthtxt/healthdisplay
+@onready var hud_control: Control = $Control/CanvasLayer/hudControl
+@onready var crouching_collisionshape: CollisionShape3D = $crouchingCollisionshape
+@onready var standing_collisionshape: CollisionShape3D = $CollisionShape3D
+@onready var cieling_raycast: RayCast3D = $cielingRaycast
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var camera_pivot: Node3D = $head/camera_pivot
+@onready var camera: Camera3D = $head/camera_pivot/Camera3D
+@onready var manip_marker: Marker3D = $head/camera_pivot/Camera3D/ManipMarker
+@onready var interaction_ray_cast: RayCast3D = $head/camera_pivot/Camera3D/interactionRayCast
 @onready var movable_hud_control: Control = $Control/CanvasLayer/hudControl/movableHudControl
 
-@export var trauma_reduction_rate := 1.0  #per process tick
-@export var trauma_shake_max_x := 10.0
-@export var trauma_shake_max_y := 10.0
-@export var trauma_shake_max_z := 5.0
+@export var trauma_reduction_rate: float = 1.0  #per process tick
+@export var trauma_shake_max_x: float = 10.0
+@export var trauma_shake_max_y: float = 10.0
+@export var trauma_shake_max_z: float = 5.0
 
 @export var trauma_shake_noise: FastNoiseLite
-@export var trauma_shake_noise_speed := 50.0
-@onready var initial_rotation := camera.rotation_degrees as Vector3
+@export var trauma_shake_noise_speed: float = 50.0
+@onready var initial_rotation: Vector3 = camera.rotation_degrees
 
 #public
-@onready var typetooltip = $Control/CanvasLayer/hudControl/movableHudControl/typetooltip
+@onready var typetooltip: Label = $Control/CanvasLayer/hudControl/movableHudControl/typetooltip
 @onready
-var cubecountdisplay = $Control/CanvasLayer/hudControl/movableHudControl/cubestxt/cubecountdisplay
+var cubecountdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/cubestxt/cubecountdisplay
 @onready
-var objectivesdisplay = $Control/CanvasLayer/hudControl/movableHudControl/currentobjectivetext/objectivesdisplay
-@onready var timerdisplay = $Control/CanvasLayer/hudControl/movableHudControl/timerdisplay
+var objectivesdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/currentobjectivetext/objectivesdisplay
+@onready var timerdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/timerdisplay
 @onready
-var playermessagedisplay = $Control/CanvasLayer/hudControl/movableHudControl/playermessagedisplay
+var playermessagedisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/playermessagedisplay
 
 #states
 var sliding: bool = false
@@ -83,9 +83,9 @@ const jump_velocity: float = 4.5
 var lerp_speed: float = 12
 var last_velocity: Vector3 = Vector3.ZERO
 
-var trauma := 0.0
+var trauma: float = 0.0
 
-var time := 0.0
+var time: float = 0.0
 
 #intermediate working vars
 var x_shake: float = 0
@@ -93,7 +93,7 @@ var y_shake: float = 0
 var z_shake: float = 0
 var vtween: Tween = null
 var picked_obj: RigidBody3D = null
-var object_in_range = null
+var object_in_range: Node3D = null
 
 var pull_fac: float = 20
 var throw_fac: float = 5
@@ -112,11 +112,11 @@ func get_trauma_shake_noise_from_seed(_seed: int) -> float:
 	return trauma_shake_noise.get_noise_1d(time * trauma_shake_noise_speed)
 
 
-func _ready():
+func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
-func playermessagedisplayUpdate(message: String):
+func playermessagedisplayUpdate(message: String) -> void:
 	if message:
 		playermessagedisplay.text = message
 	playermessagedisplay.set_self_modulate(Color.WHITE)
@@ -126,7 +126,7 @@ func playermessagedisplayUpdate(message: String):
 	vtween.tween_property(playermessagedisplay, "self_modulate", Color.TRANSPARENT, 1).set_delay(3)
 
 
-func _process(delta):
+func _process(delta: float) -> void:
 	time += delta
 	trauma = max(trauma - delta * trauma_reduction_rate, 0.0)
 
@@ -149,7 +149,7 @@ func _process(delta):
 	pass
 
 
-func _input(event):
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		movable_hud_control.position.x -= event.relative.x
 		movable_hud_control.position.y -= event.relative.y
@@ -174,7 +174,7 @@ func _input(event):
 			object_in_range.interact()
 
 
-func throw_obj():
+func throw_obj() -> void:
 	if picked_obj != null:
 		picked_obj.apply_impulse(
 			(picked_obj.global_transform.origin - camera.global_transform.origin) * throw_fac
@@ -185,19 +185,19 @@ func throw_obj():
 		picked_obj = null
 
 
-func pick_obj():
+func pick_obj() -> void:
 	if object_in_range != null and object_in_range is RigidBody3D:
 		picked_obj = object_in_range
 		picked_obj.is_picked = true
 
 
-func drop_obj():
+func drop_obj() -> void:
 	if picked_obj != null:
 		picked_obj.is_picked = false
 		picked_obj = null
 
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	object_in_range = interaction_ray_cast.get_collider()
 	if object_in_range:
 		if object_in_range.is_in_group("InteractableEntity"):
@@ -206,7 +206,7 @@ func _physics_process(delta):
 		interaction_hint_dislpay.text = ""
 
 	# Get the input direction and handle the movement/deceleration.
-	var input_dir = Input.get_vector("move_left", "move_right", "move_front", "move_back")
+	var input_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_front", "move_back")
 
 	# Add the gravity.`
 	if not is_on_floor():

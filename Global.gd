@@ -1,21 +1,21 @@
 extends Node
 
-var current_scene = null
+var current_scene: Node = null
 
 var gamepaused: bool = false
 
 
 class ServerSettings:
-	var map = null
+	var map_path: String = ""
 	var text: String = "uninitialized server text"
 
 
-func _ready():
-	var root = get_tree().root
+func _ready() -> void:
+	var root: Node = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)
 
 
-func goto_scene(path):
+func goto_scene(path: String) -> void:
 	# This function will usually be called from a signal callback,
 	# or some other function in the current scene.
 	# Deleting the current scene at this point is
@@ -26,7 +26,7 @@ func goto_scene(path):
 	call_deferred("_deferred_goto_scene", path)
 
 
-func _deferred_goto_scene(path):
+func _deferred_goto_scene(path: String) -> void:
 	# It is now safe to remove the current scene.
 	current_scene.free()
 

@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="CubeCollect"
-run/main_scene="res://source/class/launcher.tscn"
+run/main_scene="res://scenes/levels/testlevel01.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://assets/textures/ui/icon.png"
 
 [autoload]
 
 Global="*res://Global.gd"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
 
 [display]
 

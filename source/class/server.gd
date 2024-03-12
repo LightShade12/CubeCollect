@@ -22,7 +22,7 @@ var mapnode: Level = null
 
 
 func constructor(serversettings: Global.ServerSettings):
-	current_map = serversettings.map
+	current_map = serversettings.map_path
 	pass
 
 

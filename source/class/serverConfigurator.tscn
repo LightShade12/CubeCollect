@@ -107,10 +107,10 @@ text = "Text for map description ovveride for user usage islamo binnini"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-show_behind_parent = true
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-theme_override_constants/separation = 150
+color = Color(1, 1, 1, 0)
 
 [node name="collecttimeHbox" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

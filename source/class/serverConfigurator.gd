@@ -4,8 +4,7 @@ var current_server_settings: Global.ServerSettings = null
 
 @onready var gamemodesbutton: OptionButton = $VBoxContainer/gamemodeHbox/gamemodesbutton
 @onready var mapselect_button: OptionButton = $VBoxContainer/mapselectHbox/MapselectButton
-@onready
-var mappreview_texture: TextureRect = $VBoxContainer/Control/HBoxContainer/Control/mappreviewTexture
+@onready var mappreview_texture: TextureRect = $VBoxContainer/Control/HBoxContainer/Control/mappreviewTexture
 
 @onready var collecttime_hbox: HBoxContainer = $VBoxContainer/collecttimeHbox
 @onready var prep_time_hbox: HBoxContainer = $VBoxContainer/PrepTimeHbox
@@ -35,27 +34,25 @@ class MapData:
 var maplist: Dictionary = {
 	"TestLevel":
 	MapData.new(
-		"res://scenes/levels/testlevel.tscn",
-		"res://screenshots/testlevel.png",
-		"Dev level. Used for enemy AI testing"
+		"res://scenes/levels/testlevel.tscn", "res://screenshots/testlevel.png", "Dev level. Used for enemy AI testing."
 	),
 	"DemoLevel":
 	MapData.new(
 		"res://scenes/levels/demolevel.tscn",
 		"res://screenshots/demolevel.png",
-		"Dev level. Used for grenade and cube physics testing"
+		"Dev level. Used for grenade and cube physics testing."
 	),
 	"Deadhouse":
 	MapData.new(
 		"res://scenes/levels/deadhouse.tscn",
 		"res://screenshots/deadhouse.png",
-		"Official level. Steal ancient cubic relics from the abandoned supernatural hotel"
+		"Official level. Steal ancient cubic relics from the abandoned supernatural hotel."
 	),
 	"TestLevel01":
 	MapData.new(
 		"res://scenes/levels/testlevel01.tscn",
 		"res://screenshots/testlevel01.png",
-		"Dev level. Larger map for movement and particles testing"
+		"Dev level. Larger map for movement and particles testing."
 	)
 }
 
@@ -65,10 +62,10 @@ func _ready() -> void:
 	current_server_settings = Global.ServerSettings.new()
 	for map: String in maplist:
 		mapselect_button.add_item(map)
-	for gmode in Global.ServerSettings.GAMEMODE:
+	for gmode: String in Global.ServerSettings.GAMEMODE:
 		gamemodesbutton.add_item(gmode)
 	selectedMapData = maplist[mapselect_button.get_item_text(mapselect_button.get_selected_id())]
-	current_server_settings.gamemode = gamemodesbutton.get_selected_id()
+	current_server_settings.gamemode = gamemodesbutton.get_selected_id() as Global.ServerSettings.GAMEMODE
 	current_server_settings.map_description = selectedMapData.map_desc
 	gammodedesc.text = (
 		str(Global.ServerSettings.GAMEMODE.keys()[current_server_settings.gamemode])
@@ -93,6 +90,7 @@ func _on_cancel_button_pressed() -> void:
 func _on_start_button_pressed() -> void:
 	current_server_settings.map_path = selectedMapData.map_path
 	current_server_settings.map_description = selectedMapData.map_desc
+	current_server_settings.map_name = maplist.find_key(selectedMapData)
 	Global._start_server("res://source/class/server.tscn", current_server_settings)
 
 
@@ -115,7 +113,7 @@ func _on_surv_time_spin_box_value_changed(value: float) -> void:
 
 
 func _on_gamemodesbutton_item_selected(index: int) -> void:
-	current_server_settings.gamemode = index
+	current_server_settings.gamemode = index as Global.ServerSettings.GAMEMODE
 
 	if current_server_settings.gamemode == Global.ServerSettings.GAMEMODE.SANDBOX:
 		collecttime_hbox.visible = false

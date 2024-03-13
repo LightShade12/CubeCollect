@@ -7,6 +7,7 @@ var gamepaused: bool = false
 
 class ServerSettings:
 	var map_path: NodePath = ""
+	var map_name: String = ""
 	var map_description: String = "uninitialized map text"
 	var collectTimeSecs: int = 30
 	var prepTimeSecs: int = 20

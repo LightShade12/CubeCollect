@@ -20,6 +20,7 @@ sky = SubResource("Sky_c30w8")
 tonemap_mode = 2
 tonemap_exposure = 1.5
 tonemap_white = 6.0
+ssil_enabled = true
 ssil_radius = 3.0
 sdfgi_use_occlusion = true
 sdfgi_read_sky_light = false

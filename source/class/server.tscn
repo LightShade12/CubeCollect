@@ -29,28 +29,71 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.568627)
 
-[node name="resumeButton" type="Button" parent="pausemenu/pausemenuCanvas"]
-offset_left = 56.0
-offset_top = 464.0
-offset_right = 126.0
-offset_bottom = 495.0
-text = "Resume"
+[node name="MarginContainer" type="MarginContainer" parent="pausemenu/pausemenuCanvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 35
 
-[node name="QuitButton" type="Button" parent="pausemenu/pausemenuCanvas"]
-offset_left = 56.0
-offset_top = 504.0
-offset_right = 167.0
-offset_bottom = 535.0
-text = "Quit to menu"
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="pausemenu/pausemenuCanvas/MarginContainer"]
+layout_mode = 2
+alignment_horizontal = 0
 
-[node name="pausedtxt" type="Label" parent="pausemenu/pausemenuCanvas"]
-offset_left = 56.0
-offset_top = 328.0
-offset_right = 431.0
-offset_bottom = 429.0
+[node name="VBoxContainer3" type="VBoxContainer" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 40
+
+[node name="pausedtxt" type="Label" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_2qn5c")
 theme_override_font_sizes/font_size = 100
 text = "Paused"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 240
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="resumeButton" type="Button" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Quit to menu"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="mapNametxt" type="Label" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "DeadHouse"
+
+[node name="gamemodetxt" type="Label" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "CLASSIC"
+
+[node name="mapdesctxt" type="Label" parent="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Official level. Steal ancient cubic relics from the abandoned supernatural hotel"
 
 [node name="roundTimer" type="Timer" parent="."]
 process_mode = 1
@@ -60,7 +103,7 @@ one_shot = true
 process_mode = 1
 one_shot = true
 
-[connection signal="pressed" from="pausemenu/pausemenuCanvas/resumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="pausemenu/pausemenuCanvas/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/resumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="roundTimer" to="." method="_on_round_timer_timeout"]
 [connection signal="timeout" from="auxTimer" to="." method="_on_aux_timer_timeout"]

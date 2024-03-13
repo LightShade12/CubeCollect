@@ -3,6 +3,12 @@ class_name Server
 
 @onready var round_timer: Timer = $roundTimer
 @onready var aux_timer: Timer = $auxTimer
+@onready
+var gamemodetxt: Label = $pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer/gamemodetxt
+@onready
+var mapdesctxt: Label = $pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer/mapdesctxt
+@onready
+var map_nametxt: Label = $pausemenu/pausemenuCanvas/MarginContainer/AspectRatioContainer/VBoxContainer3/HBoxContainer/VBoxContainer/mapNametxt
 
 var player: Player
 
@@ -16,19 +22,24 @@ var collectionTimeSecs: int = 20
 var survivalTimeSecs: int = 60
 var sbox_mode: bool = false
 
-var current_map: NodePath = "res://scenes/levels/testlevel.tscn"
+var current_map_path: NodePath = "res://scenes/levels/testlevel.tscn"
 var mapnode: Level = null
 var pause_desc: String = ""
+var current_map_name: String = ""
+var servergamemode: Global.ServerSettings.GAMEMODE = Global.ServerSettings.GAMEMODE.CLASSIC
 
 @onready var pausemenu_canvas: CanvasLayer = $pausemenu/pausemenuCanvas
 
 
 func constructor(serversettings: Global.ServerSettings) -> void:
-	current_map = serversettings.map_path
+	current_map_path = serversettings.map_path
 	collectionTimeSecs = serversettings.collectTimeSecs
 	preparationTimeSecs = serversettings.prepTimeSecs
 	survivalTimeSecs = serversettings.surviveTimeSecs
 	sbox_mode = serversettings.gamemode  # loose code
+	pause_desc = serversettings.map_description
+	servergamemode = serversettings.gamemode
+	current_map_name = serversettings.map_name
 
 
 func _on_cube_recieved() -> void:
@@ -97,13 +108,16 @@ func beginSurvival() -> void:
 
 
 func _ready() -> void:
-	var mapscene: PackedScene = ResourceLoader.load(current_map)
+	var mapscene: PackedScene = ResourceLoader.load(current_map_path)
 	mapnode = mapscene.instantiate()
 	mapnode.cube_recieved.connect(_on_cube_recieved)
 	mapnode.cube_lost.connect(_on_cube_lost)
 	add_child(mapnode)
 	player = mapnode.get_player()
 	pausemenu_canvas.layer = 9  #high val so it draws over hud layer
+	mapdesctxt.text = pause_desc
+	gamemodetxt.text = str(Global.ServerSettings.GAMEMODE.keys()[servergamemode])
+	map_nametxt.text = current_map_name
 	roundStart()
 
 

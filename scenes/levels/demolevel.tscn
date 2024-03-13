@@ -238,7 +238,7 @@ transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.72247, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03405, 2.0412, -8.47526)
 
 [node name="player" parent="entities" index="3" instance=ExtResource("2_5xhdw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 3.61827, 2.36671)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 2.59966, 2.36671)
 
 [node name="grenadeParticleSystem" parent="entities" index="4" instance=ExtResource("18_f8een")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.690992, 0.820904, -1.54296)
@@ -264,7 +264,6 @@ mesh = SubResource("PlaneMesh_j6xbd")
 [node name="screencapCam" type="Camera3D" parent="." index="10"]
 transform = Transform3D(-0.960294, 0, -0.278991, 0, 1, 0, 0.278991, 0, -0.960294, 0, 2.22647, -11.1366)
 attributes = SubResource("CameraAttributesPhysical_swbsg")
-current = true
 
 [connection signal="body_entered" from="entities/AreaDetection" to="." method="_on_area_detection_body_entered"]
 [connection signal="body_exited" from="entities/AreaDetection" to="." method="_on_area_detection_body_exited"]

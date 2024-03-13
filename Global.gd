@@ -7,7 +7,12 @@ var gamepaused: bool = false
 
 class ServerSettings:
 	var map_path: NodePath = ""
-	var text: String = "uninitialized server text"
+	var map_description: String = "uninitialized map text"
+	var collectTimeSecs: int = 30
+	var prepTimeSecs: int = 20
+	var surviveTimeSecs: int = 60
+	var gamemode: GAMEMODE = GAMEMODE.CLASSIC
+	enum GAMEMODE { CLASSIC, SANDBOX }
 
 
 func _ready() -> void:

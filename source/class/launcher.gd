@@ -15,11 +15,6 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func _on_exit_button_pressed() -> void:
-	exit_dialog.visible = true
-	pass  # Replace with function body.
-
-
 func _on_exit_dialog_confirmed() -> void:
 	get_tree().quit()
 	pass  # Replace with function body.
@@ -32,4 +27,11 @@ func _on_exit_dialog_canceled() -> void:
 
 func _on_start_button_pressed() -> void:
 	server_configurator.visible = true
+
+
+func _on_exit_button_pressed() -> void:
+	exit_dialog.visible = true
+
+
+func _on_options_button_pressed() -> void:
 	pass  # Replace with function body.

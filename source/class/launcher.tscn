@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://pshbulqjl5bx"]
+[gd_scene load_steps=7 format=3 uid="uid://pshbulqjl5bx"]
 
 [ext_resource type="Script" path="res://source/class/launcher.gd" id="1_er84w"]
 [ext_resource type="Texture2D" uid="uid://b3xppur5ht60m" path="res://assets/textures/ui/splash1.png" id="2_s432h"]
 [ext_resource type="FontFile" uid="uid://b31kpgg2mx274" path="res://assets/fonts/AgencyFB-Bold.ttf" id="3_bfq0r"]
 [ext_resource type="PackedScene" uid="uid://odax3uen4ae5" path="res://source/class/serverConfigurator.tscn" id="4_7ddng"]
+[ext_resource type="FontFile" uid="uid://bp1pnfuqrg8tu" path="res://assets/fonts/Neou-Bold.ttf" id="4_ybkxc"]
+[ext_resource type="FontFile" uid="uid://erdgllynwqkw" path="res://examples_dd3d/Roboto-Bold.ttf" id="5_e0e77"]
 
 [node name="launcher" type="Control"]
 layout_mode = 3
@@ -25,57 +27,6 @@ grow_vertical = 2
 texture = ExtResource("2_s432h")
 expand_mode = 2
 
-[node name="title" type="Label" parent="CanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -402.0
-offset_top = -313.5
-offset_right = 402.0
-offset_bottom = -86.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("3_bfq0r")
-theme_override_font_sizes/font_size = 200
-text = "CubeCollect"
-horizontal_alignment = 1
-
-[node name="buttons" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 168.0
-offset_top = 20.0
-offset_right = 208.0
-offset_bottom = 60.0
-grow_vertical = 2
-
-[node name="exitButton" type="Button" parent="CanvasLayer/buttons"]
-layout_mode = 0
-offset_top = 128.0
-offset_right = 126.0
-offset_bottom = 171.0
-theme_override_font_sizes/font_size = 20
-text = "Exit to OS"
-
-[node name="optionsButton" type="Button" parent="CanvasLayer/buttons"]
-layout_mode = 0
-offset_top = 64.0
-offset_right = 132.0
-offset_bottom = 104.0
-theme_override_font_sizes/font_size = 20
-text = "Options"
-
-[node name="startButton" type="Button" parent="CanvasLayer/buttons"]
-layout_mode = 0
-offset_right = 134.0
-offset_bottom = 39.0
-theme_override_font_sizes/font_size = 20
-text = "Start Server"
-
 [node name="exitDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 title = "Exit Confirmation"
 initial_position = 2
@@ -85,9 +36,120 @@ ok_button_text = "Exit"
 dialog_text = "Do you want to exit the application?"
 
 [node name="serverConfigurator" parent="CanvasLayer" instance=ExtResource("4_7ddng")]
+initial_position = 2
 visible = false
 
-[connection signal="pressed" from="CanvasLayer/buttons/exitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/buttons/startButton" to="." method="_on_start_button_pressed"]
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 90
+theme_override_constants/margin_top = 90
+theme_override_constants/margin_right = 90
+theme_override_constants/margin_bottom = 90
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -115.0
+offset_top = 20.0
+offset_right = 21.0
+offset_bottom = 43.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_ybkxc")
+text = "v1.0.0 pre alpha"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 160
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_bfq0r")
+theme_override_font_sizes/font_size = 200
+text = "CubeCollect"
+horizontal_alignment = 1
+
+[node name="authortitle" type="Label" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("4_ybkxc")
+text = "by Subham"
+
+[node name="BoxContainer" type="BoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 290
+alignment = 2
+
+[node name="buttons" type="Control" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer/HBoxContainer/buttons"]
+layout_mode = 0
+offset_right = 123.0
+offset_bottom = 168.0
+theme_override_constants/separation = 30
+
+[node name="startButton" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer/HBoxContainer/buttons/VBoxContainer"]
+custom_minimum_size = Vector2(190, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_e0e77")
+theme_override_font_sizes/font_size = 20
+text = "Start Server"
+
+[node name="optionsButton" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer/HBoxContainer/buttons/VBoxContainer"]
+custom_minimum_size = Vector2(190, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_e0e77")
+theme_override_font_sizes/font_size = 20
+text = "Options"
+
+[node name="exitButton" type="Button" parent="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer/HBoxContainer/buttons/VBoxContainer"]
+custom_minimum_size = Vector2(190, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_e0e77")
+theme_override_font_sizes/font_size = 20
+text = "Exit to OS"
+
 [connection signal="canceled" from="CanvasLayer/exitDialog" to="." method="_on_exit_dialog_canceled"]
 [connection signal="confirmed" from="CanvasLayer/exitDialog" to="." method="_on_exit_dialog_confirmed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer/HBoxContainer/buttons/VBoxContainer/startButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer/HBoxContainer/buttons/VBoxContainer/optionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/MarginContainer/VBoxContainer/BoxContainer/HBoxContainer/buttons/VBoxContainer/exitButton" to="." method="_on_exit_button_pressed"]

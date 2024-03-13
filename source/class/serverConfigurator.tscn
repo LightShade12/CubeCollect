@@ -1,63 +1,175 @@
-[gd_scene load_steps=2 format=3 uid="uid://odax3uen4ae5"]
+[gd_scene load_steps=5 format=3 uid="uid://odax3uen4ae5"]
 
 [ext_resource type="Script" path="res://source/class/serverConfigurator.gd" id="1_ix20y"]
+[ext_resource type="FontFile" uid="uid://erdgllynwqkw" path="res://examples_dd3d/Roboto-Bold.ttf" id="2_xt6fh"]
+[ext_resource type="FontFile" uid="uid://b31kpgg2mx274" path="res://assets/fonts/AgencyFB-Bold.ttf" id="4_764q8"]
+[ext_resource type="Texture2D" uid="uid://cxq37qy45r440" path="res://screenshots/testlevel.png" id="4_gyr5c"]
 
 [node name="serverpopup" type="Popup"]
 title = "Server Configurator"
 initial_position = 1
-size = Vector2i(440, 473)
+size = Vector2i(641, 503)
 visible = true
 borderless = false
 script = ExtResource("1_ix20y")
 
-[node name="Label" type="Label" parent="."]
+[node name="configuratorbuttonsHbox" type="HBoxContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -66.0
+offset_top = -40.0
+offset_right = 66.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="startButton" type="Button" parent="configuratorbuttonsHbox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_764q8")
+text = "Start"
+
+[node name="cancelButton" type="Button" parent="configuratorbuttonsHbox"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_764q8")
+text = "Cancel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -170.0
-offset_top = 30.0
-offset_right = -135.0
-offset_bottom = 53.0
+offset_left = -109.5
+offset_top = 20.0
+offset_right = 109.5
+offset_bottom = 163.0
 grow_horizontal = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="mapselectHbox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="mapselecttxt" type="Label" parent="VBoxContainer/mapselectHbox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xt6fh")
 text = "Map"
 
-[node name="MapselectButton" type="OptionButton" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
+[node name="MapselectButton" type="OptionButton" parent="VBoxContainer/mapselectHbox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_xt6fh")
+
+[node name="gamemodeHbox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="gamemodetxt" type="Label" parent="VBoxContainer/gamemodeHbox"]
+layout_mode = 2
+text = "Gamemode"
+
+[node name="gamemodesbutton" type="OptionButton" parent="VBoxContainer/gamemodeHbox"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_left = -315.0
-offset_top = 30.0
-offset_right = -115.0
-offset_bottom = 50.0
-grow_horizontal = 0
-
-[node name="startButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -53.0
-offset_right = -54.0
-offset_bottom = -22.0
+offset_bottom = 23.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "Start"
+theme_override_constants/separation = 320
 
-[node name="cancelButton" type="Button" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 28.08
-offset_top = -53.0
-offset_right = 88.08
-offset_bottom = -22.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Cancel"
+[node name="Control" type="Control" parent="VBoxContainer/Control/HBoxContainer"]
+layout_mode = 2
 
-[connection signal="pressed" from="startButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="cancelButton" to="." method="_on_cancel_button_pressed"]
+[node name="mappreviewTexture" type="TextureRect" parent="VBoxContainer/Control/HBoxContainer/Control"]
+layout_mode = 2
+offset_right = 1912.0
+offset_bottom = 937.0
+grow_vertical = 2
+scale = Vector2(0.15, 0.15)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_gyr5c")
+
+[node name="map_desc_label" type="Label" parent="VBoxContainer/Control/HBoxContainer"]
+custom_minimum_size = Vector2(172.555, 200)
+layout_mode = 2
+text = "Text for map description ovveride for user usage islamo binnini"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+show_behind_parent = true
+layout_mode = 2
+theme_override_constants/separation = 150
+
+[node name="collecttimeHbox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="collecttimetxt" type="Label" parent="VBoxContainer/collecttimeHbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Collection time"
+
+[node name="collectTimeSpinBox" type="SpinBox" parent="VBoxContainer/collecttimeHbox"]
+layout_mode = 2
+value = 20.0
+rounded = true
+suffix = "secs"
+
+[node name="PrepTimeHbox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="preptimetxt" type="Label" parent="VBoxContainer/PrepTimeHbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Preparation time"
+
+[node name="prepTimeSpinbox" type="SpinBox" parent="VBoxContainer/PrepTimeHbox"]
+layout_mode = 2
+value = 20.0
+rounded = true
+suffix = "secs"
+
+[node name="survTimeHbox" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="survtimetxt" type="Label" parent="VBoxContainer/survTimeHbox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Survival time"
+
+[node name="survTimeSpinBox" type="SpinBox" parent="VBoxContainer/survTimeHbox"]
+layout_mode = 2
+value = 20.0
+rounded = true
+suffix = "secs"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="gammodedesc" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "CLASSIC: find and collect cubes; defend till timeout"
+autowrap_mode = 3
+
+[connection signal="pressed" from="configuratorbuttonsHbox/startButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="configuratorbuttonsHbox/cancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="item_selected" from="VBoxContainer/mapselectHbox/MapselectButton" to="." method="_on_mapselect_button_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/gamemodeHbox/gamemodesbutton" to="." method="_on_gamemodesbutton_item_selected"]
+[connection signal="value_changed" from="VBoxContainer/collecttimeHbox/collectTimeSpinBox" to="." method="_on_collect_time_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/PrepTimeHbox/prepTimeSpinbox" to="." method="_on_prep_time_spinbox_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/survTimeHbox/survTimeSpinBox" to="." method="_on_surv_time_spin_box_value_changed"]

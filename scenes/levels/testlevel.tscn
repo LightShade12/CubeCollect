@@ -64,7 +64,6 @@ environment = SubResource("Environment_pyumv")
 [node name="DirectionalLight3D" parent="." index="1"]
 transform = Transform3D(0.951836, -0.0810432, 0.295704, -0.0661402, 0.887456, 0.456122, -0.29939, -0.453711, 0.839352, 0, 0, 0)
 light_energy = 1.0
-light_angular_distance = 0.5
 
 [node name="NavigationRegion3D" parent="." index="4"]
 navigation_mesh = SubResource("NavigationMesh_i1m4y")
@@ -134,6 +133,9 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 quality = 2
 bounces = 6
 light_data = ExtResource("9_qnq7c")
+
+[node name="screencapCam" type="Camera3D" parent="." index="8"]
+transform = Transform3D(-0.958706, 0, 0.2844, 0, 1, 0, -0.2844, 0, -0.958706, 3.883, 1.891, -6.96)
 
 [connection signal="body_entered" from="entities/AreaDetection" to="." method="_on_area_detection_body_entered"]
 [connection signal="body_exited" from="entities/AreaDetection" to="." method="_on_area_detection_body_exited"]

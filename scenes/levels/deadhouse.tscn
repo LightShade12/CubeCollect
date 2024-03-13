@@ -20,7 +20,9 @@ sky = SubResource("Sky_c30w8")
 tonemap_mode = 2
 tonemap_exposure = 1.5
 tonemap_white = 6.0
+ssil_radius = 3.0
 sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
 sdfgi_min_cell_size = 0.166016
 sdfgi_cascade0_distance = 10.625
 sdfgi_max_distance = 170.0
@@ -33,6 +35,7 @@ glow_intensity = 1.0
 glow_blend_mode = 1
 glow_hdr_threshold = 0.0
 volumetric_fog_enabled = true
+volumetric_fog_ambient_inject = 0.2
 volumetric_fog_sky_affect = 0.0
 
 [node name="deadhouse" instance=ExtResource("1_8rypa")]
@@ -72,3 +75,6 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 5.2266
 
 [node name="grenade_stash" parent="entities" index="1" instance=ExtResource("7_f1ank")]
 transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 6.48417, 6.1247, -5.07583)
+
+[node name="Camera3D" type="Camera3D" parent="." index="8"]
+transform = Transform3D(-0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, -0.906308, 9.66222, 3.18073, -5.03155)

@@ -415,7 +415,7 @@ mesh = SubResource("BoxMesh_x6l8x")
 [node name="entities" type="Node3D" parent="." index="6"]
 
 [node name="player" parent="entities" index="0" instance=ExtResource("2_2tg60")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73792, 0.5, 7.20317)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.73792, 1.58641, 7.20317)
 
 [node name="grenade_stash" parent="entities" index="1" instance=ExtResource("3_kdhi8")]
 transform = Transform3D(-0.9349, 0, -0.354911, 0, 1, 0, 0.354911, 0, -0.9349, 21.6168, 3.58671, -1.85915)
@@ -425,3 +425,6 @@ transform = Transform3D(0.943054, 0, 0.332639, 0, 1, 0, -0.332639, 0, 0.943054, 
 
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
 light_data = ExtResource("6_ip0vu")
+
+[node name="screencapCam" type="Camera3D" parent="." index="8"]
+transform = Transform3D(0.48786, 0.255218, -0.83478, 0, 0.956305, 0.292372, 0.872922, -0.142636, 0.466543, -10.755, 5.98, 6.347)

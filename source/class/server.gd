@@ -11,19 +11,24 @@ var is_prepping: bool = false
 var is_surviving: bool = false
 var cubecount: int = 0
 
-var prepTimeSecs: int = 10
-var collectTimeSecs: int = 20
-var surviveTimeSecs: int = 60
+var preparationTimeSecs: int = 10
+var collectionTimeSecs: int = 20
+var survivalTimeSecs: int = 60
+var sbox_mode: bool = false
 
 var current_map: NodePath = "res://scenes/levels/testlevel.tscn"
 var mapnode: Level = null
+var pause_desc: String = ""
 
 @onready var pausemenu_canvas: CanvasLayer = $pausemenu/pausemenuCanvas
 
 
 func constructor(serversettings: Global.ServerSettings) -> void:
 	current_map = serversettings.map_path
-	pass
+	collectionTimeSecs = serversettings.collectTimeSecs
+	preparationTimeSecs = serversettings.prepTimeSecs
+	survivalTimeSecs = serversettings.surviveTimeSecs
+	sbox_mode = serversettings.gamemode  # loose code
 
 
 func _on_cube_recieved() -> void:
@@ -47,7 +52,7 @@ func _on_round_timer_timeout() -> void:
 
 	if is_surviving:
 		is_surviving = false
-		player.playermessagedisplay.text = "Extraction succesful"
+		player.playermessagedisplayUpdate("Extraction succesful")
 		return
 
 
@@ -67,25 +72,28 @@ func updatetimerdisplay() -> void:
 	)
 
 
-func beginCollection() -> void:
-	is_collecting = true
+func roundStart() -> void:
 	player.playermessagedisplayUpdate("Game Begins")
-	round_timer.start(collectTimeSecs)
-	aux_timer.start(3)
+	if !sbox_mode:
+		beginCollection()
+
+
+func beginCollection() -> void:
+	aux_timer.start(3)  # freeze time delay for game begin
 
 
 func beginPrep() -> void:
 	is_prepping = true
 	player.playermessagedisplayUpdate("Prepare for hostiles")
 	player.objectivesdisplay.text = "Set up defensive positio	n"
-	round_timer.start(prepTimeSecs)
+	round_timer.start(preparationTimeSecs)
 
 
 func beginSurvival() -> void:
 	player.playermessagedisplayUpdate("Survive and defend cubes till timeout")
 	is_surviving = true
 	player.objectivesdisplay.text = "Survive"
-	round_timer.start(surviveTimeSecs)
+	round_timer.start(survivalTimeSecs)
 
 
 func _ready() -> void:
@@ -96,7 +104,7 @@ func _ready() -> void:
 	add_child(mapnode)
 	player = mapnode.get_player()
 	pausemenu_canvas.layer = 9  #high val so it draws over hud layer
-	beginCollection()
+	roundStart()
 
 
 func _input(_event: InputEvent) -> void:
@@ -136,4 +144,6 @@ func _on_quit_button_pressed() -> void:
 
 func _on_aux_timer_timeout() -> void:
 	player.playermessagedisplayUpdate("Collect as many cubes as possible before timeout")
+	is_collecting = true
 	player.objectivesdisplay.text = "Collect cubes"
+	round_timer.start(collectionTimeSecs)

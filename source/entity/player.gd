@@ -7,6 +7,7 @@ var mouse_sens: float = 0.2
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 #private
+@onready var flashlight: SpotLight3D = $head/flashlight
 @onready var head: Node3D = $head
 @onready
 var interaction_hint_dislpay: Label = $Control/CanvasLayer/hudControl/movableHudControl/interactionHintDislpay
@@ -159,6 +160,9 @@ func _input(event: InputEvent) -> void:
 		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+
+	if Input.is_action_just_pressed("key_flashlight_toggle"):
+		flashlight.visible = !flashlight.visible
 
 	if Input.is_action_just_pressed("lclick"):
 		if picked_obj != null:

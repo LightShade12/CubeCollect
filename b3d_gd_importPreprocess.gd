@@ -10,7 +10,7 @@ func _run():
 	#var levelscene:Node3D=get_scene()
 
 	var img = EditorInterface.get_editor_viewport_3d().get_texture().get_image()
-	img.save_png("E:/game projects/CubeCollect/cubecollect/screenshots/test.png")
+	img.save_png("E:/game projects/CubeCollect/cubecollect/screenshots/deadhouse.png")
 	print("Saved")
 	#print("Root node: "+str(levelscene))
 	#var meshes:Array[Node]=levelscene.get_children()

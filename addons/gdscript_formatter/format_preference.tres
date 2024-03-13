@@ -4,7 +4,7 @@
 script/source = "@tool
 extends Resource
 ## How many characters per line to allow.
-@export var line_length := 100:
+@export var line_length := 120:
 	set(v):
 		line_length = v
 		emit_changed()
@@ -24,6 +24,6 @@ extends Resource
 
 [resource]
 script = SubResource("GDScript_ttns5")
-line_length = 100
+line_length = 120
 fast_but_unsafe = false
 format_on_save = true

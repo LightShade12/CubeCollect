@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://di0v0g1jvax15"
+path="res://.godot/imported/Airplane Flying Over in the Distance (Sound Effects) [TubeRipper.com].mp3-63b544515503067e812993d4afa82664.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/maps/detail/Airplane Flying Over in the Distance (Sound Effects) [TubeRipper.com].mp3"
+dest_files=["res://.godot/imported/Airplane Flying Over in the Distance (Sound Effects) [TubeRipper.com].mp3-63b544515503067e812993d4afa82664.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

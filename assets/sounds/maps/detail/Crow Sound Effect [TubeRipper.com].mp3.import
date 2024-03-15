@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c5nhytb0rbgas"
+path="res://.godot/imported/Crow Sound Effect [TubeRipper.com].mp3-a9e9cb7f94b2c098911eac0f57431cba.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/maps/detail/Crow Sound Effect [TubeRipper.com].mp3"
+dest_files=["res://.godot/imported/Crow Sound Effect [TubeRipper.com].mp3-a9e9cb7f94b2c098911eac0f57431cba.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

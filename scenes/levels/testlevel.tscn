@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_i6ns8"]
 [ext_resource type="Script" path="res://scenes/levels/testlevel.gd" id="1_tstgm"]
-[ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://scenes/levels/materials/demolevelUVfloorMat.tres" id="2_armk6"]
+[ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://assets/materials/maps/demolevel/demolevelUVfloorMat.tres" id="2_armk6"]
 [ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="3_256h8"]
 [ext_resource type="PackedScene" uid="uid://bo6q7dydjheil" path="res://source/entity/area_detection.tscn" id="3_dw25u"]
 [ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="4_lurub"]
 [ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_rfgp7"]
-[ext_resource type="PackedScene" uid="uid://ds0bnjacoj05w" path="res://source/entity/npc_spawner.tscn" id="8_qteas"]
+[ext_resource type="PackedScene" uid="uid://ds0bnjacoj05w" path="res://source/entity/npc/npc_spawner.tscn" id="8_qteas"]
 [ext_resource type="LightmapGIData" uid="uid://vai6v87o7oxf" path="res://scenes/levels/testlevel.lmbake" id="9_qnq7c"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_2jspe"]

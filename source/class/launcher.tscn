@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://pshbulqjl5bx"]
+[gd_scene load_steps=8 format=3 uid="uid://pshbulqjl5bx"]
 
 [ext_resource type="Script" path="res://source/class/launcher.gd" id="1_er84w"]
 [ext_resource type="Texture2D" uid="uid://b3xppur5ht60m" path="res://assets/textures/ui/splash1.png" id="2_s432h"]
 [ext_resource type="FontFile" uid="uid://b31kpgg2mx274" path="res://assets/fonts/AgencyFB-Bold.ttf" id="3_bfq0r"]
 [ext_resource type="PackedScene" uid="uid://odax3uen4ae5" path="res://source/class/serverConfigurator.tscn" id="4_7ddng"]
+[ext_resource type="PackedScene" uid="uid://fssgjgxm50gp" path="res://source/class/settings_configurator.tscn" id="4_l8nyk"]
 [ext_resource type="FontFile" uid="uid://bp1pnfuqrg8tu" path="res://assets/fonts/Neou-Bold.ttf" id="4_ybkxc"]
 [ext_resource type="FontFile" uid="uid://erdgllynwqkw" path="res://examples_dd3d/Roboto-Bold.ttf" id="5_e0e77"]
 
@@ -37,6 +38,9 @@ dialog_text = "Do you want to exit the application?"
 
 [node name="serverConfigurator" parent="CanvasLayer" instance=ExtResource("4_7ddng")]
 initial_position = 2
+visible = false
+
+[node name="settingsConfigurator" parent="CanvasLayer" instance=ExtResource("4_l8nyk")]
 visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]

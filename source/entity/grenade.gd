@@ -6,9 +6,7 @@ class_name Grenade
 @onready var fuse_timer: Timer = $FuseTimer
 @onready var ray_cast: RayCast3D = $RayCast
 const GRENADEDECAL: PackedScene = preload("res://source/entity/grenadedecal.tscn")
-const GRENADE_PARTICLE_SYSTEM: PackedScene = preload(
-	"res://source/entity/grenade_particle_system.tscn"
-)
+const GRENADE_PARTICLE_SYSTEM: PackedScene = preload("res://source/entity/grenade_particle_system.tscn")
 var exploded: bool = false
 var is_active: bool = false
 var items_in_rad: Array
@@ -43,11 +41,7 @@ func getInterctionHint() -> String:
 
 func _physics_process(_delta: float) -> void:
 	ray_cast.look_at(
-		Vector3(
-			self.global_transform.origin.x,
-			self.global_transform.origin.y - 2,
-			self.global_transform.origin.z
-		),
+		Vector3(self.global_transform.origin.x, self.global_transform.origin.y - 2, self.global_transform.origin.z),
 		Vector3(1, 0, 0)
 	)
 	ray_cast.global_rotation.x += deg_to_rad(90)
@@ -85,9 +79,7 @@ func explode() -> void:
 	smokeptclsys.global_transform.origin = spnpt
 
 	for obj: Node3D in items_in_rad:
-		var dist_fac: float = (
-			1 - (0.125 * (self.global_transform.origin - obj.global_transform.origin).length())
-		)
+		var dist_fac: float = 1 - (0.125 * (self.global_transform.origin - obj.global_transform.origin).length())
 		if obj is RigidBody3D:
 			force_dir = self.global_transform.origin.direction_to(obj.global_transform.origin)
 			obj.apply_impulse(force_dir * explosion_force * dist_fac)
@@ -108,7 +100,7 @@ func explode() -> void:
 	aux_audioplayer.stream = preload(
 		"res://assets/sounds/grenade/zapsplat_foley_sand_handful_drop_ground_002_43847.mp3"
 	)
-	core_audioplayer.stream = preload("res://assets/sounds/grenade/debris.wav")
+	core_audioplayer.stream = preload("res://assets/sounds/grenade/debris_faded.wav")
 	core_audioplayer.play()
 	aux_audioplayer.play()
 

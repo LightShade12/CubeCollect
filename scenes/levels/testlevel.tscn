@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://scenes/levels/testlevel.gd" id="1_tstgm"]
 [ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://scenes/levels/materials/demolevelUVfloorMat.tres" id="2_armk6"]
 [ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="3_256h8"]
-[ext_resource type="PackedScene" uid="uid://dxqbjiwfybhtg" path="res://source/entity/npc_enemy.tscn" id="3_atuqp"]
 [ext_resource type="PackedScene" uid="uid://bo6q7dydjheil" path="res://source/entity/area_detection.tscn" id="3_dw25u"]
 [ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="4_lurub"]
 [ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_rfgp7"]
+[ext_resource type="PackedScene" uid="uid://ds0bnjacoj05w" path="res://source/entity/npc_spawner.tscn" id="8_qteas"]
 [ext_resource type="LightmapGIData" uid="uid://vai6v87o7oxf" path="res://scenes/levels/testlevel.lmbake" id="9_qnq7c"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_2jspe"]
@@ -22,10 +22,9 @@ sky = SubResource("Sky_k1e3o")
 tonemap_mode = 2
 tonemap_exposure = 1.5
 tonemap_white = 6.0
-sdfgi_use_occlusion = true
-sdfgi_min_cell_size = 0.046875
-sdfgi_cascade0_distance = 3.0
-sdfgi_max_distance = 48.0
+sdfgi_enabled = true
+sdfgi_read_sky_light = false
+sdfgi_min_cell_size = 0.0507813
 glow_enabled = true
 glow_levels/1 = 1.0
 glow_levels/2 = 1.0
@@ -87,7 +86,7 @@ mesh = SubResource("BoxMesh_uene2")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="simulated" type="Node3D" parent="." index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.85752, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82119, 3.85752, 0)
 
 [node name="cube" parent="simulated" index="0" instance=ExtResource("4_lurub")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0055)
@@ -106,28 +105,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.757484)
 [node name="entities" type="Node3D" parent="." index="6"]
 
 [node name="player" parent="entities" index="0" instance=ExtResource("3_256h8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.54754, 1.12432, 0)
+transform = Transform3D(-0.818089, 0, 0.575091, 0, 1, 0, -0.575091, 0, -0.818089, 5.395, 1.12432, -6.2795)
 
-[node name="npc_enemy" parent="entities" index="1" instance=ExtResource("3_atuqp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42045, 5.48521)
-
-[node name="npc_enemy2" parent="entities" index="2" instance=ExtResource("3_atuqp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.869558, 1.42045, 6.29971)
-
-[node name="npc_enemy3" parent="entities" index="3" instance=ExtResource("3_atuqp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.06497, 1.42045, 6.26994)
-
-[node name="npc_enemy4" parent="entities" index="4" instance=ExtResource("3_atuqp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0117, 1.32419, 4.67755)
-
-[node name="npc_enemy5" parent="entities" index="5" instance=ExtResource("3_atuqp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.711083, 1.42045, 4.78027)
-
-[node name="AreaDetection" parent="entities" index="6" instance=ExtResource("3_dw25u")]
+[node name="AreaDetection" parent="entities" index="1" instance=ExtResource("3_dw25u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86413, 0.5144, -4.37708)
 
-[node name="grenade_stash" parent="entities" index="7" instance=ExtResource("6_rfgp7")]
+[node name="grenade_stash" parent="entities" index="2" instance=ExtResource("6_rfgp7")]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 4.22707, 0.5008, -4.74772)
+
+[node name="npc_spawner" parent="entities" index="3" instance=ExtResource("8_qteas")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.02567, 2.06063, 5.63751)
+interval_secs = 3
 
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
 quality = 2

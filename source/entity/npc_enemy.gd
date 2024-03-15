@@ -2,6 +2,7 @@ extends CharacterClass
 class_name npc_enemy
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
+var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
 func update_target_location(target_loc: Vector3) -> void:
@@ -12,7 +13,7 @@ func update_target_location(target_loc: Vector3) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SPEED = 1.5
-	set_physics_process(false)
+	set_physics_process(true)
 	call_deferred("actor_setup")
 
 
@@ -21,7 +22,7 @@ func actor_setup() -> void:
 
 
 func map_ready(_rid: RID) -> void:
-	set_physics_process(true)
+	#set_physics_process(true)
 	NavigationServer3D.map_changed.disconnect(Callable(map_ready))
 
 
@@ -37,6 +38,7 @@ func _physics_process(_delta: float) -> void:
 	var vel: Vector3 = (next_loc - curr_loc).normalized() * SPEED
 
 	nav_agent.set_velocity(vel)
+
 	if health <= 0:
 		slay()
 
@@ -47,6 +49,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
+	if not is_on_floor():
+		safe_velocity.y -= gravity * get_physics_process_delta_time() * 30
 	velocity = velocity.move_toward(safe_velocity, 0.25)
 	move_and_slide()
-	pass  # Replace with function body.

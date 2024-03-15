@@ -3,15 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_33cve"]
 [ext_resource type="Script" path="res://source/entity/npc_enemy.gd" id="2_q3q7d"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o73t3"]
-albedo_color = Color(0.172549, 0.74902, 0.74902, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwc1m"]
+albedo_color = Color(0.243137, 0.576471, 0.588235, 1)
 metallic = 1.0
-roughness = 0.6
+roughness = 0.5
 clearcoat_enabled = true
-anisotropy = -1.0
+clearcoat_roughness = 0.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_550n4"]
-material = SubResource("StandardMaterial3D_o73t3")
+material = SubResource("StandardMaterial3D_lwc1m")
 radius = 0.3
 height = 1.8
 

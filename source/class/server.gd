@@ -26,7 +26,7 @@ var current_map_path: NodePath = "res://scenes/levels/testlevel.tscn"
 var mapnode: Level = null
 var pause_desc: String = ""
 var current_map_name: String = ""
-var servergamemode: Global.ServerSettings.GAMEMODE = Global.ServerSettings.GAMEMODE.CLASSIC
+var servergamemode: Global.ServerSettings.GAMEMODE = Global.ServerSettings.GAMEMODE.SANDBOX
 
 @onready var pausemenu_canvas: CanvasLayer = $pausemenu/pausemenuCanvas
 
@@ -36,7 +36,6 @@ func constructor(serversettings: Global.ServerSettings) -> void:
 	collectionTimeSecs = serversettings.collectTimeSecs
 	preparationTimeSecs = serversettings.prepTimeSecs
 	survivalTimeSecs = serversettings.surviveTimeSecs
-	sbox_mode = serversettings.gamemode  # loose code
 	pause_desc = serversettings.map_description
 	servergamemode = serversettings.gamemode
 	current_map_name = serversettings.map_name
@@ -118,6 +117,7 @@ func _ready() -> void:
 	mapdesctxt.text = pause_desc
 	gamemodetxt.text = str(Global.ServerSettings.GAMEMODE.keys()[servergamemode])
 	map_nametxt.text = current_map_name
+	sbox_mode = servergamemode  # loose code
 	roundStart()
 
 

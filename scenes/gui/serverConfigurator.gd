@@ -34,24 +34,26 @@ class MapData:
 var maplist: Dictionary = {
 	"TestLevel":
 	MapData.new(
-		"res://scenes/levels/testlevel.tscn", "res://screenshots/testlevel.png", "Dev level. Used for enemy AI testing."
+		"res://scenes/levels/testlevel.tscn",
+		"res://assets/textures/ui/map_previews/testlevel.png",
+		"Dev level. Used for enemy AI testing."
 	),
 	"DemoLevel":
 	MapData.new(
 		"res://scenes/levels/demolevel.tscn",
-		"res://screenshots/demolevel.png",
+		"res://assets/textures/ui/map_previews/demolevel.png",
 		"Dev level. Used for grenade and cube physics testing."
 	),
 	"Deadhouse":
 	MapData.new(
 		"res://scenes/levels/deadhouse.tscn",
-		"res://screenshots/deadhouse.png",
+		"res://assets/textures/ui/map_previews/deadhouse.png",
 		"Official level. Steal ancient cubic relics from the abandoned supernatural hotel."
 	),
 	"TestLevel01":
 	MapData.new(
 		"res://scenes/levels/testlevel01.tscn",
-		"res://screenshots/testlevel01.png",
+		"res://assets/textures/ui/map_previews/testlevel01.png",
 		"Dev level. Larger map for movement and particles testing."
 	)
 }
@@ -101,15 +103,15 @@ func _on_mapselect_button_item_selected(index: int) -> void:
 
 
 func _on_collect_time_spin_box_value_changed(value: float) -> void:
-	current_server_settings.collectTimeSecs = value
+	current_server_settings.collectTimeSecs = int(value)
 
 
 func _on_prep_time_spinbox_value_changed(value: float) -> void:
-	current_server_settings.prepTimeSecs = value
+	current_server_settings.prepTimeSecs = int(value)
 
 
 func _on_surv_time_spin_box_value_changed(value: float) -> void:
-	current_server_settings.surviveTimeSecs = value
+	current_server_settings.surviveTimeSecs = int(value)
 
 
 func _on_gamemodesbutton_item_selected(index: int) -> void:

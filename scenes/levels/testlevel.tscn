@@ -22,9 +22,10 @@ sky = SubResource("Sky_k1e3o")
 tonemap_mode = 2
 tonemap_exposure = 1.5
 tonemap_white = 6.0
-sdfgi_enabled = true
 sdfgi_read_sky_light = false
 sdfgi_min_cell_size = 0.0507813
+sdfgi_cascade0_distance = 3.25
+sdfgi_max_distance = 52.0
 glow_enabled = true
 glow_levels/1 = 1.0
 glow_levels/2 = 1.0
@@ -116,6 +117,7 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 [node name="npc_spawner" parent="entities" index="3" instance=ExtResource("8_qteas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.02567, 2.06063, 5.63751)
 interval_secs = 3
+spawn_on_start = true
 
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
 quality = 2

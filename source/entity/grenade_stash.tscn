@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://72l8h1dx78hv"]
 
 [ext_resource type="Script" path="res://source/entity/grenade_stash.gd" id="1_7dhyi"]
-[ext_resource type="Texture2D" uid="uid://dl3acsxfty304" path="res://assets/textures/entities/markerblue.png" id="2_r8ms1"]
+[ext_resource type="Texture2D" uid="uid://dm65ihwum8hym" path="res://assets/textures/entities/ui/markerblue.png" id="2_r8ms1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ds4f"]
 resource_name = "armygreen"

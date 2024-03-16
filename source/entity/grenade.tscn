@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://ck3whm0a2psc8"]
 
 [ext_resource type="Script" path="res://source/entity/grenade.gd" id="1_rf0ih"]
-[ext_resource type="PackedScene" uid="uid://cksulrt84kvn7" path="res://assets/models/grenadegeo.tscn" id="2_p1xur"]
-[ext_resource type="AudioStream" uid="uid://50s63poex01k" path="res://assets/sounds/grenade/beep-sound-8333.mp3" id="3_1x3ko"]
-[ext_resource type="AudioStream" uid="uid://dk2qth1rolrs0" path="res://assets/sounds/grenade/bounce1.wav" id="4_a35uc"]
+[ext_resource type="PackedScene" uid="uid://cksulrt84kvn7" path="res://assets/models/entity/grenadegeo.tscn" id="2_p1xur"]
+[ext_resource type="AudioStream" uid="uid://dqns61161a38d" path="res://assets/sounds/weapon/grenade/beep.mp3" id="3_1x3ko"]
+[ext_resource type="AudioStream" uid="uid://dk2qth1rolrs0" path="res://assets/sounds/weapon/grenade/bounce1.wav" id="4_a35uc"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qv4er"]
 bounce = 0.5

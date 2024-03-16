@@ -4,7 +4,7 @@ class_name GrenadeSpawner
 
 var grenadeSet: Array[Grenade]
 @onready var spawnpoint_3d: Marker3D = $spawnpoint3d
-@onready var grenaderef: PackedScene = preload("res://source/entity/grenade.tscn")
+const grenaderef: PackedScene = preload("res://source/entity/grenade.tscn")
 
 
 func _ready() -> void:

@@ -1,6 +1,6 @@
 extends Node3D
 @onready var text_3d: MeshInstance3D = $text3d
-const NPC_ENEMY: PackedScene = preload("res://source/entity/npc_enemy.tscn")
+const NPC_ENEMY: PackedScene = preload("res://source/entity/npc/npc_enemy.tscn")
 @onready var spawn_timer: Timer = $spawnTimer
 @export var total_enemy_count: int = 5
 var current_spawn_count: int = 0
@@ -21,7 +21,7 @@ func start_spawner() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 

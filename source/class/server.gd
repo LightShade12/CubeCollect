@@ -72,12 +72,10 @@ func updatetimerdisplay() -> void:
 		"0"
 		+ str(mins)
 		+ ":"
-		+ str(
-			(
-				int(round_timer.time_left - (mins * 60))
-				if int(round_timer.time_left - (mins * 60)) > 9
-				else "0" + str(int(round_timer.time_left - (mins * 60)))
-			)
+		+ (
+			str(round_timer.time_left - (mins * 60))
+			if (int(round_timer.time_left - (mins * 60)) > 9)
+			else "0" + str(int(round_timer.time_left - (mins * 60)))
 		)
 	)
 
@@ -152,7 +150,7 @@ func _on_resume_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	Global.gamepaused = false
-	Global.goto_scene("res://source/class/launcher.tscn")
+	Global.goto_scene("res://scenes/main/launcher.tscn")
 	get_tree().paused = Global.gamepaused
 
 

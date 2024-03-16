@@ -51,9 +51,9 @@ func _physics_process(_delta: float) -> void:
 func _process(_delta: float) -> void:
 	if !exploded and is_active:
 		if int_timer == 0:
-			core_audioplayer.stream = load("res://assets/sounds/grenade/beep-sound-8333.mp3")
+			core_audioplayer.stream = load("res://assets/sounds/weapon/grenade/beep.mp3")
 			core_audioplayer.play()
-			int_timer = interval * fuse_timer.time_left + 15
+			int_timer = interval * int(fuse_timer.time_left) + 15
 		else:
 			int_timer -= 1
 
@@ -63,7 +63,7 @@ func _process(_delta: float) -> void:
 
 
 func explode() -> void:
-	core_audioplayer.set_stream(preload("res://assets/sounds/grenade/shotgun-firing-4-6746.mp3"))
+	core_audioplayer.set_stream(preload("res://assets/sounds/weapon/grenade/explosion.wav"))
 	core_audioplayer.volume_db = 20
 	core_audioplayer.play()
 	visible = false
@@ -97,10 +97,8 @@ func explode() -> void:
 	await get_tree().create_timer(1).timeout
 	core_audioplayer.volume_db = -5
 	aux_audioplayer.volume_db = 0
-	aux_audioplayer.stream = preload(
-		"res://assets/sounds/grenade/zapsplat_foley_sand_handful_drop_ground_002_43847.mp3"
-	)
-	core_audioplayer.stream = preload("res://assets/sounds/grenade/debris_faded.wav")
+	aux_audioplayer.stream = preload("res://assets/sounds/weapon/grenade/sand_debris.mp3")
+	core_audioplayer.stream = preload("res://assets/sounds/weapon/grenade/debris_faded.wav")
 	core_audioplayer.play()
 	aux_audioplayer.play()
 

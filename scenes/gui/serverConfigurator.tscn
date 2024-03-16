@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://odax3uen4ae5"]
 
-[ext_resource type="Script" path="res://source/class/serverConfigurator.gd" id="1_ix20y"]
+[ext_resource type="Script" path="res://scenes/gui/serverConfigurator.gd" id="1_ix20y"]
 [ext_resource type="FontFile" uid="uid://erdgllynwqkw" path="res://examples_dd3d/Roboto-Bold.ttf" id="2_xt6fh"]
 [ext_resource type="FontFile" uid="uid://b31kpgg2mx274" path="res://assets/fonts/AgencyFB-Bold.ttf" id="4_764q8"]
-[ext_resource type="Texture2D" uid="uid://cxq37qy45r440" path="res://screenshots/testlevel.png" id="4_gyr5c"]
+[ext_resource type="Texture2D" uid="uid://ckfskrwk1jrn4" path="res://assets/textures/ui/map_previews/testlevel.png" id="4_gyr5c"]
 
 [node name="serverpopup" type="Popup"]
 title = "Server Configurator"

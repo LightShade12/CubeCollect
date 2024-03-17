@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bo4dcv0w78veg"]
+[gd_scene load_steps=19 format=3 uid="uid://bo4dcv0w78veg"]
 
 [ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_i6ns8"]
 [ext_resource type="Script" path="res://scenes/levels/testlevel.gd" id="1_tstgm"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="4_lurub"]
 [ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_rfgp7"]
 [ext_resource type="PackedScene" uid="uid://ds0bnjacoj05w" path="res://source/entity/npc/npc_spawner.tscn" id="8_qteas"]
+[ext_resource type="Texture2D" uid="uid://dm65ihwum8hym" path="res://assets/textures/entities/ui/markerblue.png" id="9_511m2"]
 [ext_resource type="LightmapGIData" uid="uid://vai6v87o7oxf" path="res://scenes/levels/testlevel.lmbake" id="9_qnq7c"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_2jspe"]
@@ -106,7 +107,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.757484)
 [node name="entities" type="Node3D" parent="." index="6"]
 
 [node name="player" parent="entities" index="0" instance=ExtResource("3_256h8")]
-transform = Transform3D(-0.818089, 0, 0.575091, 0, 1, 0, -0.575091, 0, -0.818089, 5.395, 1.12432, -6.2795)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.395, 1.12432, -6.2795)
 
 [node name="AreaDetection" parent="entities" index="1" instance=ExtResource("3_dw25u")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86413, 0.5144, -4.37708)
@@ -116,8 +117,16 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 
 [node name="npc_spawner" parent="entities" index="3" instance=ExtResource("8_qteas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.02567, 2.06063, 5.63751)
+total_enemy_count = 3
 interval_secs = 3
 spawn_on_start = true
+
+[node name="Sprite3D" type="Sprite3D" parent="entities" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+pixel_size = 0.001
+billboard = 2
+no_depth_test = true
+texture = ExtResource("9_511m2")
 
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
 quality = 2

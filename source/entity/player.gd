@@ -2,15 +2,14 @@ extends CharacterClass
 class_name Player
 
 const JUMP_VELOCITY: float = 4.5
+const HUD_DAMAGE_INDICATOR = preload("res://source/entity/hud_damage_indicator.tscn")
 
 var mouse_sens: float = 0.2
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-
 #private
 @onready var flashlight: SpotLight3D = $head/flashlight
 @onready var head: Node3D = $head
-@onready
-var interaction_hint_dislpay: Label = $Control/CanvasLayer/hudControl/movableHudControl/interactionHintDislpay
+@onready var interaction_hint_dislpay: Label = $Control/CanvasLayer/hudControl/movableHudControl/interactionHintDislpay
 @onready
 var healthdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/healthdispbg/healthtxt/healthdisplay
 @onready var hud_control: Control = $Control/CanvasLayer/hudControl
@@ -35,13 +34,11 @@ var healthdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/hea
 
 #public
 @onready var typetooltip: Label = $Control/CanvasLayer/hudControl/movableHudControl/typetooltip
-@onready
-var cubecountdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/cubestxt/cubecountdisplay
+@onready var cubecountdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/cubestxt/cubecountdisplay
 @onready
 var objectivesdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/currentobjectivetext/objectivesdisplay
 @onready var timerdisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/timerdisplay
-@onready
-var playermessagedisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/playermessagedisplay
+@onready var playermessagedisplay: Label = $Control/CanvasLayer/hudControl/movableHudControl/playermessagedisplay
 
 #states
 var sliding: bool = false
@@ -98,6 +95,7 @@ var object_in_range: Node3D = null
 
 var pull_fac: float = 20
 var throw_fac: float = 5
+var hurt_direction: Vector3 = Vector3.ZERO
 
 
 func add_trauma(trauma_amount: float) -> void:
@@ -147,7 +145,9 @@ func _process(delta: float) -> void:
 	hud_control.position.y = x_shake * 10
 
 	healthdisplay.text = str(health)
-	pass
+
+	#hurt_direction = dmg_attacker_location - self.global_transform.origin
+	#dmg_ind.rotation = atan2(-hurt_direction.x, hurt_direction.z) - ((5 * PI) / 4) + self.get_rotation().y
 
 
 func _input(event: InputEvent) -> void:
@@ -180,9 +180,7 @@ func _input(event: InputEvent) -> void:
 
 func throw_obj() -> void:
 	if picked_obj != null:
-		picked_obj.apply_impulse(
-			(picked_obj.global_transform.origin - camera.global_transform.origin) * throw_fac
-		)
+		picked_obj.apply_impulse((picked_obj.global_transform.origin - camera.global_transform.origin) * throw_fac)
 		if picked_obj is Grenade && !picked_obj.is_active:
 			picked_obj.grenade_activate()
 		picked_obj.is_picked = false
@@ -294,14 +292,10 @@ func _physics_process(delta: float) -> void:
 		head_bobbing_vector.y = sin(head_bobbing_index)
 		head_bobbing_vector.x = sin(head_bobbing_index / 2.0) + 0.5
 		camera_pivot.position.y = lerp(
-			camera_pivot.position.y,
-			head_bobbing_vector.y * (head_bobbing_current_intensity / 2.0),
-			delta * lerp_speed
+			camera_pivot.position.y, head_bobbing_vector.y * (head_bobbing_current_intensity / 2.0), delta * lerp_speed
 		)
 		camera_pivot.position.x = lerp(
-			camera_pivot.position.x,
-			head_bobbing_vector.x * head_bobbing_current_intensity,
-			delta * lerp_speed
+			camera_pivot.position.x, head_bobbing_vector.x * head_bobbing_current_intensity, delta * lerp_speed
 		)
 	else:
 		#idle/still
@@ -315,9 +309,7 @@ func _physics_process(delta: float) -> void:
 	#AIR CONTROL
 	if is_on_floor():
 		direction = lerp(
-			direction,
-			(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(),
-			lerp_speed * delta
+			direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), lerp_speed * delta
 		)
 
 	if sliding:
@@ -347,3 +339,10 @@ func _physics_process(delta: float) -> void:
 			typetooltip.text = (picked_obj.get_meta("cubetype"))
 	else:
 		typetooltip.text = ""
+
+
+func pdamage(dmg: int, dmgloc: Vector3):
+	health -= dmg
+	var inst: HUD_dmg_indicator = HUD_DAMAGE_INDICATOR.instantiate()
+	inst.dmg_attacker_loc = dmgloc
+	hud_control.add_child(inst)

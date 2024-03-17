@@ -1,6 +1,9 @@
 extends Node3D
 @onready var text_3d: MeshInstance3D = $text3d
-const NPC_ENEMY: PackedScene = preload("res://source/entity/npc/npc_enemy.tscn")
+var enemy_types: Array[NodePath] = [
+	"res://source/entity/npc/npc_attacker_enemy.tscn", "res://source/entity/npc/npc_retriever_enemy.tscn"
+]
+var path: NodePath = ""
 @onready var spawn_timer: Timer = $spawnTimer
 @export var total_enemy_count: int = 5
 var current_spawn_count: int = 0
@@ -27,7 +30,7 @@ func _process(_delta: float) -> void:
 
 func _on_spawn_timer_timeout() -> void:
 	if current_spawn_count < total_enemy_count:
-		var enemyinst: npc_enemy = NPC_ENEMY.instantiate()
+		var enemyinst: CharacterClass = (load(String(enemy_types[0])) as PackedScene).instantiate()
 		add_sibling(enemyinst)
 		enemyinst.global_transform.origin = self.global_transform.origin
 		current_spawn_count += 1

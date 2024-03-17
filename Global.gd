@@ -1,8 +1,11 @@
 extends Node
 
+# this var is server during gameplay so we can call get player var from server instead of global player ref
 var current_scene: Node = null
 
 var gamepaused: bool = false
+
+var player: Player = null
 
 
 class ServerSettings:

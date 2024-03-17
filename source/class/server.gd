@@ -73,7 +73,7 @@ func updatetimerdisplay() -> void:
 		+ str(mins)
 		+ ":"
 		+ (
-			str(round_timer.time_left - (mins * 60))
+			str(int(round_timer.time_left) - (mins * 60))
 			if (int(round_timer.time_left - (mins * 60)) > 9)
 			else "0" + str(int(round_timer.time_left - (mins * 60)))
 		)
@@ -111,6 +111,7 @@ func _ready() -> void:
 	mapnode.cube_lost.connect(_on_cube_lost)
 	add_child(mapnode)
 	player = mapnode.get_player()
+	Global.player = player
 	pausemenu_canvas.layer = 9  #high val so it draws over hud layer
 	mapdesctxt.text = pause_desc
 	gamemodetxt.text = str(Global.ServerSettings.GAMEMODE.keys()[servergamemode])

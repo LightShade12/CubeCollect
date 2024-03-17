@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dxqbjiwfybhtg"]
 
-[ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_b02eb"]
-[ext_resource type="Script" path="res://source/entity/npc/npc_enemy.gd" id="2_wtgud"]
+[ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_yafv6"]
+[ext_resource type="Script" path="res://source/entity/npc/npc_attacker_enemy.gd" id="2_q7avs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwc1m"]
 albedo_color = Color(0.243137, 0.576471, 0.588235, 1)
@@ -19,8 +19,8 @@ height = 1.8
 radius = 0.3
 height = 1.8
 
-[node name="npc_enemy" groups=["enemies"] instance=ExtResource("1_b02eb")]
-script = ExtResource("2_wtgud")
+[node name="npc_attacker_enemy" groups=["enemies"] instance=ExtResource("1_yafv6")]
+script = ExtResource("2_q7avs")
 
 [node name="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -34,4 +34,8 @@ shape = SubResource("CapsuleShape3D_eox43")
 path_height_offset = 1.0
 avoidance_enabled = true
 
+[node name="attackCooldownTimer" type="Timer" parent="." index="3"]
+one_shot = true
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

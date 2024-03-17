@@ -84,7 +84,10 @@ func explode() -> void:
 			force_dir = self.global_transform.origin.direction_to(obj.global_transform.origin)
 			obj.apply_impulse(force_dir * explosion_force * dist_fac)
 		elif obj is CharacterClass:
-			obj.damage(90 * dist_fac)
+			if obj is Player:
+				obj.pdamage(90 * dist_fac, self.global_transform.origin)
+			else:
+				obj.damage(90 * dist_fac)
 
 	if player_in_rad:
 		var dist: float = (player_in_rad.global_position - self.global_position).length()

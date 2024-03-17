@@ -145,6 +145,7 @@ grow_vertical = 2
 texture = ExtResource("2_6255a")
 
 [node name="movableHudControl" type="Control" parent="Control/CanvasLayer/hudControl" index="1"]
+z_index = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

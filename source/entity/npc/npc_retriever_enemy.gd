@@ -1,5 +1,5 @@
 extends CharacterClass
-class_name npc_enemy
+class_name npc_retriever_enemy
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")

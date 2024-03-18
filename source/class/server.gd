@@ -110,6 +110,7 @@ func beginSurvival() -> void:
 	is_surviving = true
 	player.objectivesdisplay.text = "Survive"
 	round_timer.start(survivalTimeSecs)
+	get_tree().call_group("npc_spawners", "start_spawner")
 
 
 func _ready() -> void:

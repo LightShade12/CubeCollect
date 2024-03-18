@@ -11,7 +11,7 @@ emission = Color(0, 0.552941, 0.517647, 1)
 material = SubResource("StandardMaterial3D_a4due")
 text = "spawn"
 
-[node name="npc_spawner" type="Node3D"]
+[node name="npc_spawner" type="Node3D" groups=["npc_spawners"]]
 script = ExtResource("1_imjjf")
 
 [node name="text3d" type="MeshInstance3D" parent="."]

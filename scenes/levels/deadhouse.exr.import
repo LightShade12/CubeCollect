@@ -1,0 +1,26 @@
+[remap]
+
+importer="2d_array_texture"
+type="CompressedTexture2DArray"
+uid="uid://m3n321s7gopp"
+path="res://.godot/imported/deadhouse.exr-9fa772e2201703934c791094105b41c1.ctexarray"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://scenes/levels/deadhouse.exr"
+dest_files=["res://.godot/imported/deadhouse.exr-9fa772e2201703934c791094105b41c1.ctexarray"]
+
+[params]
+
+compress/mode=3
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/channel_pack=1
+mipmaps/generate=false
+mipmaps/limit=-1
+slices/horizontal=1
+slices/vertical=3

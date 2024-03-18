@@ -113,14 +113,14 @@ func _on_navigation_agent_3d_target_reached() -> void:
 			is_holding_cube = true  #should actually check for holding
 			current_picked_cube = target_cube
 			current_picked_cube.is_picked = true
-			#print("picked target cube")
 		else:
 			srch_target_exists = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SPEED = 3.5
+	SPEED = 1.5
+	nav_agent.target_desired_distance = 2
 	cubeburner = (Global.current_scene as Server).get_cburner()
 	ext_zone = (Global.current_scene as Server).get_ext_zone()
 	set_physics_process(true)

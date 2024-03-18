@@ -50,10 +50,10 @@ var maplist: Dictionary = {
 		"res://assets/textures/ui/map_previews/deadhouse.png",
 		"Official level. Steal ancient cubic relics from the abandoned supernatural hotel."
 	),
-	"TestLevel01":
+	"Playground":
 	MapData.new(
-		"res://scenes/levels/testlevel01.tscn",
-		"res://assets/textures/ui/map_previews/testlevel01.png",
+		"res://scenes/levels/playground.tscn",
+		"res://assets/textures/ui/map_previews/playground.png",
 		"Dev level. Larger map for movement and particles testing."
 	)
 }

@@ -30,7 +30,7 @@ func _process(_delta: float) -> void:
 
 func _on_spawn_timer_timeout() -> void:
 	if current_spawn_count < total_enemy_count:
-		var enemyinst: CharacterClass = (load(String(enemy_types[0])) as PackedScene).instantiate()
+		var enemyinst: CharacterClass = (load(String(enemy_types.pick_random())) as PackedScene).instantiate()
 		add_sibling(enemyinst)
 		enemyinst.global_transform.origin = self.global_transform.origin
 		current_spawn_count += 1

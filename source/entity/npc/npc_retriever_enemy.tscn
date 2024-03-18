@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://boilx5iatv7m8"]
+[gd_scene load_steps=9 format=3 uid="uid://boilx5iatv7m8"]
 
 [ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_dl61h"]
 [ext_resource type="Script" path="res://source/entity/npc/npc_retriever_enemy.gd" id="2_uq3w3"]
@@ -19,7 +19,21 @@ height = 1.8
 radius = 0.3
 height = 1.8
 
-[node name="npc_retriever_enemy" groups=["enemies"] instance=ExtResource("1_dl61h")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2qgl"]
+emission_enabled = true
+emission = Color(0.305882, 0.427451, 1, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_126tm"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.5
+radial_segments = 4
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y0g37"]
+points = PackedVector3Array(-15, 0, -15, 0, 0, 0, 15, 0, -15, -15, 2, -15, 0, 2, 0, 15, 2, -15)
+
+[node name="npc_retriever_enemy" groups=["enemies_retriever"] instance=ExtResource("1_dl61h")]
 script = ExtResource("2_uq3w3")
 
 [node name="MeshInstance3D" parent="." index="0"]
@@ -33,5 +47,38 @@ shape = SubResource("CapsuleShape3D_minvx")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="2"]
 path_height_offset = 1.0
 avoidance_enabled = true
+debug_enabled = true
+debug_path_custom_color = Color(0, 0, 1, 1)
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.43275, -0.405124)
+material_override = SubResource("StandardMaterial3D_x2qgl")
+mesh = SubResource("CylinderMesh_126tm")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D2" index="0"]
+light_color = Color(0.305882, 0.427451, 1, 1)
+light_size = 0.1
+shadow_enabled = true
+
+[node name="visionArea" type="Area3D" parent="." index="4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="visionArea" index="0"]
+shape = SubResource("ConvexPolygonShape3D_y0g37")
+
+[node name="VisionRayCast" type="RayCast3D" parent="visionArea" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03074, 0)
+target_position = Vector3(0, 0, -2)
+hit_back_faces = false
+
+[node name="pickupMarker" type="Marker3D" parent="visionArea" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.5)
+
+[node name="movetimer" type="Timer" parent="." index="5"]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="body_entered" from="visionArea" to="." method="_on_vision_area_body_entered"]
+[connection signal="body_exited" from="visionArea" to="." method="_on_vision_area_body_exited"]
+[connection signal="timeout" from="movetimer" to="." method="_on_movetimer_timeout"]

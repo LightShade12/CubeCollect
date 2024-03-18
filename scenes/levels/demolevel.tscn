@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_44vl2"]
 [ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="2_5xhdw"]
 [ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="3_eo1n3"]
-[ext_resource type="PackedScene" uid="uid://bo6q7dydjheil" path="res://source/entity/area_detection.tscn" id="5_fvnkl"]
 [ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_jul6r"]
 [ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://assets/materials/maps/demolevel/demolevelUVfloorMat.tres" id="8_jadq6"]
 [ext_resource type="PackedScene" uid="uid://ck3whm0a2psc8" path="res://source/entity/grenade.tscn" id="8_ml6o5"]
@@ -16,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://sjshldobuydr" path="res://assets/sounds/maps/detail/Crow sfx.mp3" id="12_v4snk"]
 [ext_resource type="AudioStream" uid="uid://c5nhytb0rbgas" path="res://assets/sounds/maps/detail/Crow Sound Effect [TubeRipper.com].mp3" id="13_m76th"]
 [ext_resource type="AudioStream" uid="uid://d2gp0uwojqd3e" path="res://assets/sounds/maps/detail/crownearby.mp3" id="14_ttvlp"]
+[ext_resource type="PackedScene" uid="uid://1jgud4kyb1jr" path="res://source/entity/extraction_area.tscn" id="17_f4srf"]
 [ext_resource type="LightmapGIData" uid="uid://bfvd82de48x7u" path="res://scenes/levels/demolevel.lmbake" id="18_e6rtr"]
 [ext_resource type="PackedScene" uid="uid://k7h7wesuyrfa" path="res://source/entity/grenade_particle_system.tscn" id="18_f8een"]
 
@@ -228,21 +228,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37484, 4.37783, -4.04599)
 
 [node name="entities" type="Node3D" parent="." index="6"]
 
-[node name="AreaDetection" parent="entities" index="0" instance=ExtResource("5_fvnkl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.53788, -4.08371)
-
-[node name="grenade_stash" parent="entities" index="1" instance=ExtResource("6_jul6r")]
+[node name="grenade_stash" parent="entities" index="0" instance=ExtResource("6_jul6r")]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, 0.72247, 0.5008, -8.8345)
 
-[node name="grenade" parent="entities" index="2" instance=ExtResource("8_ml6o5")]
+[node name="grenade" parent="entities" index="1" instance=ExtResource("8_ml6o5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.03405, 2.0412, -8.47526)
 
-[node name="player" parent="entities" index="3" instance=ExtResource("2_5xhdw")]
+[node name="player" parent="entities" index="2" instance=ExtResource("2_5xhdw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.77259, 2.59966, 2.36671)
 
-[node name="grenadeParticleSystem" parent="entities" index="4" instance=ExtResource("18_f8een")]
+[node name="grenadeParticleSystem" parent="entities" index="3" instance=ExtResource("18_f8een")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.690992, 0.820904, -1.54296)
 visible = false
+
+[node name="extraction_area" parent="entities" index="4" instance=ExtResource("17_f4srf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.315926, 0.540797, -5.57063)
 
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
 bounces = 6
@@ -265,5 +265,5 @@ mesh = SubResource("PlaneMesh_j6xbd")
 transform = Transform3D(-0.960294, 0, -0.278991, 0, 1, 0, 0.278991, 0, -0.960294, 0, 2.22647, -11.1366)
 attributes = SubResource("CameraAttributesPhysical_swbsg")
 
-[connection signal="body_entered" from="entities/AreaDetection" to="." method="_on_area_detection_body_entered"]
-[connection signal="body_exited" from="entities/AreaDetection" to="." method="_on_area_detection_body_exited"]
+[connection signal="body_entered" from="entities/extraction_area" to="." method="_on_extraction_area_body_entered"]
+[connection signal="body_exited" from="entities/extraction_area" to="." method="_on_extraction_area_body_exited"]

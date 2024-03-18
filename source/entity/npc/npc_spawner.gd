@@ -5,9 +5,9 @@ var enemy_types: Array[NodePath] = [
 ]
 var path: NodePath = ""
 @onready var spawn_timer: Timer = $spawnTimer
-@export var total_enemy_count: int = 5
+@export_range(0,20) var total_enemy_count: int = 5
 var current_spawn_count: int = 0
-@export var interval_secs: int = 5
+@export_range(1,10) var interval_secs: int = 5
 @export var spawn_on_start: bool = false
 
 
@@ -30,7 +30,7 @@ func _process(_delta: float) -> void:
 
 func _on_spawn_timer_timeout() -> void:
 	if current_spawn_count < total_enemy_count:
-		var enemyinst: CharacterClass = (load(String(enemy_types[0])) as PackedScene).instantiate()
+		var enemyinst: CharacterClass = (load(String(enemy_types[1])) as PackedScene).instantiate()
 		add_sibling(enemyinst)
 		enemyinst.global_transform.origin = self.global_transform.origin
 		current_spawn_count += 1

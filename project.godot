@@ -13,13 +13,15 @@ config_version=5
 config/name="CubeCollect"
 config/description="CubeCollect Main Repo"
 config/version="1.0.0"
-run/main_scene="res://scenes/main/launcher.tscn"
+run/main_scene="res://source/class/server.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://assets/textures/ui/icon.png"
 
 [autoload]
 
 Global="*res://Global.gd"
+BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
+BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 
 [debug]
 
@@ -28,9 +30,6 @@ gdscript/warnings/inferred_declaration=1
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=3
 window/stretch/mode="viewport"
 
 [dotnet]

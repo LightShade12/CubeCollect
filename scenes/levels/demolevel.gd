@@ -17,11 +17,11 @@ func _process(_delta: float) -> void:
 		detail_stream_player.play()
 
 
-func _on_area_detection_body_entered(body: Node3D) -> void:
+func _on_extraction_area_body_entered(body: Node3D) -> void:
 	if body is Cube:
 		emit_signal("cube_recieved")
 
 
-func _on_area_detection_body_exited(body: Node3D) -> void:
+func _on_extraction_area_body_exited(body: Node3D) -> void:
 	if body is Cube:
 		emit_signal("cube_lost")

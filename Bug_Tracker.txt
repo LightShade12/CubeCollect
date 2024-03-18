@@ -1,2 +1,4 @@
 player.gd: movable hud moves completely offscreen when velocity is too high e.g falling
 player.gd: crouching is not vertical; causes localised crouch i.e shifting of head in local y; not global axis y
+hud dmg indicator is facing default dir for the first few frames; it is visible
+player sprint speed is not preserved durin jump if sprint is deactivated mid airs

@@ -31,6 +31,14 @@ var servergamemode: Global.ServerSettings.GAMEMODE = Global.ServerSettings.GAMEM
 @onready var pausemenu_canvas: CanvasLayer = $pausemenu/pausemenuCanvas
 
 
+func get_ext_zone() -> Area3D:
+	return mapnode.m_ext_zone
+
+
+func get_cburner() -> Area3D:
+	return mapnode.m_cube_burner
+
+
 func constructor(serversettings: Global.ServerSettings) -> void:
 	current_map_path = serversettings.map_path
 	collectionTimeSecs = serversettings.collectTimeSecs
@@ -106,12 +114,15 @@ func beginSurvival() -> void:
 
 func _ready() -> void:
 	var mapscene: PackedScene = ResourceLoader.load(current_map_path)
-	mapnode = mapscene.instantiate()
+	mapnode = mapscene.instantiate() as Level
 	mapnode.cube_recieved.connect(_on_cube_recieved)
 	mapnode.cube_lost.connect(_on_cube_lost)
+
 	add_child(mapnode)
+
 	player = mapnode.get_player()
 	Global.player = player
+
 	pausemenu_canvas.layer = 9  #high val so it draws over hud layer
 	mapdesctxt.text = pause_desc
 	gamemodetxt.text = str(Global.ServerSettings.GAMEMODE.keys()[servergamemode])
@@ -139,7 +150,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	get_tree().call_group("enemies", "update_target_location", player.global_transform.origin)
+	get_tree().call_group("enemies_attacker", "update_target_location", player.global_transform.origin)
 
 
 func _on_resume_button_pressed() -> void:

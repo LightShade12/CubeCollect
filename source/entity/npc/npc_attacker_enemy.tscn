@@ -19,7 +19,7 @@ height = 1.8
 radius = 0.3
 height = 1.8
 
-[node name="npc_attacker_enemy" groups=["enemies"] instance=ExtResource("1_yafv6")]
+[node name="npc_attacker_enemy" groups=["enemies_attacker"] instance=ExtResource("1_yafv6")]
 script = ExtResource("2_q7avs")
 
 [node name="MeshInstance3D" parent="." index="0"]

@@ -2,7 +2,7 @@ extends CharacterClass
 class_name Player
 
 const JUMP_VELOCITY: float = 4.5
-const HUD_DAMAGE_INDICATOR = preload("res://source/entity/hud_damage_indicator.tscn")
+const HUD_DAMAGE_INDICATOR: PackedScene = preload("res://source/entity/hud_damage_indicator.tscn")
 
 var mouse_sens: float = 0.2
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -311,6 +311,11 @@ func _physics_process(delta: float) -> void:
 		direction = lerp(
 			direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), lerp_speed * delta
 		)
+	else:
+		if (input_dir!=Vector2.ZERO):
+			direction = lerp(
+			direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta
+		)
 
 	if sliding:
 		direction = (transform.basis * Vector3(slide_vector.x, 0, slide_vector.y)).normalized()
@@ -330,7 +335,9 @@ func _physics_process(delta: float) -> void:
 	last_velocity = velocity
 
 	move_and_slide()
-
+	
+	super(delta)
+	
 	if picked_obj != null:
 		picked_obj.set_linear_velocity(
 			(manip_marker.global_transform.origin - picked_obj.global_transform.origin) * pull_fac
@@ -341,7 +348,7 @@ func _physics_process(delta: float) -> void:
 		typetooltip.text = ""
 
 
-func pdamage(dmg: int, dmgloc: Vector3):
+func pdamage(dmg: int, dmgloc: Vector3) -> void:
 	health -= dmg
 	var inst: HUD_dmg_indicator = HUD_DAMAGE_INDICATOR.instantiate()
 	inst.dmg_attacker_loc = dmgloc

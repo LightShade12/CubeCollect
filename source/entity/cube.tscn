@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcftaala3gn8l"]
 
-[ext_resource type="PackedScene" uid="uid://tkjc3slff4iw" path="res://assets/models/cubegeo.tscn" id="1_0dgam"]
+[ext_resource type="PackedScene" uid="uid://tkjc3slff4iw" path="res://assets/models/entity/cubegeo.tscn" id="1_0dgam"]
 [ext_resource type="Script" path="res://source/entity/cube.gd" id="1_ihj11"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dcjf5"]

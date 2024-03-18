@@ -15,8 +15,8 @@ func damage(dmg: int) -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
+func _physics_process(_delta: float) -> void:
+	for i: int in get_slide_collision_count():
+		var c: KinematicCollision3D = get_slide_collision(i)
 		if c.get_collider() is RigidBody3D:
 			c.get_collider().apply_central_impulse(-c.get_normal())

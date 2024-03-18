@@ -47,7 +47,6 @@ shape = SubResource("CapsuleShape3D_minvx")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="2"]
 path_height_offset = 1.0
 avoidance_enabled = true
-debug_enabled = true
 debug_path_custom_color = Color(0, 0, 1, 1)
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="3"]

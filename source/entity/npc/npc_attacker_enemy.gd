@@ -34,13 +34,16 @@ func slay() -> void:
 	pass
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var curr_loc: Vector3 = global_transform.origin
 	var next_loc: Vector3 = nav_agent.get_next_path_position()
 
 	var vel: Vector3 = (next_loc - curr_loc).normalized() * SPEED
 
 	nav_agent.set_velocity(vel)
+
+	var dir: Vector3 = nav_agent.get_next_path_position() - self.global_transform.origin
+	rotation.y = lerp_angle(rotation.y, atan2(dir.x, dir.z) + PI, delta * 8)
 
 	if health <= 0:
 		slay()
@@ -56,6 +59,7 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 		safe_velocity.y -= gravity * get_physics_process_delta_time() * 30
 	velocity = velocity.move_toward(safe_velocity, 0.25)
 	move_and_slide()
+	super._physics_process(get_physics_process_delta_time())
 
 
 func _on_navigation_agent_3d_target_reached() -> void:

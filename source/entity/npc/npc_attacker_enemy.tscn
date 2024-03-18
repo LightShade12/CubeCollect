@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dxqbjiwfybhtg"]
+[gd_scene load_steps=8 format=3 uid="uid://dxqbjiwfybhtg"]
 
 [ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_yafv6"]
 [ext_resource type="Script" path="res://source/entity/npc/npc_attacker_enemy.gd" id="2_q7avs"]
@@ -19,6 +19,17 @@ height = 1.8
 radius = 0.3
 height = 1.8
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hwxb"]
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_isdkx"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.5
+radial_segments = 4
+
 [node name="npc_attacker_enemy" groups=["enemies_attacker"] instance=ExtResource("1_yafv6")]
 script = ExtResource("2_q7avs")
 
@@ -36,6 +47,16 @@ avoidance_enabled = true
 
 [node name="attackCooldownTimer" type="Timer" parent="." index="3"]
 one_shot = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.28557, -0.474903)
+material_override = SubResource("StandardMaterial3D_4hwxb")
+mesh = SubResource("CylinderMesh_isdkx")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D2" index="0"]
+light_color = Color(1, 0, 0, 1)
+light_size = 0.1
+shadow_enabled = true
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

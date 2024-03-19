@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://ul070xb3e5ln"]
+[gd_scene load_steps=13 format=3 uid="uid://ul070xb3e5ln"]
 
 [ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_8rypa"]
 [ext_resource type="Script" path="res://scenes/levels/deadhouse.gd" id="2_cftfw"]
+[ext_resource type="CompressedTexture3D" uid="uid://dienktiq4ou12" path="res://assets/textures/luts/cine_clean.png" id="3_u71m4"]
 [ext_resource type="PackedScene" uid="uid://b6nid5y4qg1b4" path="res://assets/models/levels/house/house_geo.tscn" id="3_ypa2t"]
 [ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="4_8nl4n"]
 [ext_resource type="LightmapGIData" uid="uid://b4sicf4fo88cv" path="res://scenes/levels/deadhouse.lmbake" id="4_362w6"]
@@ -38,6 +39,7 @@ glow_blend_mode = 1
 glow_hdr_threshold = 0.0
 volumetric_fog_enabled = true
 volumetric_fog_sky_affect = 0.0
+adjustment_color_correction = ExtResource("3_u71m4")
 
 [node name="deadhouse" instance=ExtResource("1_8rypa")]
 script = ExtResource("2_cftfw")
@@ -81,7 +83,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.43395, 6.10539, 13.7578)
 [node name="entities" type="Node3D" parent="." index="7"]
 
 [node name="player" parent="entities" index="0" instance=ExtResource("4_8nl4n")]
-transform = Transform3D(-1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, 4.29626, 0.7807, -0.985618)
+transform = Transform3D(-1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, 4.29626, 1.53016, -0.985618)
 
 [node name="grenade_stash" parent="entities" index="1" instance=ExtResource("7_f1ank")]
 transform = Transform3D(-0.979768, 0, -0.200138, 0, 1, 0, 0.200138, 0, -0.979768, 7.12996, 0.7815, -0.386664)

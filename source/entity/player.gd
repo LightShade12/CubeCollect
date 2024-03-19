@@ -146,9 +146,6 @@ func _process(delta: float) -> void:
 
 	healthdisplay.text = str(health)
 
-	#hurt_direction = dmg_attacker_location - self.global_transform.origin
-	#dmg_ind.rotation = atan2(-hurt_direction.x, hurt_direction.z) - ((5 * PI) / 4) + self.get_rotation().y
-
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -312,10 +309,8 @@ func _physics_process(delta: float) -> void:
 			direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), lerp_speed * delta
 		)
 	else:
-		if (input_dir!=Vector2.ZERO):
-			direction = lerp(
-			direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta
-		)
+		if input_dir != Vector2.ZERO:
+			direction = lerp(direction, (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized(), delta)
 
 	if sliding:
 		direction = (transform.basis * Vector3(slide_vector.x, 0, slide_vector.y)).normalized()
@@ -335,9 +330,9 @@ func _physics_process(delta: float) -> void:
 	last_velocity = velocity
 
 	move_and_slide()
-	
+
 	super(delta)
-	
+
 	if picked_obj != null:
 		picked_obj.set_linear_velocity(
 			(manip_marker.global_transform.origin - picked_obj.global_transform.origin) * pull_fac

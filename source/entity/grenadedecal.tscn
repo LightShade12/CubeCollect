@@ -16,6 +16,7 @@ size = Vector3(5, 2, 5)
 texture_albedo = ExtResource("1_gdt76")
 upper_fade = 2.5895e-05
 lower_fade = 1e-05
+cull_mask = 1048573
 script = ExtResource("2_d3ixk")
 
 [node name="killTimer" type="Timer" parent="."]

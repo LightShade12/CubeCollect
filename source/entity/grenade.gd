@@ -13,7 +13,7 @@ var items_in_rad: Array
 var explosion_force: float = 10
 var interval: int = 10
 var int_timer: int = interval
-var fuse_time_secs: float = 4
+var fuse_time_secs: float = 2
 var is_picked: bool = false
 var player_in_rad: Player = null  #can make it an array
 # Called when the node enters the scene tree for the first time.

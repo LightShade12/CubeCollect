@@ -127,13 +127,6 @@ func _ready() -> void:
 	call_deferred("actor_setup")
 
 
-func _input(_event: InputEvent) -> void:
-	if Input.is_key_pressed(KEY_Y):
-		is_holding_cube = !is_holding_cube
-	if Input.is_key_pressed(KEY_U):
-		pass
-
-
 func actor_setup() -> void:
 	NavigationServer3D.map_changed.connect(Callable(map_ready))
 

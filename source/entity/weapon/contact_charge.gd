@@ -1,42 +1,34 @@
 extends RigidBody3D
-class_name Grenade
-
 @onready var core_audioplayer: AudioStreamPlayer3D = $coreAudioplayer
 @onready var aux_audioplayer: AudioStreamPlayer3D = $auxAudioplayer
-@onready var fuse_timer: Timer = $FuseTimer
 @onready var ray_cast: RayCast3D = $RayCast
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+@onready var trauma_area: Area3D = $traumaArea
+@onready var damage_area: Area3D = $damageArea
+@onready var kill_timer: Timer = $killTimer
+@onready var explosion_audio_player: AudioStreamPlayer3D = $explosionAudioPlayer
+
 const GRENADEDECAL: PackedScene = preload("res://source/entity/grenadedecal.tscn")
-const GRENADE_PARTICLE_SYSTEM: PackedScene = preload("res://source/entity/grenade_particle_system.tscn")
+const BOMB_PARTICLE_SYSTEM: PackedScene = preload("res://source/entity/bomb_particle_system.tscn")
 var exploded: bool = false
-var is_active: bool = false
 var items_in_rad: Array
-var explosion_force: float = 10
-var interval: int = 10
-var int_timer: int = interval
-var fuse_time_secs: float = 2
-var is_picked: bool = false
+var explosion_force: float = 15
 var player_in_rad: Player = null  #can make it an array
 # Called when the node enters the scene tree for the first time.
+var lifetime: float = 10
 
 
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass  # Replace with function body.
+	kill_timer.wait_time = lifetime
+	kill_timer.start()
 
 
-func grenade_activate() -> void:
-	fuse_timer.start(fuse_time_secs)
-	is_active = true
-
-
-func identify() -> void:
-	print(self)
-
-
-func getInterctionHint() -> String:
-	if is_picked:
-		return "Lclick to throw"
-	else:
-		return "Lclick to equip"
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	if exploded:
+		await get_tree().create_timer(3.5).timeout
+		self.call_deferred("free")
 
 
 func _physics_process(_delta: float) -> void:
@@ -47,34 +39,20 @@ func _physics_process(_delta: float) -> void:
 	ray_cast.global_rotation.x += deg_to_rad(90)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	if !exploded and is_active:
-		if int_timer == 0:
-			core_audioplayer.stream = load("res://assets/sounds/weapon/grenade/beep.mp3")
-			core_audioplayer.play()
-			int_timer = interval * int(fuse_timer.time_left) + 15
-		else:
-			int_timer -= 1
-
-	if exploded:
-		await get_tree().create_timer(3.5).timeout
-		self.call_deferred("free")
-
-
 func explode() -> void:
-	core_audioplayer.set_stream(preload("res://assets/sounds/weapon/grenade/explosion.wav"))
-	core_audioplayer.volume_db = 20
-	core_audioplayer.play()
+	explosion_audio_player.set_stream(preload("res://assets/sounds/weapon/bomber/hq-explosion-6288.mp3"))
+	explosion_audio_player.volume_db = 20
+	explosion_audio_player.play()
 	visible = false
 	var force_dir: Vector3
 
 	var spnpt: Vector3 = ray_cast.get_collision_point()
-
+	if spnpt == Vector3.ZERO:
+		spnpt = global_position
 	var decalnode: Decal = GRENADEDECAL.instantiate()
 	add_sibling(decalnode)
 	decalnode.global_transform.origin = spnpt
-	var smokeptclsys: Node3D = GRENADE_PARTICLE_SYSTEM.instantiate()
+	var smokeptclsys: Node3D = BOMB_PARTICLE_SYSTEM.instantiate()
 	add_sibling(smokeptclsys)
 	smokeptclsys.global_transform.origin = spnpt
 
@@ -106,20 +84,6 @@ func explode() -> void:
 	aux_audioplayer.play()
 
 
-#collision sound
-func _on_body_entered(_body: Node3D) -> void:
-	if !exploded:
-		if linear_velocity.length() > 1:
-			#aux_audioplayer.pitch_scale=randf_range(0.95,1.05)
-			aux_audioplayer.play()
-	pass  # Replace with function body.
-
-
-func _on_fuse_timer_timeout() -> void:
-	explode()
-	pass  # Replace with function body.
-
-
 func _on_trauma_area_body_entered(body: Node3D) -> void:
 	if body is Player:
 		player_in_rad = body
@@ -142,4 +106,18 @@ func _on_damage_area_body_entered(body: Node3D) -> void:
 func _on_damage_area_body_exited(body: Node3D) -> void:
 	#if body is RigidBody3D:
 	items_in_rad.erase(body)
+	pass  # Replace with function body.
+
+
+func _on_body_entered(_body: Node) -> void:
+	kill_timer.stop()
+	#contact_monitor = false
+	set_deferred("contact_monitor", false)
+	#max_contacts_reported = 0
+	#print("explode")
+	explode()
+
+
+func _on_kill_timer_timeout() -> void:
+	self.call_deferred("free")
 	pass  # Replace with function body.

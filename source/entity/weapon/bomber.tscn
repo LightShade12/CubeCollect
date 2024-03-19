@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://x0w0saeq4uv3"]
+
+[ext_resource type="Script" path="res://source/entity/weapon/bomber.gd" id="1_tluid"]
+[ext_resource type="AudioStream" uid="uid://5o60x55y0tui" path="res://assets/sounds/weapon/bomber/rocket-loop-99748.ogg" id="2_bq6xt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uoldg"]
+cull_mode = 2
+albedo_color = Color(0.164706, 0.164706, 0.164706, 1)
+roughness = 0.5
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_14fp4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_66fdi"]
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 25.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_rbpcm"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="bomber" type="Node3D"]
+script = ExtResource("1_tluid")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.2, 0, 0)
+material_override = SubResource("StandardMaterial3D_uoldg")
+mesh = SubResource("PlaneMesh_14fp4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.2, 0, 0)
+material_override = SubResource("StandardMaterial3D_uoldg")
+mesh = SubResource("PlaneMesh_14fp4")
+
+[node name="spawn_marker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.398016, 0)
+
+[node name="killTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_bq6xt")
+attenuation_model = 2
+volume_db = 80.0
+unit_size = 1.0
+max_db = 6.0
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.072, 0)
+material_override = SubResource("StandardMaterial3D_66fdi")
+mesh = SubResource("BoxMesh_rbpcm")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.072, 0)
+material_override = SubResource("StandardMaterial3D_66fdi")
+mesh = SubResource("BoxMesh_rbpcm")
+
+[connection signal="timeout" from="killTimer" to="." method="_on_kill_timer_timeout"]

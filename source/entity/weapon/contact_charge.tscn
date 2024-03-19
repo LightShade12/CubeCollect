@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwuuyrcn6w80i"]
+
+[ext_resource type="PackedScene" uid="uid://ck3whm0a2psc8" path="res://source/entity/explosive.tscn" id="1_xm50t"]
+[ext_resource type="Script" path="res://source/entity/weapon/contact_charge.gd" id="2_6vxhw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_geuca"]
+albedo_color = Color(0.282353, 0.282353, 0.282353, 1)
+metallic = 1.0
+roughness = 0.4
+clearcoat_roughness = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_08iep"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.2
+radial_segments = 6
+
+[node name="contact_charge" instance=ExtResource("1_xm50t")]
+script = ExtResource("2_6vxhw")
+
+[node name="MeshInstance3D" parent="." index="1"]
+material_override = SubResource("StandardMaterial3D_geuca")
+mesh = SubResource("CylinderMesh_08iep")
+
+[node name="killTimer" type="Timer" parent="." index="7"]
+one_shot = true
+
+[node name="explosionAudioPlayer" type="AudioStreamPlayer3D" parent="." index="8"]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="traumaArea" to="." method="_on_trauma_area_body_entered"]
+[connection signal="body_exited" from="traumaArea" to="." method="_on_trauma_area_body_exited"]
+[connection signal="body_entered" from="damageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="body_exited" from="damageArea" to="." method="_on_damage_area_body_exited"]
+[connection signal="timeout" from="killTimer" to="." method="_on_kill_timer_timeout"]

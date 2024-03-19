@@ -170,6 +170,13 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("rclick"):
 		drop_obj()
 
+	if Input.is_action_just_pressed("key_use_special"):
+		var binst: bomber = (preload("res://source/entity/weapon/bomber.tscn")).instantiate()
+		add_sibling(binst)
+		binst.constructor(
+			Vector3(global_position.x, 40, global_position.z), -global_transform.basis.z, global_rotation.y
+		)
+
 	if Input.is_action_just_pressed("key_interact"):
 		if object_in_range is GrenadeSpawner:
 			object_in_range.interact()

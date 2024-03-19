@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="3_eo1n3"]
 [ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_jul6r"]
 [ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://assets/materials/maps/demolevel/demolevelUVfloorMat.tres" id="8_jadq6"]
-[ext_resource type="PackedScene" uid="uid://ck3whm0a2psc8" path="res://source/entity/grenade.tscn" id="8_ml6o5"]
+[ext_resource type="PackedScene" uid="uid://ck3whm0a2psc8" path="res://source/entity/explosive.tscn" id="8_ml6o5"]
 [ext_resource type="Texture2D" uid="uid://dmfcxjl37qkkf" path="res://assets/textures/dev/1K cyan_aquamarine.png" id="9_gvc0o"]
 [ext_resource type="AudioStream" uid="uid://gx33i2d1lr85" path="res://assets/sounds/maps/ambient/snow winds.mp3" id="9_y12aj"]
 [ext_resource type="Texture2D" uid="uid://bdp17ylr5o14n" path="res://assets/textures/dev/1K RYGB.png" id="10_x27oe"]

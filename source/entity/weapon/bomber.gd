@@ -6,7 +6,7 @@ var speed: float = 100
 var bomb_count: int = 10
 const CONTACT_CHARGE: PackedScene = preload("res://source/entity/weapon/contact_charge.tscn")
 @onready var kill_timer: Timer = $killTimer
-var lifetime: float = 20
+var lifetime: float = 15
 @onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 

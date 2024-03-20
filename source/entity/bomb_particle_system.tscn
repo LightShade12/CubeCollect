@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://bugyfextgocde"]
 
-[ext_resource type="Script" path="res://source/entity/grenade_particle_system.gd" id="1_o6uxt"]
+[ext_resource type="Script" path="res://source/entity/bomb_particle_system.gd" id="1_4xxok"]
 [ext_resource type="Texture2D" uid="uid://3dj3410whfal" path="res://assets/textures/entities/grenade/smoke_particle.png" id="2_him58"]
 [ext_resource type="Texture2D" uid="uid://cai6u1khvdnl4" path="res://assets/textures/entities/grenade/explosion_med.png" id="3_o14uf"]
 
@@ -180,8 +180,8 @@ color_ramp = SubResource("GradientTexture1D_n8rqn")
 [sub_resource type="PlaneMesh" id="PlaneMesh_jsstc"]
 orientation = 2
 
-[node name="grenadeParticleSystem" type="Node3D"]
-script = ExtResource("1_o6uxt")
+[node name="bombParticleSystem" type="Node3D"]
+script = ExtResource("1_4xxok")
 
 [node name="smokeptcls" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_h5m2i")

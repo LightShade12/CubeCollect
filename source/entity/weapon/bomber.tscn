@@ -117,7 +117,17 @@ unit_size = 1.0
 max_db = 6.0
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.44825)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.02666, 0, 2.91384)
+material_override = SubResource("StandardMaterial3D_884gl")
+amount = 1024
+lifetime = 10.0
+fixed_fps = 60
+visibility_aabb = AABB(-256, -100, -256, 512, 100, 512)
+process_material = SubResource("ParticleProcessMaterial_tyvxb")
+draw_pass_1 = SubResource("PlaneMesh_ugva7")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10384, 0, 2.91384)
 material_override = SubResource("StandardMaterial3D_884gl")
 amount = 1024
 lifetime = 10.0
@@ -127,6 +137,7 @@ process_material = SubResource("ParticleProcessMaterial_tyvxb")
 draw_pass_1 = SubResource("PlaneMesh_ugva7")
 
 [node name="body" type="MeshInstance3D" parent="."]
+layers = 2
 mesh = SubResource("ArrayMesh_80ywm")
 skeleton = NodePath("")
 

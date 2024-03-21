@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://blxboep0qk3au"]
+[gd_scene load_steps=19 format=3 uid="uid://blxboep0qk3au"]
 
 [ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_yu631"]
 [ext_resource type="Texture2D" uid="uid://ds3lmp3uvbt5p" path="res://assets/textures/ui/crosshair011.png" id="2_6255a"]
 [ext_resource type="Script" path="res://source/entity/player.gd" id="2_hxpo6"]
+[ext_resource type="PackedScene" uid="uid://fn4ue284pmgv" path="res://motion_blur/motion_blur.tscn" id="3_5viya"]
 [ext_resource type="FontFile" uid="uid://bp1pnfuqrg8tu" path="res://assets/fonts/Neou-Bold.ttf" id="3_n5uxe"]
+[ext_resource type="Shader" path="res://assets/materials/ui/player/vignette.gdshader" id="3_nx7j6"]
+[ext_resource type="Shader" path="res://motion_blur/moblur_shader.gdshader" id="4_mpb43"]
 [ext_resource type="FontFile" uid="uid://b31kpgg2mx274" path="res://assets/fonts/AgencyFB-Bold.ttf" id="4_ynmp2"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1lm78"]
@@ -22,6 +25,21 @@ height = 1.8
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wv08v"]
 radius = 0.3
 height = 1.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gksuv"]
+render_priority = -1
+shader = ExtResource("4_mpb43")
+shader_parameter/linear_velocity = Vector3(0, 0, 0)
+shader_parameter/angular_velocity = Vector3(0, 0, 0)
+shader_parameter/iteration_count = 30
+shader_parameter/intensity = 0.4
+shader_parameter/startRadius = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4l3k"]
+shader = ExtResource("3_nx7j6")
+shader_parameter/vignette_intensity = 0.08
+shader_parameter/vignette_opacity = 0.5
+shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_q83i3"]
 length = 0.001
@@ -59,6 +77,10 @@ _data = {
 "RESET": SubResource("Animation_q83i3"),
 "jump_landing": SubResource("Animation_t7l01")
 }
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_6v606"]
+length = 0.5
+slide_on_slope = true
 
 [node name="player" instance=ExtResource("1_yu631")]
 script = ExtResource("2_hxpo6")
@@ -101,6 +123,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4)
 target_position = Vector3(0, 0, -2)
 hit_back_faces = false
 
+[node name="motion_blur" parent="head/camera_pivot/Camera3D" index="2" instance=ExtResource("3_5viya")]
+layers = 2
+surface_material_override/0 = SubResource("ShaderMaterial_gksuv")
+
 [node name="flashlight" type="SpotLight3D" parent="head" index="1"]
 transform = Transform3D(0.996186, 0, 0.0872601, 0, 1, 0, -0.0872601, 0, 0.996186, 0.15324, -0.170227, 0)
 visible = false
@@ -120,7 +146,17 @@ grow_vertical = 2
 [node name="CanvasLayer" type="CanvasLayer" parent="Control" index="0"]
 layer = 2
 
-[node name="hudControl" type="Control" parent="Control/CanvasLayer" index="0"]
+[node name="ColorRect" type="ColorRect" parent="Control/CanvasLayer" index="0"]
+visible = false
+material = SubResource("ShaderMaterial_u4l3k")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.156863, 0.156863, 0.156863, 1)
+
+[node name="hudControl" type="Control" parent="Control/CanvasLayer" index="1"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -301,3 +337,33 @@ text = "type"
 libraries = {
 "": SubResource("AnimationLibrary_lnmcj")
 }
+
+[node name="StairDetectRaycast" type="RayCast3D" parent="." index="7"]
+target_position = Vector3(0, -0.5, 0)
+
+[node name="StepUpSeparationRay_F" type="CollisionShape3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.323491)
+shape = SubResource("SeparationRayShape3D_6v606")
+
+[node name="RayCast3D" type="RayCast3D" parent="StepUpSeparationRay_F" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+enabled = false
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StepUpSeparationRay_R" type="CollisionShape3D" parent="." index="9"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.323491)
+shape = SubResource("SeparationRayShape3D_6v606")
+
+[node name="RayCast3D" type="RayCast3D" parent="StepUpSeparationRay_R" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+enabled = false
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StepUpSeparationRay_L" type="CollisionShape3D" parent="." index="10"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.323491)
+shape = SubResource("SeparationRayShape3D_6v606")
+
+[node name="RayCast3D" type="RayCast3D" parent="StepUpSeparationRay_L" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+enabled = false
+target_position = Vector3(0, -0.55, 0)

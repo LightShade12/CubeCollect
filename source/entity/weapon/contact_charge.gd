@@ -16,6 +16,7 @@ var explosion_force: float = 15
 var player_in_rad: Player = null  #can make it an array
 # Called when the node enters the scene tree for the first time.
 var lifetime: float = 10
+var postexplodelifetime_secs: float = 5
 
 
 # Called when the node enters the scene tree for the first time.
@@ -27,7 +28,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if exploded:
-		await get_tree().create_timer(3.5).timeout
+		await get_tree().create_timer(postexplodelifetime_secs).timeout
 		self.call_deferred("free")
 
 
@@ -43,7 +44,10 @@ func explode() -> void:
 	explosion_audio_player.set_stream(preload("res://assets/sounds/weapon/bomber/hq-explosion-6288.mp3"))
 	explosion_audio_player.volume_db = 20
 	explosion_audio_player.play()
-	visible = false
+	($MeshInstance3D as MeshInstance3D).transparency = 1
+	$OmniLight3D.light_energy = 0
+	$GPUParticles3D.emitting = false
+
 	var force_dir: Vector3
 
 	var spnpt: Vector3 = ray_cast.get_collision_point()
@@ -75,7 +79,7 @@ func explode() -> void:
 	exploded = true
 
 	#debris sfx
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(2).timeout
 	core_audioplayer.volume_db = -5
 	aux_audioplayer.volume_db = 0
 	aux_audioplayer.stream = preload("res://assets/sounds/weapon/grenade/sand_debris.mp3")

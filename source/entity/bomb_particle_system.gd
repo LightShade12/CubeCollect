@@ -61,8 +61,8 @@ func _ready() -> void:
 	if is_instance_valid(stween):
 		stween.kill()
 	stween = create_tween()
-	stween.tween_property(scorchsmoke, "transparency", 0, 2)
-	stween.tween_property(scorchsmoke, "transparency", 1, 2)
+	stween.tween_property(scorchsmoke, "transparency", 0, 0)
+	stween.tween_property(scorchsmoke, "transparency", 1, 16)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

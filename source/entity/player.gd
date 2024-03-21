@@ -97,6 +97,84 @@ var pull_fac: float = 20
 var throw_fac: float = 5
 var hurt_direction: Vector3 = Vector3.ZERO
 
+var _was_on_floor_last_frame: bool = false
+var _snapped_to_stairs_last_frame: bool = false
+@onready var stair_detect_raycast: RayCast3D = $StairDetectRaycast
+@onready var step_up_separation_ray_f: CollisionShape3D = $StepUpSeparationRay_F
+@onready var _initial_separation_ray_dist: float = abs(step_up_separation_ray_f.position.z)
+@onready var step_up_separation_ray_r: CollisionShape3D = $StepUpSeparationRay_R
+@onready var step_up_separation_ray_l: CollisionShape3D = $StepUpSeparationRay_L
+@onready var ray_cast_f: RayCast3D = $StepUpSeparationRay_F/RayCast3D
+@onready var ray_cast_r: RayCast3D = $StepUpSeparationRay_R/RayCast3D
+@onready var ray_cast_l: RayCast3D = $StepUpSeparationRay_L/RayCast3D
+
+var _last_xz_vel: Vector3 = Vector3(0, 0, 0)
+const max_step_height_metres: float = 0.5
+
+
+func _rotate_step_up_separation_ray() -> void:
+	var xz_vel: Vector3 = velocity * Vector3(1, 0, 1)
+
+	if xz_vel.length() < 0.1:
+		xz_vel = _last_xz_vel
+	else:
+		_last_xz_vel = xz_vel
+
+	var xz_f_ray_pos: Vector3 = xz_vel.normalized() * _initial_separation_ray_dist
+	step_up_separation_ray_f.global_position.x = self.global_position.x + xz_f_ray_pos.x
+	step_up_separation_ray_f.global_position.z = self.global_position.z + xz_f_ray_pos.z
+
+	var xz_l_ray_pos: Vector3 = xz_f_ray_pos.rotated(Vector3(0, 1.0, 0), deg_to_rad(-50))
+	step_up_separation_ray_l.global_position.x = self.global_position.x + xz_l_ray_pos.x
+	step_up_separation_ray_l.global_position.z = self.global_position.z + xz_l_ray_pos.z
+
+	var xz_r_ray_pos: Vector3 = xz_f_ray_pos.rotated(Vector3(0, 1.0, 0), deg_to_rad(50))
+	step_up_separation_ray_r.global_position.x = self.global_position.x + xz_r_ray_pos.x
+	step_up_separation_ray_r.global_position.z = self.global_position.z + xz_r_ray_pos.z
+
+	# To prevent character from running up walls, we do a check for how steep
+	# the slope in contact with our separation rays is
+	ray_cast_f.force_raycast_update()
+	ray_cast_l.force_raycast_update()
+	ray_cast_r.force_raycast_update()
+	var max_slope_ang_dot: float = Vector3(0, 1, 0).rotated(Vector3(1.0, 0, 0), self.floor_max_angle).dot(
+		Vector3(0, 1, 0)
+	)
+	var any_too_steep: bool = false
+	if ray_cast_f.is_colliding() and ray_cast_f.get_collision_normal().dot(Vector3(0, 1, 0)) < max_slope_ang_dot:
+		any_too_steep = true
+	if ray_cast_l.is_colliding() and ray_cast_l.get_collision_normal().dot(Vector3(0, 1, 0)) < max_slope_ang_dot:
+		any_too_steep = true
+	if ray_cast_r.is_colliding() and ray_cast_r.get_collision_normal().dot(Vector3(0, 1, 0)) < max_slope_ang_dot:
+		any_too_steep = true
+
+	step_up_separation_ray_f.disabled = any_too_steep
+	step_up_separation_ray_l.disabled = any_too_steep
+	step_up_separation_ray_r.disabled = any_too_steep
+
+
+func _snap_down_to_stairs_check() -> void:
+	var did_snap: bool = false
+	if (
+		not is_on_floor()
+		and velocity.y <= 0
+		and (_was_on_floor_last_frame or _snapped_to_stairs_last_frame)
+		and stair_detect_raycast.is_colliding()
+	):
+		var body_test_result: PhysicsTestMotionResult3D = PhysicsTestMotionResult3D.new()
+		var params: PhysicsTestMotionParameters3D = PhysicsTestMotionParameters3D.new()
+		var max_step_down: float = -max_step_height_metres
+		params.from = self.global_transform
+		params.motion = Vector3(0, max_step_down, 0)
+		if PhysicsServer3D.body_test_motion(self.get_rid(), params, body_test_result):
+			var translate_y: float = body_test_result.get_travel().y
+			self.position.y += translate_y
+			apply_floor_snap()
+			did_snap = true
+
+	_was_on_floor_last_frame = is_on_floor()
+	_snapped_to_stairs_last_frame = did_snap
+
 
 func add_trauma(trauma_amount: float) -> void:
 	trauma = clamp(trauma + trauma_amount, 0.0, 1.0)
@@ -113,6 +191,18 @@ func get_trauma_shake_noise_from_seed(_seed: int) -> float:
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	stair_detect_raycast.target_position = Vector3(0, -max_step_height_metres, 0)
+	step_up_separation_ray_f.position = Vector3(0, max_step_height_metres, -0.34)
+	(step_up_separation_ray_f.shape as SeparationRayShape3D).length = max_step_height_metres
+	ray_cast_f.target_position = Vector3(0, -max_step_height_metres - 0.05, 0)
+
+	step_up_separation_ray_r.position = Vector3(0, max_step_height_metres, -0.34)
+	(step_up_separation_ray_r.shape as SeparationRayShape3D).length = max_step_height_metres
+	ray_cast_r.target_position = Vector3(0, -max_step_height_metres - 0.05, 0)
+
+	step_up_separation_ray_l.position = Vector3(0, max_step_height_metres, -0.34)
+	(step_up_separation_ray_l.shape as SeparationRayShape3D).length = max_step_height_metres
+	ray_cast_l.target_position = Vector3(0, -max_step_height_metres - 0.05, 0)
 
 
 func playermessagedisplayUpdate(message: String) -> void:
@@ -174,7 +264,7 @@ func _input(event: InputEvent) -> void:
 		var binst: bomber = (preload("res://source/entity/weapon/bomber.tscn")).instantiate()
 		add_sibling(binst)
 		binst.constructor(
-			Vector3(global_position.x, 40, global_position.z), -global_transform.basis.z, global_rotation.y
+			Vector3(global_position.x, 100, global_position.z), -global_transform.basis.z, global_rotation.y
 		)
 
 	if Input.is_action_just_pressed("key_interact"):
@@ -336,9 +426,10 @@ func _physics_process(delta: float) -> void:
 	movable_hud_control.position.y += velocity.y
 	last_velocity = velocity
 
+	_rotate_step_up_separation_ray()
 	move_and_slide()
-
-	super(delta)
+	_snap_down_to_stairs_check()
+	super(delta)  #push rigid bodies
 
 	if picked_obj != null:
 		picked_obj.set_linear_velocity(

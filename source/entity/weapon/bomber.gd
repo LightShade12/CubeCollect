@@ -6,30 +6,38 @@ var speed: float = 100
 var bomb_count: int = 10
 const CONTACT_CHARGE: PackedScene = preload("res://source/entity/weapon/contact_charge.tscn")
 @onready var kill_timer: Timer = $killTimer
-var lifetime: float = 15
+var lifetime: float = 25
 var bombspread_extent: float = 0.1
 @onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
+var spawnDist: float = 1000
+var altitude: float = 300
 
 
 func constructor(spnpt: Vector3, _dir: Vector3, rot: float) -> void:
 	dir = _dir
-	global_position = spnpt - (300 * dir)
+	global_position = Vector3(spnpt.x, altitude, spnpt.z) - (spawnDist * dir)
 	rotation.y = rot
 
 
-func deliveryTimingSecs(
-	planespeed_mps: float,
-	init_dist_m: float,
-	pload_speed_mps: float,
-	pload_mass_kg: float,
-	altitude_m: float,
-	hitdist_m: float
-) -> float:
-	var eta_playerpos_secs: float = init_dist_m / planespeed_mps
-	var final_v_veloc: float = 0 + 9.8
-	var vertical_impact_eta: float = altitude_m
+func deliveryTimingSecs(planespeed_mps: float, init_dist_m: float, altitude_m: float, hitdist_m: float) -> float:
+	var playerpos_eta_secs: float = init_dist_m / planespeed_mps
 
-	return -1.0
+	#n.b: lineardamp:0.1, ~10secs to halt
+	var vertical_impact_eta: float = sqrt(2 * altitude_m / 9.8)  #t=sqrt((2s-2ut)/a)
+	var pload_horizontal_travel_m: float = planespeed_mps * vertical_impact_eta
+
+	#var hitdist_eta: float = hitdist_m / planespeed_mps
+	var corrective_impact_eta: float = (hitdist_m / pload_horizontal_travel_m) * vertical_impact_eta
+	var pload_hor_trav_m: float = (
+		-(altitude_m * altitude_m) + 2 * 100 * altitude_m - (altitude_m * altitude_m)
+		if altitude_m < 100
+		else (100 if altitude_m * altitude_m > 100 else 100)
+	)
+	var pload_static_horizontal_travel_100m_alt = 100  #factors altitude and ploadspeed
+	return (
+		playerpos_eta_secs - (pload_static_horizontal_travel_100m_alt / planespeed_mps) + (hitdist_m / planespeed_mps)
+	)
+	#return playerpos_eta_secs - (altitude_m / planespeed_mps) + (hitdist_m / planespeed_mps)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -37,7 +45,7 @@ func _ready() -> void:
 	audio_stream_player_3d.play()
 	kill_timer.wait_time = lifetime
 	kill_timer.start()
-	await get_tree().create_timer(2.28).timeout  #3.05
+	await get_tree().create_timer(deliveryTimingSecs(speed, spawnDist, altitude, 0)).timeout  #3.05
 	for i: int in range(0, bomb_count):
 		await get_tree().create_timer(0.04).timeout
 		var chinst: RigidBody3D = CONTACT_CHARGE.instantiate()

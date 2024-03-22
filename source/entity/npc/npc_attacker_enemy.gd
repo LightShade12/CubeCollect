@@ -15,9 +15,9 @@ func update_target_location(target_loc: Vector3) -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SPEED = 1.5
-	set_physics_process(true)
-	call_deferred("actor_setup")
 	attack_cooldown_timer.wait_time = 2
+	set_physics_process(false)
+	call_deferred("actor_setup")
 
 
 func actor_setup() -> void:
@@ -25,7 +25,7 @@ func actor_setup() -> void:
 
 
 func map_ready(_rid: RID) -> void:
-	#set_physics_process(true)
+	set_physics_process(true)
 	NavigationServer3D.map_changed.disconnect(Callable(map_ready))
 
 

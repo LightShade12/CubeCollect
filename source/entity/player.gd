@@ -264,7 +264,7 @@ func _input(event: InputEvent) -> void:
 		var binst: bomber = (preload("res://source/entity/weapon/bomber.tscn")).instantiate()
 		add_sibling(binst)
 		binst.constructor(
-			Vector3(global_position.x, 100, global_position.z), -global_transform.basis.z, global_rotation.y
+			Vector3(global_position.x, 0, global_position.z), -global_transform.basis.z, global_rotation.y
 		)
 
 	if Input.is_action_just_pressed("key_interact"):

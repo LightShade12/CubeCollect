@@ -37,7 +37,7 @@ shader_parameter/startRadius = 0.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u4l3k"]
 shader = ExtResource("3_nx7j6")
-shader_parameter/vignette_intensity = 0.08
+shader_parameter/vignette_intensity = 0.05
 shader_parameter/vignette_opacity = 0.5
 shader_parameter/vignette_rgb = Color(0, 0, 0, 1)
 
@@ -124,6 +124,7 @@ target_position = Vector3(0, 0, -2)
 hit_back_faces = false
 
 [node name="motion_blur" parent="head/camera_pivot/Camera3D" index="2" instance=ExtResource("3_5viya")]
+visible = false
 layers = 2
 surface_material_override/0 = SubResource("ShaderMaterial_gksuv")
 

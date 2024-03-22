@@ -22,6 +22,7 @@ var collectionTimeSecs: int = 20
 var survivalTimeSecs: int = 60
 var sbox_mode: bool = false
 
+#var current_map_path: NodePath = "res://scenes/levels/deadhouse.tscn"
 var current_map_path: NodePath = "res://scenes/levels/testlevel.tscn"
 var mapnode: Level = null
 var pause_desc: String = ""

@@ -28,9 +28,6 @@ gdscript/warnings/inferred_declaration=1
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
-window/size/mode=3
 window/stretch/mode="viewport"
 
 [dotnet]
@@ -109,6 +106,11 @@ key_use_special={
 ]
 }
 
+[navigation]
+
+3d/default_cell_size=0.1
+3d/default_cell_height=0.1
+
 [physics]
 
 3d/physics_engine="JoltPhysics3D"
@@ -121,6 +123,8 @@ lights_and_shadows/directional_shadow/16_bits=false
 environment/ssil/quality=4
 environment/ssil/half_size=false
 environment/ssil/adaptive_target=1.0
+scaling_3d/mode=2
+scaling_3d/scale=0.7
 lightmapping/bake_quality/high_quality_ray_count=256
 lightmapping/bake_performance/max_rays_per_pass=16
 lightmapping/bake_performance/max_rays_per_probe_pass=16

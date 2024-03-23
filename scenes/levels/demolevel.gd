@@ -3,10 +3,14 @@ extends Level
 var vmin: int = 4990
 var vmax: int = 5000
 @onready var player: Player = $entities/player
+@onready var cube_burner: Area3D = $entities/cube_burner
+@onready var extraction_area: Area3D = $entities/extraction_area
 
 
 func _ready() -> void:
 	#get_tree().call_group("InteractableEntity","identify")
+	m_ext_zone = extraction_area
+	m_cube_burner = cube_burner
 	m_player = player
 
 

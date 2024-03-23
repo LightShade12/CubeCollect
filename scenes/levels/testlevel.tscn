@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_rfgp7"]
 [ext_resource type="PackedScene" uid="uid://ds0bnjacoj05w" path="res://source/entity/npc/npc_spawner.tscn" id="8_qteas"]
 [ext_resource type="Texture2D" uid="uid://dm65ihwum8hym" path="res://assets/textures/entities/ui/markerblue.png" id="9_511m2"]
-[ext_resource type="LightmapGIData" uid="uid://vai6v87o7oxf" path="res://scenes/levels/testlevel.lmbake" id="9_qnq7c"]
+[ext_resource type="LightmapGIData" uid="uid://v76ajuxp7ttw" path="res://scenes/levels/testlevel.lmbake" id="9_qnq7c"]
 [ext_resource type="PackedScene" uid="uid://1jgud4kyb1jr" path="res://source/entity/extraction_area.tscn" id="10_uabhi"]
 [ext_resource type="Script" path="res://addons/array_modifier/ArrayModifier.gd" id="12_0u7gw"]
 

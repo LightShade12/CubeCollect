@@ -85,7 +85,7 @@ point_size = 128.0
 [node name="grenade_stash" type="StaticBody3D" groups=["InteractableEntity"]]
 script = ExtResource("1_7dhyi")
 
-[node name="Cube" type="MeshInstance3D" parent="."]
+[node name="body" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_dij06")
 skeleton = NodePath("")
 

@@ -87,7 +87,7 @@ func explode() -> void:
 			if obj is Player:
 				obj.pdamage(90 * dist_fac, self.global_transform.origin)
 			else:
-				obj.damage(90 * dist_fac)
+				obj.damage(120 * dist_fac)
 
 	if player_in_rad:
 		var dist: float = (player_in_rad.global_position - self.global_position).length()

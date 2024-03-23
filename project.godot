@@ -13,7 +13,8 @@ config_version=5
 config/name="CubeCollect"
 config/description="CubeCollect Main Repo"
 config/version="1.0.0"
-run/main_scene="res://source/class/server.tscn"
+config/tags=PackedStringArray("wip")
+run/main_scene="res://scenes/main/launcher.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://assets/textures/ui/icon.png"
 
@@ -28,6 +29,9 @@ gdscript/warnings/inferred_declaration=1
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="viewport"
 
 [dotnet]
@@ -124,7 +128,7 @@ environment/ssil/quality=4
 environment/ssil/half_size=false
 environment/ssil/adaptive_target=1.0
 scaling_3d/mode=2
-scaling_3d/scale=0.7
+scaling_3d/scale=0.5
 lightmapping/bake_quality/high_quality_ray_count=256
 lightmapping/bake_performance/max_rays_per_pass=16
 lightmapping/bake_performance/max_rays_per_probe_pass=16

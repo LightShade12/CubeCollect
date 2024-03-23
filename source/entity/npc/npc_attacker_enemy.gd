@@ -1,5 +1,10 @@
 extends CharacterClass
 class_name npc_attacker_enemy
+@onready var step_up_separation_ray_f: CollisionShape3D = $step_up_separation_ray_f
+@onready var step_up_separation_ray_l: CollisionShape3D = $step_up_separation_ray_l
+@onready var step_up_separation_ray_r: CollisionShape3D = $step_up_separation_ray_r
+
+@onready var _initial_separation_ray_dist: float = abs(step_up_separation_ray_f.position.z)
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -14,9 +19,9 @@ func update_target_location(target_loc: Vector3) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SPEED = 1.5
+	SPEED = 3.5
 	attack_cooldown_timer.wait_time = 2
-	set_physics_process(false)
+	#set_physics_process(false)
 	call_deferred("actor_setup")
 
 
@@ -44,6 +49,18 @@ func _physics_process(delta: float) -> void:
 
 	var dir: Vector3 = nav_agent.get_next_path_position() - self.global_transform.origin
 	rotation.y = lerp_angle(rotation.y, atan2(dir.x, dir.z) + PI, delta * 8)
+
+	var xz_f_ray_pos: Vector3 = dir.normalized() * _initial_separation_ray_dist
+	step_up_separation_ray_f.global_position.x = self.global_position.x + xz_f_ray_pos.x
+	step_up_separation_ray_f.global_position.z = self.global_position.z + xz_f_ray_pos.z
+
+	var xz_l_ray_pos: Vector3 = xz_f_ray_pos.rotated(Vector3(0, 1.0, 0), deg_to_rad(-50))
+	step_up_separation_ray_l.global_position.x = self.global_position.x + xz_l_ray_pos.x
+	step_up_separation_ray_l.global_position.z = self.global_position.z + xz_l_ray_pos.z
+
+	var xz_r_ray_pos: Vector3 = xz_f_ray_pos.rotated(Vector3(0, 1.0, 0), deg_to_rad(50))
+	step_up_separation_ray_r.global_position.x = self.global_position.x + xz_r_ray_pos.x
+	step_up_separation_ray_r.global_position.z = self.global_position.z + xz_r_ray_pos.z
 
 	if health <= 0:
 		slay()

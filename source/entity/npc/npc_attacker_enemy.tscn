@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxqbjiwfybhtg"]
+[gd_scene load_steps=9 format=3 uid="uid://dxqbjiwfybhtg"]
 
 [ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_yafv6"]
 [ext_resource type="Script" path="res://source/entity/npc/npc_attacker_enemy.gd" id="2_q7avs"]
@@ -30,6 +30,9 @@ bottom_radius = 0.1
 height = 0.5
 radial_segments = 4
 
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_74nrc"]
+length = 0.5
+
 [node name="npc_attacker_enemy" groups=["enemies_attacker"] instance=ExtResource("1_yafv6")]
 script = ExtResource("2_q7avs")
 
@@ -42,6 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_eox43")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="2"]
+path_desired_distance = 1.5
 path_height_offset = 1.0
 avoidance_enabled = true
 
@@ -57,6 +61,18 @@ mesh = SubResource("CylinderMesh_isdkx")
 light_color = Color(1, 0, 0, 1)
 light_size = 0.1
 shadow_enabled = true
+
+[node name="step_up_separation_ray_f" type="CollisionShape3D" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.705074)
+shape = SubResource("SeparationRayShape3D_74nrc")
+
+[node name="step_up_separation_ray_l" type="CollisionShape3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.705074)
+shape = SubResource("SeparationRayShape3D_74nrc")
+
+[node name="step_up_separation_ray_r" type="CollisionShape3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.705074)
+shape = SubResource("SeparationRayShape3D_74nrc")
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

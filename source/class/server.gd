@@ -22,8 +22,8 @@ var collectionTimeSecs: int = 20
 var survivalTimeSecs: int = 60
 var sbox_mode: bool = false
 
-#var current_map_path: NodePath = "res://scenes/levels/deadhouse.tscn"
-var current_map_path: NodePath = "res://scenes/levels/testlevel.tscn"
+var current_map_path: NodePath = "res://scenes/levels/deadhouse.tscn"
+#var current_map_path: NodePath = "res://scenes/levels/testlevel.tscn"
 var mapnode: Level = null
 var pause_desc: String = ""
 var current_map_name: String = ""
@@ -115,7 +115,7 @@ func beginSurvival() -> void:
 
 
 func _ready() -> void:
-	var mapscene: PackedScene = ResourceLoader.load(current_map_path)
+	var mapscene: PackedScene = load(String(current_map_path))
 	mapnode = mapscene.instantiate() as Level
 	mapnode.cube_recieved.connect(_on_cube_recieved)
 	mapnode.cube_lost.connect(_on_cube_lost)

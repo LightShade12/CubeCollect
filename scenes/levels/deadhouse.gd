@@ -8,8 +8,8 @@ extends Level
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	m_player = player
-	m_cube_burner = cube_burner
 	m_ext_zone = extraction_area
+	m_cube_burner = cube_burner
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

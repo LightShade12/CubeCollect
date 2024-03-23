@@ -23,17 +23,17 @@ func deliveryTimingSecs(planespeed_mps: float, init_dist_m: float, altitude_m: f
 	var playerpos_eta_secs: float = init_dist_m / planespeed_mps
 
 	#n.b: lineardamp:0.1, ~10secs to halt
-	var vertical_impact_eta: float = sqrt(2 * altitude_m / 9.8)  #t=sqrt((2s-2ut)/a)
-	var pload_horizontal_travel_m: float = planespeed_mps * vertical_impact_eta
+	#var vertical_impact_eta: float = sqrt(2 * altitude_m / 9.8)  #t=sqrt((2s-2ut)/a)
+	#var pload_horizontal_travel_m: float = planespeed_mps * vertical_impact_eta
 
 	#var hitdist_eta: float = hitdist_m / planespeed_mps
-	var corrective_impact_eta: float = (hitdist_m / pload_horizontal_travel_m) * vertical_impact_eta
-	var pload_hor_trav_m: float = (
-		-(altitude_m * altitude_m) + 2 * 100 * altitude_m - (altitude_m * altitude_m)
-		if altitude_m < 100
-		else (100 if altitude_m * altitude_m > 100 else 100)
-	)
-	var pload_static_horizontal_travel_100m_alt = 100  #factors altitude and ploadspeed
+	#var corrective_impact_eta: float = (hitdist_m / pload_horizontal_travel_m) * vertical_impact_eta
+	#var pload_hor_trav_m: float = (
+	#-(altitude_m * altitude_m) + 2 * 100 * altitude_m - (altitude_m * altitude_m)
+	#if altitude_m < 100
+	#else (100 if altitude_m * altitude_m > 100 else 100)
+	#)
+	var pload_static_horizontal_travel_100m_alt: float = 100  #factors altitude and ploadspeed
 	return (
 		playerpos_eta_secs - (pload_static_horizontal_travel_100m_alt / planespeed_mps) + (hitdist_m / planespeed_mps)
 	)

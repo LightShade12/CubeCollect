@@ -8,6 +8,10 @@ var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var cubeburner: Area3D = null
 var ext_zone: Area3D = null
 var searchtarget: Vector3 = Vector3.ZERO
+@onready var step_up_separation_ray_f: CollisionShape3D = $step_up_separation_ray_f
+@onready var step_up_separation_ray_l: CollisionShape3D = $step_up_separation_ray_l
+@onready var step_up_separation_ray_r: CollisionShape3D = $step_up_separation_ray_r
+@onready var _initial_separation_ray_dist: float = abs(step_up_separation_ray_f.position.z)
 
 #states
 var fresh: bool = true
@@ -119,7 +123,7 @@ func _on_navigation_agent_3d_target_reached() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	SPEED = 1.5
+	SPEED = 2.5
 	nav_agent.target_desired_distance = 2
 	cubeburner = (Global.current_scene as Server).get_cburner()
 	ext_zone = (Global.current_scene as Server).get_ext_zone()
@@ -153,6 +157,18 @@ func _physics_process(delta: float) -> void:
 
 	var dir: Vector3 = nav_agent.get_next_path_position() - self.global_transform.origin
 	rotation.y = lerp_angle(rotation.y, atan2(dir.x, dir.z) + PI, delta * 8)
+
+	var xz_f_ray_pos: Vector3 = dir.normalized() * _initial_separation_ray_dist
+	step_up_separation_ray_f.global_position.x = self.global_position.x + xz_f_ray_pos.x
+	step_up_separation_ray_f.global_position.z = self.global_position.z + xz_f_ray_pos.z
+
+	var xz_l_ray_pos: Vector3 = xz_f_ray_pos.rotated(Vector3(0, 1.0, 0), deg_to_rad(-50))
+	step_up_separation_ray_l.global_position.x = self.global_position.x + xz_l_ray_pos.x
+	step_up_separation_ray_l.global_position.z = self.global_position.z + xz_l_ray_pos.z
+
+	var xz_r_ray_pos: Vector3 = xz_f_ray_pos.rotated(Vector3(0, 1.0, 0), deg_to_rad(50))
+	step_up_separation_ray_r.global_position.x = self.global_position.x + xz_r_ray_pos.x
+	step_up_separation_ray_r.global_position.z = self.global_position.z + xz_r_ray_pos.z
 
 	if health <= 0:
 		slay()

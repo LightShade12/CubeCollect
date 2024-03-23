@@ -32,6 +32,12 @@ class MapData:
 
 
 var maplist: Dictionary = {
+	"Deadhouse":
+	MapData.new(
+		"res://scenes/levels/deadhouse.tscn",
+		"res://assets/textures/ui/map_previews/deadhouse.png",
+		"Official level. Steal ancient cubic relics from the abandoned supernatural hotel."
+	),
 	"TestLevel":
 	MapData.new(
 		"res://scenes/levels/testlevel.tscn",
@@ -43,12 +49,6 @@ var maplist: Dictionary = {
 		"res://scenes/levels/demolevel.tscn",
 		"res://assets/textures/ui/map_previews/demolevel.png",
 		"Dev level. Used for grenade and cube physics testing."
-	),
-	"Deadhouse":
-	MapData.new(
-		"res://scenes/levels/deadhouse.tscn",
-		"res://assets/textures/ui/map_previews/deadhouse.png",
-		"Official level. Steal ancient cubic relics from the abandoned supernatural hotel."
 	),
 	"Playground":
 	MapData.new(
@@ -68,6 +68,7 @@ func _ready() -> void:
 		gamemodesbutton.add_item(gmode)
 	selectedMapData = maplist[mapselect_button.get_item_text(mapselect_button.get_selected_id())]
 	current_server_settings.gamemode = gamemodesbutton.get_selected_id() as Global.ServerSettings.GAMEMODE
+	mappreview_texture.texture = load(String(selectedMapData.image_path))
 	current_server_settings.map_description = selectedMapData.map_desc
 	gammodedesc.text = (
 		str(Global.ServerSettings.GAMEMODE.keys()[current_server_settings.gamemode])

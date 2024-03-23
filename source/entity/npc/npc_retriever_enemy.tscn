@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://boilx5iatv7m8"]
+[gd_scene load_steps=10 format=3 uid="uid://boilx5iatv7m8"]
 
 [ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_dl61h"]
 [ext_resource type="Script" path="res://source/entity/npc/npc_retriever_enemy.gd" id="2_uq3w3"]
@@ -33,6 +33,9 @@ radial_segments = 4
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y0g37"]
 points = PackedVector3Array(-15, 0, -15, 0, 0, 0, 15, 0, -15, -15, 2, -15, 0, 2, 0, 15, 2, -15)
 
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_wkp30"]
+length = 0.5
+
 [node name="npc_retriever_enemy" groups=["enemies_retriever"] instance=ExtResource("1_dl61h")]
 script = ExtResource("2_uq3w3")
 
@@ -45,6 +48,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_minvx")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." index="2"]
+path_desired_distance = 1.2
 path_height_offset = 1.0
 avoidance_enabled = true
 debug_path_custom_color = Color(0, 0, 1, 1)
@@ -70,11 +74,23 @@ target_position = Vector3(0, 0, -2)
 hit_back_faces = false
 
 [node name="pickupMarker" type="Marker3D" parent="visionArea" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
 
 [node name="movetimer" type="Timer" parent="." index="5"]
 wait_time = 5.0
 one_shot = true
+
+[node name="step_up_separation_ray_f" type="CollisionShape3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.705074)
+shape = SubResource("SeparationRayShape3D_wkp30")
+
+[node name="step_up_separation_ray_l" type="CollisionShape3D" parent="." index="7"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.705074)
+shape = SubResource("SeparationRayShape3D_wkp30")
+
+[node name="step_up_separation_ray_r" type="CollisionShape3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.5, -0.705074)
+shape = SubResource("SeparationRayShape3D_wkp30")
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

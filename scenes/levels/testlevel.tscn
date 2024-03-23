@@ -1,18 +1,20 @@
-[gd_scene load_steps=30 format=3 uid="uid://bo4dcv0w78veg"]
+[gd_scene load_steps=31 format=3 uid="uid://bo4dcv0w78veg"]
 
-[ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_i6ns8"]
+[ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level/level.tscn" id="1_i6ns8"]
 [ext_resource type="Script" path="res://scenes/levels/testlevel.gd" id="1_tstgm"]
-[ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://assets/materials/maps/demolevel/demolevelUVfloorMat.tres" id="2_armk6"]
+[ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://assets/materials/maps/demolevel/demolevel_UV_Mat.tres" id="2_armk6"]
 [ext_resource type="CompressedTexture3D" uid="uid://dienktiq4ou12" path="res://assets/textures/luts/cine_clean.png" id="3_25mqq"]
-[ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="3_256h8"]
-[ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="4_lurub"]
-[ext_resource type="PackedScene" uid="uid://11aliu7ryeba" path="res://source/entity/cube_burner.tscn" id="5_dwwar"]
-[ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_rfgp7"]
+[ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player/player.tscn" id="3_256h8"]
+[ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/props/cube/cube.tscn" id="4_lurub"]
+[ext_resource type="PackedScene" uid="uid://11aliu7ryeba" path="res://source/entity/areas/cube_burner.tscn" id="5_dwwar"]
+[ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/props/grenade_stash/grenade_stash.tscn" id="6_rfgp7"]
+[ext_resource type="Material" uid="uid://cbhgx5ilft5i3" path="res://assets/materials/maps/demolevel/demolevel_mixwall_mat.tres" id="6_ugoqj"]
 [ext_resource type="PackedScene" uid="uid://ds0bnjacoj05w" path="res://source/entity/npc/npc_spawner.tscn" id="8_qteas"]
 [ext_resource type="Texture2D" uid="uid://dm65ihwum8hym" path="res://assets/textures/entities/ui/markerblue.png" id="9_511m2"]
 [ext_resource type="LightmapGIData" uid="uid://v76ajuxp7ttw" path="res://scenes/levels/testlevel.lmbake" id="9_qnq7c"]
-[ext_resource type="PackedScene" uid="uid://1jgud4kyb1jr" path="res://source/entity/extraction_area.tscn" id="10_uabhi"]
+[ext_resource type="PackedScene" uid="uid://1jgud4kyb1jr" path="res://source/entity/areas/extraction_area.tscn" id="10_uabhi"]
 [ext_resource type="Script" path="res://addons/array_modifier/ArrayModifier.gd" id="12_0u7gw"]
+[ext_resource type="Material" uid="uid://b8rifd87m48yf" path="res://assets/materials/maps/demolevel/demolevel_bluewall_mat.tres" id="15_rrxlr"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_2jspe"]
 energy_multiplier = 2.0
@@ -49,7 +51,6 @@ agent_radius = 0.3
 
 [sub_resource type="BoxMesh" id="BoxMesh_8y3wm"]
 lightmap_size_hint = Vector2i(504, 266)
-material = ExtResource("2_armk6")
 add_uv2 = true
 size = Vector3(50, 1, 50)
 
@@ -61,7 +62,6 @@ size = Vector3(10, 3, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_uene2"]
 lightmap_size_hint = Vector2i(59, 86)
-material = ExtResource("2_armk6")
 add_uv2 = true
 size = Vector3(10, 3, 1)
 
@@ -72,8 +72,6 @@ emission_enabled = true
 emission_energy_multiplier = 5.0
 emission_texture = ExtResource("9_511m2")
 billboard_mode = 2
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_asup1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_01i8w"]
 lightmap_size_hint = Vector2i(16, 18)
@@ -174,6 +172,7 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 5.97178, 0.5008, -13.8169)
 [node name="floor" type="StaticBody3D" parent="NavigationRegion3D/geo" index="0"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/floor" index="0"]
+material_override = ExtResource("2_armk6")
 mesh = SubResource("BoxMesh_8y3wm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/geo/floor" index="1"]
@@ -186,6 +185,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 2.43853)
 shape = SubResource("BoxShape3D_f44pw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/wall" index="1"]
+material_override = ExtResource("6_ugoqj")
 mesh = SubResource("BoxMesh_uene2")
 skeleton = NodePath("../CollisionShape3D")
 
@@ -362,7 +362,7 @@ repeat_offsets = Array[Vector3]([Vector3(0.5, 0.3, 0)])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ArrayModifier/StaticBody3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03861, -1.89655)
-material_override = SubResource("StandardMaterial3D_asup1")
+material_override = ExtResource("15_rrxlr")
 mesh = SubResource("BoxMesh_01i8w")
 skeleton = NodePath("../..")
 
@@ -370,7 +370,7 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03861, -1.89655)
 shape = SubResource("ConvexPolygonShape3D_awhmj")
 
-[node name="planemesh" type="MeshInstance3D" parent="." index="10"]
+[node name="jetmeshref" type="MeshInstance3D" parent="." index="10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
 visible = false
 mesh = SubResource("ArrayMesh_y1mnn")

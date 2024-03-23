@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bb83v8380hl84"]
+
+[resource]
+resource_name = "cockpitmat"
+cull_mode = 2
+albedo_color = Color(0.149306, 0.207163, 0, 1)
+metallic = 1.0
+roughness = 0.226073

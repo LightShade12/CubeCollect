@@ -1,14 +1,19 @@
-[gd_scene load_steps=33 format=3 uid="uid://csgm2k7c07ft7"]
+[gd_scene load_steps=38 format=3 uid="uid://csgm2k7c07ft7"]
 
-[ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_yi6x4"]
+[ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level/level.tscn" id="1_yi6x4"]
 [ext_resource type="Script" path="res://scenes/levels/playground.gd" id="2_cvyo5"]
-[ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://assets/materials/maps/demolevel/demolevelUVfloorMat.tres" id="3_5ipyr"]
-[ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="4_58puy"]
-[ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="5_1dtc6"]
-[ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="6_lie1h"]
-[ext_resource type="PackedScene" uid="uid://1jgud4kyb1jr" path="res://source/entity/extraction_area.tscn" id="7_tiuii"]
+[ext_resource type="Material" uid="uid://3u37s52qfsun" path="res://assets/materials/maps/demolevel/demolevel_UV_Mat.tres" id="3_5ipyr"]
+[ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/props/cube/cube.tscn" id="4_58puy"]
+[ext_resource type="Material" uid="uid://d0d5xuyd0mlsg" path="res://assets/materials/maps/demolevel/demolevel_warmOrangewall_mat.tres" id="4_tekx8"]
+[ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player/player.tscn" id="5_1dtc6"]
+[ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/props/grenade_stash/grenade_stash.tscn" id="6_lie1h"]
+[ext_resource type="Material" uid="uid://cbhgx5ilft5i3" path="res://assets/materials/maps/demolevel/demolevel_mixwall_mat.tres" id="6_q7nr5"]
+[ext_resource type="Material" uid="uid://c7isb0etvdooo" path="res://assets/materials/maps/playground/playground_salty_amphibian_mat.tres" id="7_8e8t1"]
+[ext_resource type="Material" uid="uid://b8rifd87m48yf" path="res://assets/materials/maps/demolevel/demolevel_bluewall_mat.tres" id="7_8xq2r"]
+[ext_resource type="PackedScene" uid="uid://1jgud4kyb1jr" path="res://source/entity/areas/extraction_area.tscn" id="7_tiuii"]
 [ext_resource type="PackedScene" uid="uid://ds0bnjacoj05w" path="res://source/entity/npc/npc_spawner.tscn" id="8_4edxn"]
-[ext_resource type="PackedScene" uid="uid://11aliu7ryeba" path="res://source/entity/cube_burner.tscn" id="8_n8xnc"]
+[ext_resource type="PackedScene" uid="uid://11aliu7ryeba" path="res://source/entity/areas/cube_burner.tscn" id="8_n8xnc"]
+[ext_resource type="LightmapGIData" uid="uid://bi8y433ascvlv" path="res://scenes/levels/playground.lmbake" id="10_sbbh1"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_au2ku"]
 rayleigh_color = Color(0.305882, 0.462745, 0.74902, 1)
@@ -181,6 +186,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_8dmi1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/box1/CollisionShape3D" index="0"]
+material_override = ExtResource("4_tekx8")
 mesh = SubResource("BoxMesh_8asfp")
 
 [node name="slide" type="StaticBody3D" parent="NavigationRegion3D/geo" index="4"]
@@ -191,7 +197,7 @@ transform = Transform3D(0.998126, 0.0611879, 0, -0.0611879, 0.998126, 0, 0, 0, 1
 shape = SubResource("BoxShape3D_6ys22")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/slide/CollisionShape3D" index="0"]
-material_override = ExtResource("3_5ipyr")
+material_override = ExtResource("7_8e8t1")
 mesh = SubResource("BoxMesh_nujv4")
 
 [node name="slide2" type="StaticBody3D" parent="NavigationRegion3D/geo" index="5"]
@@ -202,7 +208,7 @@ transform = Transform3D(0.998126, 0.0611879, 0, -0.0611879, 0.998126, 0, 0, 0, 1
 shape = SubResource("BoxShape3D_6ys22")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/slide2/CollisionShape3D" index="0"]
-material_override = ExtResource("3_5ipyr")
+material_override = ExtResource("4_tekx8")
 mesh = SubResource("BoxMesh_nujv4")
 
 [node name="tunnel" type="Node3D" parent="NavigationRegion3D/geo" index="6"]
@@ -217,7 +223,7 @@ shape = SubResource("BoxShape3D_mvhg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/tunnel/wall/CollisionShape3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35187e-23, 0, -3.55271e-15, 1, 0, 0, 0)
-material_override = ExtResource("3_5ipyr")
+material_override = ExtResource("6_q7nr5")
 mesh = SubResource("BoxMesh_jus01")
 
 [node name="wall2" type="StaticBody3D" parent="NavigationRegion3D/geo/tunnel" index="1"]
@@ -229,7 +235,7 @@ shape = SubResource("BoxShape3D_mvhg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/tunnel/wall2/CollisionShape3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35187e-23, 0, -3.55271e-15, 1, 0, 0, 0)
-material_override = ExtResource("3_5ipyr")
+material_override = ExtResource("6_q7nr5")
 mesh = SubResource("BoxMesh_jus01")
 
 [node name="wall3" type="StaticBody3D" parent="NavigationRegion3D/geo/tunnel" index="2"]
@@ -253,7 +259,7 @@ shape = SubResource("BoxShape3D_mvhg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/tunnel/wall4/CollisionShape3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35187e-23, 0, -3.55271e-15, 1, 0, 0, 0)
-material_override = ExtResource("3_5ipyr")
+material_override = ExtResource("7_8xq2r")
 mesh = SubResource("BoxMesh_jus01")
 
 [node name="tunnel2" type="Node3D" parent="NavigationRegion3D/geo" index="7"]
@@ -268,7 +274,7 @@ shape = SubResource("BoxShape3D_mvhg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/tunnel2/wall/CollisionShape3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35187e-23, 0, -3.55271e-15, 1, 0, 0, 0)
-material_override = ExtResource("3_5ipyr")
+material_override = ExtResource("7_8xq2r")
 mesh = SubResource("BoxMesh_jus01")
 
 [node name="wall2" type="StaticBody3D" parent="NavigationRegion3D/geo/tunnel2" index="1"]
@@ -280,7 +286,7 @@ shape = SubResource("BoxShape3D_mvhg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/tunnel2/wall2/CollisionShape3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35187e-23, 0, -3.55271e-15, 1, 0, 0, 0)
-material_override = ExtResource("3_5ipyr")
+material_override = ExtResource("7_8xq2r")
 mesh = SubResource("BoxMesh_jus01")
 
 [node name="wall3" type="StaticBody3D" parent="NavigationRegion3D/geo/tunnel2" index="2"]
@@ -304,7 +310,7 @@ shape = SubResource("BoxShape3D_mvhg6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/geo/tunnel2/wall4/CollisionShape3D" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 8.35187e-23, 0, -3.55271e-15, 1, 0, 0, 0)
-material_override = ExtResource("3_5ipyr")
+material_override = ExtResource("4_tekx8")
 mesh = SubResource("BoxMesh_jus01")
 
 [node name="grenade_stash" parent="NavigationRegion3D" index="1" instance=ExtResource("6_lie1h")]
@@ -453,6 +459,8 @@ transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 
 total_enemy_count = 10
 
 [node name="LightmapGI" type="LightmapGI" parent="." index="7"]
+bounces = 6
+light_data = ExtResource("10_sbbh1")
 
 [node name="screencapCam" type="Camera3D" parent="." index="8"]
 transform = Transform3D(0.48786, 0.255218, -0.83478, 0, 0.956305, 0.292372, 0.872922, -0.142636, 0.466543, -10.755, 5.98, 6.347)

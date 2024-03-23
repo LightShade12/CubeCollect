@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dxqbjiwfybhtg"]
 
-[ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_yafv6"]
+[ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/characterclass/character_class.tscn" id="1_yafv6"]
 [ext_resource type="Script" path="res://source/entity/npc/npc_attacker_enemy.gd" id="2_q7avs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lwc1m"]

@@ -1,0 +1,266 @@
+[gd_scene load_steps=30 format=3 uid="uid://k7h7wesuyrfa"]
+
+[ext_resource type="Script" path="res://source/entity/weapon/grenade/grenade_particle_system.gd" id="1_yno61"]
+[ext_resource type="Texture2D" uid="uid://3dj3410whfal" path="res://assets/textures/entities/grenade/smoke_particle.png" id="2_41uw3"]
+[ext_resource type="Texture2D" uid="uid://cai6u1khvdnl4" path="res://assets/textures/entities/grenade/explosion_med.png" id="3_eeb66"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h5m2i"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.333333, 0.333333, 0.333333, 0.576471)
+albedo_texture = ExtResource("2_41uw3")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = true
+grow_amount = -16.0
+
+[sub_resource type="Gradient" id="Gradient_j2isi"]
+colors = PackedColorArray(0.197937, 0.197937, 0.197937, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_67rff"]
+gradient = SubResource("Gradient_j2isi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ru4w2"]
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+gravity = Vector3(0, 0, 0)
+damping_min = 100.0
+damping_max = 100.0
+color_ramp = SubResource("GradientTexture1D_67rff")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7ysmq"]
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jrc8"]
+albedo_color = Color(0.0627451, 0.0627451, 0.0627451, 1)
+
+[sub_resource type="Curve" id="Curve_xrjoj"]
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.83577, 1.4, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_iwis8"]
+curve = SubResource("Curve_xrjoj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uxoun"]
+particle_flag_rotate_y = true
+angle_min = -90.0
+angle_max = 90.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, -9, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_iwis8")
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="PrismMesh" id="PrismMesh_bi8yl"]
+size = Vector3(0.05, 0.05, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pticl"]
+vertex_color_use_as_albedo = true
+emission_enabled = true
+emission = Color(1, 0.878431, 0.631373, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pb5gf"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 70.0
+initial_velocity_min = 8.0
+initial_velocity_max = 16.0
+gravity = Vector3(0, -6, 0)
+scale_min = 0.2
+collision_mode = 2
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_cj8ai"]
+radius = 0.025
+radial_steps = 3
+section_length = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1fqw2"]
+emission_enabled = true
+emission = Color(1, 0.564706, 0.490196, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x7hqx"]
+lifetime_randomness = 0.2
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+initial_velocity_min = 3.5
+initial_velocity_max = 8.0
+gravity = Vector3(0, -4, 0)
+turbulence_enabled = true
+turbulence_noise_scale = 0.0
+turbulence_noise_speed_random = 0.0
+turbulence_influence_min = 0.01
+turbulence_influence_max = 0.05
+turbulence_initial_displacement_max = 3.0
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_gitkb"]
+radius = 0.01
+radial_steps = 3
+sections = 2
+section_length = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bxyjt"]
+render_priority = 50
+transparency = 1
+albedo_texture = ExtResource("3_eeb66")
+emission_enabled = true
+emission = Color(1, 0.803922, 0.580392, 1)
+emission_energy_multiplier = 2.0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="Curve" id="Curve_hu81s"]
+min_value = 0.1
+_data = [Vector2(0, 0.1), 0.0, 1.26, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bp0jw"]
+curve = SubResource("Curve_hu81s")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_73acc"]
+direction = Vector3(0, 1, 0)
+spread = 80.0
+initial_velocity_min = 25.0
+initial_velocity_max = 30.0
+scale_curve = SubResource("CurveTexture_bp0jw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xnd24"]
+size = Vector2(3, 3)
+subdivide_width = 1
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6oxng"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.584314, 0.584314, 0.584314, 0.290196)
+albedo_texture = ExtResource("2_41uw3")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_1n334"]
+colors = PackedColorArray(0.125911, 0.125911, 0.125911, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_n8rqn"]
+gradient = SubResource("Gradient_1n334")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aw04t"]
+lifetime_randomness = 0.5
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+color_ramp = SubResource("GradientTexture1D_n8rqn")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jsstc"]
+orientation = 2
+
+[node name="grenadeParticleSystem" type="Node3D"]
+script = ExtResource("1_yno61")
+
+[node name="smokeptcls" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_h5m2i")
+cast_shadow = 0
+amount = 256
+lifetime = 3.0
+explosiveness = 1.0
+visibility_aabb = AABB(-4, 0, -4, 8, 8, 8)
+process_material = SubResource("ParticleProcessMaterial_ru4w2")
+draw_pass_1 = SubResource("PlaneMesh_7ysmq")
+
+[node name="blastlightomni" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.562662, 0)
+light_color = Color(1, 0.564706, 0.360784, 1)
+light_energy = 64.0
+shadow_enabled = true
+omni_range = 50.0
+omni_attenuation = 2.0
+
+[node name="debrisptcls" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32125, 0)
+material_override = SubResource("StandardMaterial3D_5jrc8")
+amount = 64
+lifetime = 5.0
+explosiveness = 1.0
+collision_base_size = 0.1
+process_material = SubResource("ParticleProcessMaterial_uxoun")
+draw_pass_1 = SubResource("PrismMesh_bi8yl")
+
+[node name="ember_explosive_ptcls" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.312405, 0)
+material_override = SubResource("StandardMaterial3D_pticl")
+cast_shadow = 0
+amount = 64
+speed_scale = 2.5
+explosiveness = 1.0
+collision_base_size = 0.1
+process_material = SubResource("ParticleProcessMaterial_pb5gf")
+draw_pass_1 = SubResource("TubeTrailMesh_cj8ai")
+
+[node name="ember_after_ptcls" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.20253, 0)
+material_override = SubResource("StandardMaterial3D_1fqw2")
+cast_shadow = 0
+amount = 128
+lifetime = 6.0
+preprocess = 1.0
+speed_scale = 1.75
+explosiveness = 1.0
+collision_base_size = 0.1
+process_material = SubResource("ParticleProcessMaterial_x7hqx")
+draw_pass_1 = SubResource("TubeTrailMesh_gitkb")
+
+[node name="explosionfire" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.49, 0, 0, 0, 0.49, 0, 0, 0, 0.49, 0, -0.308956, 0)
+material_override = SubResource("StandardMaterial3D_bxyjt")
+amount = 16
+lifetime = 0.15
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_73acc")
+draw_pass_1 = SubResource("PlaneMesh_xnd24")
+
+[node name="scorchsmoke" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_6oxng")
+cast_shadow = 0
+amount = 64
+lifetime = 2.5
+visibility_aabb = AABB(-5.68487, -2.00001, -7.15124, 12.6192, 19.4788, 13.7857)
+process_material = SubResource("ParticleProcessMaterial_aw04t")
+draw_pass_1 = SubResource("PlaneMesh_jsstc")
+
+[node name="scorchsmokeattractor" type="GPUParticlesAttractorBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.97745, 2.70578)
+strength = 3.0
+size = Vector3(8, 8, 8)
+
+[node name="killTimer" type="Timer" parent="."]
+
+[node name="GPUParticlesCollisionHeightField3D" type="GPUParticlesCollisionHeightField3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02, 0)
+size = Vector3(20, 5, 20)
+
+[connection signal="timeout" from="killTimer" to="." method="_on_kill_timer_timeout"]

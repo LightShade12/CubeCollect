@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0eawcama2r08"]
+
+[ext_resource type="Script" path="res://source/class/level/level.gd" id="1_liffy"]
+
+[node name="Level" type="Node3D"]
+process_mode = 1
+script = ExtResource("1_liffy")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.929918, 0.367768, 0, -0.367768, 0.929918, 0, 0.469863, 0)
+light_energy = 3.0
+light_angular_distance = 1.0
+shadow_enabled = true
+
+[node name="AmbientAudioPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="DetailStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+
+[node name="geo" type="Node3D" parent="NavigationRegion3D"]

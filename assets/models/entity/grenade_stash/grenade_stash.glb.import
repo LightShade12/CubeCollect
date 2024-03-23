@@ -1,0 +1,45 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://b7jh82o1qch3k"
+path="res://.godot/imported/grenade_stash.glb-4ca7d8f00f88ffb047469ee603005e58.scn"
+
+[deps]
+
+source_file="res://assets/models/entity/grenade_stash/grenade_stash.glb"
+dest_files=["res://.godot/imported/grenade_stash.glb-4ca7d8f00f88ffb047469ee603005e58.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"materials": {
+"armygreen": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/materials/entity/grenade_stash/armygreen.tres"
+},
+"darkmat": {
+"use_external/enabled": true,
+"use_external/path": "res://assets/materials/entity/grenade_stash/darkmat.tres"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

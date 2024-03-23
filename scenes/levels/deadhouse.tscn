@@ -1,16 +1,16 @@
 [gd_scene load_steps=16 format=3 uid="uid://ul070xb3e5ln"]
 
-[ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level.tscn" id="1_8rypa"]
+[ext_resource type="PackedScene" uid="uid://b0eawcama2r08" path="res://source/class/level/level.tscn" id="1_8rypa"]
 [ext_resource type="Script" path="res://scenes/levels/deadhouse.gd" id="2_cftfw"]
 [ext_resource type="CompressedTexture3D" uid="uid://dienktiq4ou12" path="res://assets/textures/luts/cine_clean.png" id="3_u71m4"]
-[ext_resource type="PackedScene" uid="uid://b6nid5y4qg1b4" path="res://assets/models/levels/house/house_geo.tscn" id="3_ypa2t"]
-[ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player.tscn" id="4_8nl4n"]
-[ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/cube.tscn" id="5_tp4gk"]
+[ext_resource type="PackedScene" uid="uid://cbuxv8x2khymt" path="res://assets/models/levels/house/house.glb" id="3_ypa2t"]
+[ext_resource type="PackedScene" uid="uid://blxboep0qk3au" path="res://source/entity/player/player.tscn" id="4_8nl4n"]
+[ext_resource type="PackedScene" uid="uid://dcftaala3gn8l" path="res://source/entity/props/cube/cube.tscn" id="5_tp4gk"]
 [ext_resource type="LightmapGIData" uid="uid://sosb4i3o0ldi" path="res://scenes/levels/deadhouse.lmbake" id="6_54dsp"]
 [ext_resource type="PackedScene" uid="uid://ds0bnjacoj05w" path="res://source/entity/npc/npc_spawner.tscn" id="7_dv33p"]
-[ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/grenade_stash.tscn" id="7_f1ank"]
-[ext_resource type="PackedScene" uid="uid://1jgud4kyb1jr" path="res://source/entity/extraction_area.tscn" id="8_23nbk"]
-[ext_resource type="PackedScene" uid="uid://11aliu7ryeba" path="res://source/entity/cube_burner.tscn" id="10_q3xmu"]
+[ext_resource type="PackedScene" uid="uid://72l8h1dx78hv" path="res://source/entity/props/grenade_stash/grenade_stash.tscn" id="7_f1ank"]
+[ext_resource type="PackedScene" uid="uid://1jgud4kyb1jr" path="res://source/entity/areas/extraction_area.tscn" id="8_23nbk"]
+[ext_resource type="PackedScene" uid="uid://11aliu7ryeba" path="res://source/entity/areas/cube_burner.tscn" id="10_q3xmu"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_l4ueo"]
 energy_multiplier = 2.0
@@ -70,6 +70,36 @@ navigation_mesh = SubResource("NavigationMesh_hq5f6")
 transform = Transform3D(-0.982054, 0, -0.188598, 0, 1, 0, 0.188598, 0, -0.982054, 7.67307, 0.7815, -0.270514)
 
 [node name="house_geo" parent="NavigationRegion3D/geo" index="0" instance=ExtResource("3_ypa2t")]
+
+[node name="groundFloor" parent="NavigationRegion3D/geo/house_geo" index="0"]
+gi_lightmap_scale = 2
+
+[node name="topfloorground" parent="NavigationRegion3D/geo/house_geo" index="17"]
+gi_lightmap_scale = 2
+
+[node name="topFloor_rWallEntry" parent="NavigationRegion3D/geo/house_geo" index="18"]
+gi_lightmap_scale = 2
+
+[node name="topFloor_lWall" parent="NavigationRegion3D/geo/house_geo" index="21"]
+gi_lightmap_scale = 2
+
+[node name="topFloor_rearWall" parent="NavigationRegion3D/geo/house_geo" index="22"]
+gi_lightmap_scale = 2
+
+[node name="topFloor_frontWall" parent="NavigationRegion3D/geo/house_geo" index="23"]
+gi_lightmap_scale = 2
+
+[node name="roof" parent="NavigationRegion3D/geo/house_geo" index="24"]
+gi_lightmap_scale = 2
+
+[node name="meshwindow" parent="NavigationRegion3D/geo/house_geo" index="31"]
+gi_lightmap_scale = 1
+
+[node name="groundholdboolmesh" parent="NavigationRegion3D/geo/house_geo" index="33"]
+gi_lightmap_scale = 1
+
+[node name="roof_hole" parent="NavigationRegion3D/geo/house_geo" index="34"]
+gi_lightmap_scale = 2
 
 [node name="LightmapGI" type="LightmapGI" parent="." index="5"]
 quality = 2
@@ -191,3 +221,5 @@ transform = Transform3D(-0.906308, 0, 0.422618, 0, 1, 0, -0.422618, 0, -0.906308
 
 [connection signal="body_entered" from="entities/extraction_area" to="." method="_on_extraction_area_body_entered"]
 [connection signal="body_exited" from="entities/extraction_area" to="." method="_on_extraction_area_body_exited"]
+
+[editable path="NavigationRegion3D/geo/house_geo"]

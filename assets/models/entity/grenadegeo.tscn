@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cksulrt84kvn7"]
-
-[ext_resource type="PackedScene" uid="uid://cpnh75poomnoq" path="res://assets/models/entity/weapon/grenade.blend" id="1_ab3fb"]
-
-[node name="grenade" instance=ExtResource("1_ab3fb")]

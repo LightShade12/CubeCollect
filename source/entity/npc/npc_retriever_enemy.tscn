@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://boilx5iatv7m8"]
 
-[ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/character_class.tscn" id="1_dl61h"]
+[ext_resource type="PackedScene" uid="uid://ch786by0nl2gy" path="res://source/class/characterclass/character_class.tscn" id="1_dl61h"]
 [ext_resource type="Script" path="res://source/entity/npc/npc_retriever_enemy.gd" id="2_uq3w3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_unr3u"]

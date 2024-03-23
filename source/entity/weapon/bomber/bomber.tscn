@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://x0w0saeq4uv3"]
+
+[ext_resource type="Script" path="res://source/entity/weapon/bomber/bomber.gd" id="1_8q2rt"]
+[ext_resource type="AudioStream" uid="uid://5o60x55y0tui" path="res://assets/sounds/weapon/bomber/rocket-loop-99748.ogg" id="2_6yfix"]
+[ext_resource type="PackedScene" uid="uid://cvv4t7asjlrvy" path="res://assets/models/entity/weapon/bomber/jet.glb" id="2_qknbx"]
+[ext_resource type="Texture2D" uid="uid://3dj3410whfal" path="res://assets/textures/entities/grenade/smoke_particle.png" id="3_c0h8u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_884gl"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 0.588235)
+albedo_texture = ExtResource("3_c0h8u")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_omr7t"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tm1jq"]
+gradient = SubResource("Gradient_omr7t")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tyvxb"]
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_tm1jq")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ugva7"]
+size = Vector2(1, 1)
+orientation = 2
+
+[node name="bomber" type="Node3D"]
+script = ExtResource("1_8q2rt")
+
+[node name="jet" parent="." instance=ExtResource("2_qknbx")]
+
+[node name="spawn_marker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.947555, 0)
+
+[node name="killTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_6yfix")
+attenuation_model = 2
+volume_db = 80.0
+unit_size = 5.0
+max_db = 6.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.02666, 0, 2.91384)
+material_override = SubResource("StandardMaterial3D_884gl")
+amount = 1024
+lifetime = 10.0
+fixed_fps = 60
+visibility_aabb = AABB(-256, -100, -256, 512, 100, 512)
+process_material = SubResource("ParticleProcessMaterial_tyvxb")
+draw_pass_1 = SubResource("PlaneMesh_ugva7")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10384, 0, 2.91384)
+material_override = SubResource("StandardMaterial3D_884gl")
+amount = 1024
+lifetime = 10.0
+fixed_fps = 60
+visibility_aabb = AABB(-256, -100, -256, 512, 100, 512)
+process_material = SubResource("ParticleProcessMaterial_tyvxb")
+draw_pass_1 = SubResource("PlaneMesh_ugva7")
+
+[connection signal="timeout" from="killTimer" to="." method="_on_kill_timer_timeout"]

@@ -33,6 +33,9 @@ gdscript/warnings/inferred_declaration=1
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="viewport"
 
 [dotnet]

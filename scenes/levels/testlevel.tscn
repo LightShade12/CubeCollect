@@ -330,7 +330,7 @@ transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -0.14240
 transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -2.50768, 0.506817, -14.3671)
 
 [node name="player" parent="entities" index="2" instance=ExtResource("3_256h8")]
-transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -1.09023, 1.12432, -14.2775)
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -1.09023, 3.88754, -14.2775)
 
 [node name="npc_spawner" parent="entities" index="3" instance=ExtResource("8_qteas")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.02678, 2.06063, 15.3791)
